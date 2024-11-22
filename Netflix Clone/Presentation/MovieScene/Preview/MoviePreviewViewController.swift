@@ -103,14 +103,16 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         
         
         
-        closeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapDetected)))
+        closeImageView.addTapGesture {
+            self.dismiss(animated: true)
+        }
 
     }
     
-    @objc func tapDetected() {
-        self.dismiss(animated: true)
-    }
-    
+//    @objc func tapDetected() {
+//        
+//    }
+//    
    
     private func fetchDetail(movieId:Int){
         

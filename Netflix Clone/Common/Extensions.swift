@@ -48,16 +48,6 @@ extension UIImage {
 extension UINavigationController {
     
     func navigateToPreview(with movie : Movie){
-//        MovieStore.shared.getMovie(with: movie.movieTitle + " tralier"){ result in
-//
-//            switch result {
-//            case .success(let videoElement):
-//
-//
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
         
         DispatchQueue.main.async { [weak self] in
             let moviePreviewController = MoviePreviewViewController()
@@ -70,17 +60,6 @@ extension UINavigationController {
 extension UIViewController {
     
     func navigateToPreview3(with movie : Movie){
-//        MovieStore.shared.getMovie(with: movie.movieTitle + " tralier"){ result in
-//
-//            switch result {
-//            case .success(let videoElement):
-//
-//
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-        
         DispatchQueue.main.async { [weak self] in
             let moviePreviewController = MoviePreviewViewController()
             moviePreviewController.configure(movie: movie)
@@ -88,3 +67,34 @@ extension UIViewController {
         }
     }
 }
+
+
+// Key for storing the closure in associated objects
+private var tapGestureKey: UInt8 = 0
+
+extension UIView {
+    
+    // Add a tap gesture recognizer with a closure
+    func addTapGesture(action: @escaping () -> Void) {
+        // Create the tap gesture recognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        
+        // Attach the gesture recognizer to the view
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(tapGesture)
+        
+        // Store the closure in the associated object
+        objc_setAssociatedObject(self, &tapGestureKey, action, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+    }
+    
+    // Handle the tap gesture
+    @objc private func handleTap() {
+        // Retrieve the closure associated with the view
+        if let action = objc_getAssociatedObject(self, &tapGestureKey) as? () -> Void {
+            action()  // Call the closure
+        }
+    }
+    
+}
+
+
