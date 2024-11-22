@@ -110,6 +110,10 @@ extension UpComingViewController: UITableViewDataSource, UITableViewDelegate,Mov
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        pauseVideoCells()
+    }
+    
     
     func videoPlayConfiguration(){
         guard let visibleCells = tableView.visibleCells as? [MovieListTableViewCell] else { return }
@@ -122,6 +126,22 @@ extension UpComingViewController: UITableViewDataSource, UITableViewDelegate,Mov
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     cell.playTralier()
                 }
+                
+            } else {
+                cell.pauseTralier()
+            }
+        }
+    }
+    
+    
+    func pauseVideoCells(){
+        guard let visibleCells = tableView.visibleCells as? [MovieListTableViewCell] else { return }
+        
+        for cell in visibleCells {
+            let cellFrameInTableView = tableView.convert(cell.frame, to: tableView.superview)
+            let tableViewCenter = tableView.center.y
+            
+            if cellFrameInTableView.midY > tableViewCenter - cell.frame.height / 2 && cellFrameInTableView.midY < tableViewCenter + cell.frame.height / 2 {
                 
             } else {
                 cell.pauseTralier()
