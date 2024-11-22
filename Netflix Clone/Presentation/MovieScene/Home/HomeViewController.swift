@@ -7,20 +7,13 @@
 
 import UIKit
 
-enum Sections : Int {
-    case TrendingsMovies = 0
-    case TrendingsTv = 1
-    case Popular = 2
-    case UpComimng = 3
-    case TopRated = 4
-}
 
 class HomeViewController: UIViewController  {
     
     
-    let sectionTitles: [String] = ["Trending Movies", "Trending Tv", "Popular",  "UpComimg Movies", "Top Rated"]
+    private var homeViewModel : HomeViewModel!
     
-    private var trendingMovies: [Movie] = []
+    private var homeData : HomeMovies?
     
     private let homeFeedTable : UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -36,15 +29,16 @@ class HomeViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemPink
+        homeViewModel = HomeViewModel()
+        homeViewModel.delegate = self
+        
         view.addSubview(homeFeedTable)
         
         
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
-        // homeFeedTable.separatorStyle =  UITableViewCell.SeparatorStyle.none
         homeFeedTable.showsVerticalScrollIndicator = false
-       
+        
         if #available(iOS 11.0, *) {
             homeFeedTable.contentInsetAdjustmentBehavior = .never
         } else {
@@ -71,7 +65,7 @@ class HomeViewController: UIViewController  {
         
         tabbar?.frame =  CGRect(x: 0, y: 0, width: view.bounds.width, height: statusbarHeight + CGFloat(navigationBarHeight))
     }
-
+    
     
 }
 
@@ -79,7 +73,7 @@ class HomeViewController: UIViewController  {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionTitles.count
+        return homeData?.sections.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,84 +84,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         guard let cell  = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
-        
-        
         cell.delegate = self
         
-        switch indexPath.section {
-        case Sections.TrendingsMovies.rawValue:
-            
-            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.trendingMovie) { [weak self] (result) in
-                guard let self = self else { return }
-                
-                
-                
-                switch result{
-                case .success(let response):
-                    cell.configure(with:response.results )
-                    headerView?.configure(with: response.results.randomElement()!)
-                    
-                case .failure(let error):
-                    print(error as NSError)
-                }
-                
-            }
-            
-        case Sections.TrendingsTv.rawValue:
-            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.trendingTv) { [weak self] (result) in
-                guard let self = self else { return }
-                
-                switch result{
-                case .success(let response):
-                    cell.configure(with:response.results )
-                    
-                case .failure(let error):
-                    print(error as NSError)
-                }
-                
-            }
-        case Sections.Popular.rawValue:
-            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.popular) { [weak self] (result) in
-                guard let self = self else { return }
-                
-                switch result{
-                case .success(let response):
-                    cell.configure(with:response.results )
-                    
-                case .failure(let error):
-                    print(error as NSError)
-                }
-                
-            }
-        case Sections.UpComimng.rawValue:
-            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.upComing) { [weak self] (result) in
-                guard let self = self else { return }
-                
-                switch result{
-                case .success(let response):
-                    cell.configure(with:response.results )
-                    
-                case .failure(let error):
-                    print(error as NSError)
-                }
-                
-            }
-        case Sections.TopRated.rawValue:
-            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.topRated) { [weak self] (result) in
-                guard let self = self else { return }
-                
-                switch result{
-                case .success(let response):
-                    cell.configure(with:response.results )
-                    
-                case .failure(let error):
-                    print(error as NSError)
-                }
-                
-            }
-        default:
-            return UITableViewCell()
-        }
+        guard let movies = homeData?.sections[indexPath.section].movies else { return cell }
+        cell.configure(with: movies)
         
         return cell
     }
@@ -182,31 +102,31 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitles[section]
+        return homeData?.sections[section].title
     }
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-           let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.frame.width, height: 20))
-        label.text = sectionTitles[section].capitalizaFirstLetter()
-           label.textAlignment = .left
-            label.font = .systemFont(ofSize: 16,weight: .bold)
-           view.addSubview(label)
-           return view
+        let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.frame.width, height: 20))
+        label.text = homeData?.sections[section].title.capitalizaFirstLetter()
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 16,weight: .bold)
+        view.addSubview(label)
+        return view
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let defaultOffset = view.safeAreaInsets.top
-        let offset = scrollView.contentOffset.y + defaultOffset
+        _ = scrollView.contentOffset.y + defaultOffset
         
-//         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+        //  navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
 }
 
 
 extension HomeViewController : CollectionViewTableViewCellDelegate {
-   
+    
     func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, movie: Movie) {
         self.navigateToPreview3(with: movie)
     }
@@ -222,5 +142,20 @@ extension HomeViewController: HeroHeaderUiViewDelegate{
     
     func heroHeaderUiViewDidTapDownloadButton(_ button: UIButton, movie: Movie) {
         
+    }
+}
+
+extension HomeViewController : HomeViewModeloutput {
+    
+    func didFetchHomeData(_ homeData: HomeMovies) {
+        self.homeData = homeData
+        
+        self.headerView?.configure(with: homeData.headerMovie)
+        self.homeFeedTable.reloadData()
+        
+    }
+    
+    func didFetchMovieFailed(_ error: String) {
+        print(error)
     }
 }

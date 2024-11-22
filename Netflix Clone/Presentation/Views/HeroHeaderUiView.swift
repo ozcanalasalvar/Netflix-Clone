@@ -29,10 +29,8 @@ class HeroHeaderUiView: UIView {
     }()
     
     
-    private let containerView : UIView = {
-        let view = UIView()
-        return view
-    }()
+   
+    
     
     private let playButton : UIButton = {
         let button = UIButton()
@@ -59,12 +57,10 @@ class HeroHeaderUiView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(containerView)
-//        backgroundColor = .systemPink
-        containerView.addSubview(heroImageView)
+        addSubview(heroImageView)
         addGradient(view: heroImageView, color: UIColor.systemBackground)
-        containerView.addSubview(playButton)
-        containerView.addSubview(downLoadButton)
+        addSubview(playButton)
+        addSubview(downLoadButton)
         applyConstraints()
         
         
@@ -74,7 +70,6 @@ class HeroHeaderUiView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        containerView.frame = bounds
     }
     
     required init?(coder: NSCoder) {
@@ -114,23 +109,24 @@ class HeroHeaderUiView: UIView {
     }
     
     private func applyConstraints(){
+        
         let playButtonConstraints = [
-            playButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 70),
-            playButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
+            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             playButton.widthAnchor.constraint(equalToConstant: 120)
         ]
         
         let downdloadButtonConstraints = [
-            downLoadButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -70),
-            downLoadButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            downLoadButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -70),
+            downLoadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             downLoadButton.widthAnchor.constraint(equalToConstant: 120)
         ]
         
         let heroImageViewConstraints = [
-            heroImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant:40),
-            heroImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -40),
-            heroImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            heroImageView.heightAnchor.constraint(equalToConstant: self.frame.height-140)
+            heroImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:40),
+            heroImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+            heroImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            heroImageView.topAnchor.constraint(equalTo: topAnchor, constant: 140)
         ]
         
         NSLayoutConstraint.activate(playButtonConstraints)

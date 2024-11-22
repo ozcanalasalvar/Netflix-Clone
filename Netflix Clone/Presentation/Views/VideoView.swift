@@ -90,6 +90,7 @@ class VideoView: UIView, WKNavigationDelegate {
         videoView.evaluateJavaScript("playVideo();") { (result, error) in
             if let error = error {
                 print("Error starting video: \(error.localizedDescription)")
+                self.movieImageView.isHidden = false
             }
         }
         

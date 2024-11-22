@@ -6,87 +6,40 @@
 //
 import Foundation
 
+protocol HomeViewModeloutput : AnyObject{
+    func didFetchHomeData(_ homeData: HomeMovies)
+    func didFetchMovieFailed(_  error : String)
+}
+
 class HomeViewModel : NSObject {
     
-    private var movieService: MovieService!
+    private var homeRepository: HomeRepository!
+    
+    var delegate: HomeViewModeloutput?
+    
     
     override init() {
-        movieService = MovieServiceImpl.shared
+        super.init()
+        homeRepository = DefaultHomeRepository()
+        fetchHomeData()
     }
     
     
-    func fetchTrendingMovies() {
-        movieService.fetchMovies(from: MovieListEndpoint.trendingMovie) { [weak self] (result) in
-            guard let self = self else { return }
+    
+    private func fetchHomeData(){
+        homeRepository.fetchHomeData(){ result in
             
-            switch result{
-            case .success(let response):
-                print(response.results)
-                
-            case .failure(let error):
-                print(error as NSError)
+            switch result {
+                case .success(let homeData):
+                if  homeData != nil {
+                    self.delegate?.didFetchHomeData(homeData!)
+                } else {
+                    self.delegate?.didFetchMovieFailed("Data haven't been fetched")
+                }
+                case .failure(let error):
+                self.delegate?.didFetchMovieFailed(error.localizedDescription)
             }
-            
         }
     }
     
-    func fetchTrendingTv() {
-        movieService.fetchMovies(from: MovieListEndpoint.trendingTv) { [weak self] (result) in
-            guard let self = self else { return }
-            
-            switch result{
-            case .success(let response):
-                print("")
-                
-            case .failure(let error):
-                print(error as NSError)
-            }
-            
-        }
-    }
-    
-    func fetchPopularMovies() {
-        movieService.fetchMovies(from: MovieListEndpoint.popular) { [weak self] (result) in
-            guard let self = self else { return }
-            
-            switch result{
-            case .success(let response):
-                print("")
-                
-            case .failure(let error):
-                print(error as NSError)
-            }
-            
-        }
-    }
-    
-    func fetchUpComingMovies() {
-        movieService.fetchMovies(from: MovieListEndpoint.upComing) { [weak self] (result) in
-            guard let self = self else { return }
-            
-            switch result{
-            case .success(let response):
-                print("")
-                
-            case .failure(let error):
-                print(error as NSError)
-            }
-            
-        }
-    }
-    
-    func fetchTopRatedMovies() {
-        movieService.fetchMovies(from: MovieListEndpoint.topRated) { [weak self] (result) in
-            guard let self = self else { return }
-            
-            switch result{
-            case .success(let response):
-                print("")
-                
-            case .failure(let error):
-                print(error as NSError)
-            }
-            
-        }
-    }
 }

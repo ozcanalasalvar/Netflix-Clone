@@ -59,50 +59,6 @@ class MovieServiceImpl : MovieService{
         ],completion: completion)
     }
     
-    func getMovie(with query: String, completion: @escaping (Result<VideoElement, MovieError>) -> ()){
-        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        
-        guard let url = URL(string:"\(googleApis_BaseUrl)youtube/v3/search") else {
-            return
-        }
-        
-        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            completion(.failure(MovieError.invalidEndpoint))
-            return
-        }
-        
-        let queryItems = [
-            URLQueryItem(name: "key", value: youtubeAPI_KEY),
-            URLQueryItem(name: "q", value: query),
-        ]
-        
-        
-        urlComponents.queryItems = queryItems
-        
-        guard let finalURL = urlComponents.url else {
-            // completion(.failure(.invalidEndpoint))
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: URLRequest(url: finalURL)) { data, _, error in
-            guard let data = data, error == nil else { return}
-            
-            
-            
-            do {
-                //let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-                let result = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
-                completion(.success(result.items[0]))
-            } catch {
-                completion(.failure(.apiError))
-                print(error.localizedDescription)
-            }
-            
-        }
-        
-        task.resume()
-    }
-    
     
     func discoverMovie(completion: @escaping (Result<MovieResponse,MovieError>) -> ()) {
         

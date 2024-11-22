@@ -97,18 +97,6 @@ extension CollectionViewTableViewCell : UICollectionViewDataSource, UICollection
             { [weak self]  in
                     let viewController = MoviePreviewViewController()
                 viewController.configure(movie: (self?.movies[indexPath.row])!)
-                
-//                    viewController.view.backgroundColor = .green
-//
-//                    let button = UIButton(type: .infoLight)
-//                    button.addAction(UIAction(handler: { _ in
-//                        print("Button")
-//                    }), for: .touchUpInside)
-//
-//                    button.sizeToFit()
-//
-//                    viewController.view.addSubview(button)
-//                    button.center = viewController.view.center
 
                     return viewController
                 }
