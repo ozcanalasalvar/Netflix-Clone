@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A1537FD82CD956B0005DE4D1"
-               BuildableName = "Netflic Clone.app"
-               BlueprintName = "Netflic Clone"
-               ReferencedContainer = "container:Netflic Clone.xcodeproj">
+               BuildableName = "Netflix Clone.app"
+               BlueprintName = "Netflix Clone"
+               ReferencedContainer = "container:Netflix Clone.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A1537FD82CD956B0005DE4D1"
-            BuildableName = "Netflic Clone.app"
-            BlueprintName = "Netflic Clone"
-            ReferencedContainer = "container:Netflic Clone.xcodeproj">
+            BuildableName = "Netflix Clone.app"
+            BlueprintName = "Netflix Clone"
+            ReferencedContainer = "container:Netflix Clone.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A1537FD82CD956B0005DE4D1"
-            BuildableName = "Netflic Clone.app"
-            BlueprintName = "Netflic Clone"
-            ReferencedContainer = "container:Netflic Clone.xcodeproj">
+            BuildableName = "Netflix Clone.app"
+            BlueprintName = "Netflix Clone"
+            ReferencedContainer = "container:Netflix Clone.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

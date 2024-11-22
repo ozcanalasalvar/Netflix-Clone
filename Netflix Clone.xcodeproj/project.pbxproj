@@ -39,7 +39,7 @@
 /* Begin PBXFileReference section */
 		A14E053A2CEFD94C00DD4092 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		A1537FD92CD956B0005DE4D1 /* Netflic Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflic Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1537FD92CD956B0005DE4D1 /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1537FDC2CD956B0005DE4D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1537FDE2CD956B0005DE4D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A1537FE02CD956B0005DE4D1 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		A1537FD02CD956B0005DE4D1 = {
 			isa = PBXGroup;
 			children = (
-				A1537FDB2CD956B0005DE4D1 /* Netflic Clone */,
+				A1537FDB2CD956B0005DE4D1 /* Netflix Clone */,
 				A1537FDA2CD956B0005DE4D1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,12 +90,12 @@
 		A1537FDA2CD956B0005DE4D1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1537FD92CD956B0005DE4D1 /* Netflic Clone.app */,
+				A1537FD92CD956B0005DE4D1 /* Netflix Clone.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1537FDB2CD956B0005DE4D1 /* Netflic Clone */ = {
+		A1537FDB2CD956B0005DE4D1 /* Netflix Clone */ = {
 			isa = PBXGroup;
 			children = (
 				A1537FFD2CDA3750005DE4D1 /* Managers */,
@@ -112,7 +112,7 @@
 				A1537FEA2CD956B1005DE4D1 /* Info.plist */,
 				A15380212CE67AD2005DE4D1 /* NetflixCloneModel.xcdatamodeld */,
 			);
-			path = "Netflic Clone";
+			path = "Netflix Clone";
 			sourceTree = "<group>";
 		};
 		A1537FF02CD95A26005DE4D1 /* ViewControllers */ = {
@@ -195,9 +195,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1537FD82CD956B0005DE4D1 /* Netflic Clone */ = {
+		A1537FD82CD956B0005DE4D1 /* Netflix Clone */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1537FED2CD956B1005DE4D1 /* Build configuration list for PBXNativeTarget "Netflic Clone" */;
+			buildConfigurationList = A1537FED2CD956B1005DE4D1 /* Build configuration list for PBXNativeTarget "Netflix Clone" */;
 			buildPhases = (
 				A1537FD52CD956B0005DE4D1 /* Sources */,
 				A1537FD62CD956B0005DE4D1 /* Frameworks */,
@@ -207,13 +207,13 @@
 			);
 			dependencies = (
 			);
-			name = "Netflic Clone";
+			name = "Netflix Clone";
 			packageProductDependencies = (
 				A15380152CDCDF23005DE4D1 /* SDWebImage */,
 				A15380172CDCDF23005DE4D1 /* SDWebImageMapKit */,
 			);
 			productName = "Netflic Clone";
-			productReference = A1537FD92CD956B0005DE4D1 /* Netflic Clone.app */;
+			productReference = A1537FD92CD956B0005DE4D1 /* Netflix Clone.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -231,7 +231,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A1537FD42CD956B0005DE4D1 /* Build configuration list for PBXProject "Netflic Clone" */;
+			buildConfigurationList = A1537FD42CD956B0005DE4D1 /* Build configuration list for PBXProject "Netflix Clone" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -247,7 +247,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1537FD82CD956B0005DE4D1 /* Netflic Clone */,
+				A1537FD82CD956B0005DE4D1 /* Netflix Clone */,
 			);
 		};
 /* End PBXProject section */
@@ -478,7 +478,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1537FD42CD956B0005DE4D1 /* Build configuration list for PBXProject "Netflic Clone" */ = {
+		A1537FD42CD956B0005DE4D1 /* Build configuration list for PBXProject "Netflix Clone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1537FEB2CD956B1005DE4D1 /* Debug */,
@@ -487,7 +487,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1537FED2CD956B1005DE4D1 /* Build configuration list for PBXNativeTarget "Netflic Clone" */ = {
+		A1537FED2CD956B1005DE4D1 /* Build configuration list for PBXNativeTarget "Netflix Clone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1537FEE2CD956B1005DE4D1 /* Debug */,

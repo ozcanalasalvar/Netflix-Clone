@@ -66,36 +66,6 @@
             endingLineNumber = "87"
             landmarkName = "getMovie(with:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "376248E1-E0FE-4C18-B80C-5114AAB05578 - f5c9041671ca5786"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Netflic_Clone.MovieStore.getMovie(with: Swift.String, completion: (Swift.Result&lt;Netflic_Clone.VideoElement, Netflic_Clone.MovieError&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Netflic Clone.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ozcanalasalvar/Documents/iosApp/Netflic%20Clone/Netflic%20Clone/Managers/MovieStore.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87">
-               </Location>
-               <Location
-                  uuid = "376248E1-E0FE-4C18-B80C-5114AAB05578 - e5d6e84489c43806"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Netflic_Clone.MovieStore.getMovie(with: Swift.String, completion: (Swift.Result&lt;Netflic_Clone.VideoElement, Netflic_Clone.MovieError&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Netflic Clone.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ozcanalasalvar/Documents/iosApp/Netflic%20Clone/Netflic%20Clone/Managers/MovieStore.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
