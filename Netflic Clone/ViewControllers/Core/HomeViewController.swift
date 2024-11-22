@@ -16,7 +16,7 @@ enum Sections : Int {
 }
 
 class HomeViewController: UIViewController  {
-
+    
     
     let sectionTitles: [String] = ["Trending Movies", "Trending Tv", "Popular",  "UpComimg Movies", "Top Rated"]
     
@@ -25,53 +25,54 @@ class HomeViewController: UIViewController  {
     private let homeFeedTable : UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
+    
+    var headerView: HeroHeaderUiView?
+    var tabbar: HomeTabbarUiView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
+        
+        view.backgroundColor = .systemPink
         view.addSubview(homeFeedTable)
         
         
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
-       // homeFeedTable.separatorStyle =  UITableViewCell.SeparatorStyle.none
+        // homeFeedTable.separatorStyle =  UITableViewCell.SeparatorStyle.none
         homeFeedTable.showsVerticalScrollIndicator = false
-//        homeFeedTable.allowsSelection = false  //TODO
-        configureNavBar()
+       
+        if #available(iOS 11.0, *) {
+            homeFeedTable.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
         
-        let headerView = HeroHeaderUiView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        
+        headerView = HeroHeaderUiView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 575))
+        headerView?.delegate = self
         homeFeedTable.tableHeaderView = headerView
-//        UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
-//        navigationController?.hidesBarsOnSwipe = true
+        
+        tabbar = HomeTabbarUiView()
+        view.addSubview(tabbar!)
         
     }
     
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeFeedTable.frame = view.bounds
+        let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        
+        let navigationBarHeight = 75
+        
+        tabbar?.frame =  CGRect(x: 0, y: 0, width: view.bounds.width, height: statusbarHeight + CGFloat(navigationBarHeight))
     }
 
     
-    private func configureNavBar(){
-        var image = UIImage(named: "netflixLogo")
-        image = image?.withRenderingMode(.alwaysOriginal)
-        image = image?.withAlignmentRectInsets(UIEdgeInsets(top: -10, left: -5, bottom: -10,right: -5))
-                                               
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
-        
-        
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
-        ]
-        
-        navigationController?.navigationBar.tintColor = .white
-    }
-
 }
 
 
@@ -90,26 +91,30 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
         
+        
+        cell.delegate = self
+        
         switch indexPath.section {
         case Sections.TrendingsMovies.rawValue:
             
-            MovieStore.shared.fetchMovies(from: MovieListEndpoint.trendingMovie) { [weak self] (result) in
+            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.trendingMovie) { [weak self] (result) in
                 guard let self = self else { return }
                 
-        
+                
                 
                 switch result{
                 case .success(let response):
                     cell.configure(with:response.results )
+                    headerView?.configure(with: response.results.randomElement()!)
                     
                 case .failure(let error):
                     print(error as NSError)
                 }
                 
             }
-           
+            
         case Sections.TrendingsTv.rawValue:
-            MovieStore.shared.fetchMovies(from: MovieListEndpoint.trendingTv) { [weak self] (result) in
+            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.trendingTv) { [weak self] (result) in
                 guard let self = self else { return }
                 
                 switch result{
@@ -122,7 +127,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
             }
         case Sections.Popular.rawValue:
-            MovieStore.shared.fetchMovies(from: MovieListEndpoint.popular) { [weak self] (result) in
+            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.popular) { [weak self] (result) in
                 guard let self = self else { return }
                 
                 switch result{
@@ -135,7 +140,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
             }
         case Sections.UpComimng.rawValue:
-            MovieStore.shared.fetchMovies(from: MovieListEndpoint.upComing) { [weak self] (result) in
+            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.upComing) { [weak self] (result) in
                 guard let self = self else { return }
                 
                 switch result{
@@ -148,7 +153,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
             }
         case Sections.TopRated.rawValue:
-            MovieStore.shared.fetchMovies(from: MovieListEndpoint.topRated) { [weak self] (result) in
+            MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.topRated) { [weak self] (result) in
                 guard let self = self else { return }
                 
                 switch result{
@@ -169,31 +174,53 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      return 200
+        return 150
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 30
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionTitles[section]
     }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view  as? UITableViewHeaderFooterView else {return}
-        
-        header.textLabel?.font = .systemFont(ofSize: 18,weight: .semibold)
-        header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
-        header.textLabel?.textColor = .white
-        header.textLabel?.text = header.textLabel?.text?.capitalizaFirstLetter()
-    }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+           let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.frame.width, height: 20))
+        label.text = sectionTitles[section].capitalizaFirstLetter()
+           label.textAlignment = .left
+            label.font = .systemFont(ofSize: 16,weight: .bold)
+           view.addSubview(label)
+           return view
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let defaultOffset = view.safeAreaInsets.top
         let offset = scrollView.contentOffset.y + defaultOffset
+        
+//         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+    }
+}
 
-        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+
+extension HomeViewController : CollectionViewTableViewCellDelegate {
+   
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, movie: Movie) {
+        self.navigateToPreview3(with: movie)
+    }
+    
+}
+
+
+extension HomeViewController: HeroHeaderUiViewDelegate{
+    
+    func heroHeaderUiViewDidTapPlayButton(_ button: UIButton, movie: Movie) {
+        self.navigateToPreview3(with: movie)
+    }
+    
+    func heroHeaderUiViewDidTapDownloadButton(_ button: UIButton, movie: Movie) {
+        
     }
 }

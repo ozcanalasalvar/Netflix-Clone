@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol SearchResultViewControllerDelegate : AnyObject {
+    func searchResultViewControllerDidTapItem(_ viewController : SearchResultViewController, movie: Movie)
+}
+
 class SearchResultViewController: UIViewController {
 
     
     private var movieResults: [Movie] = []
+    weak var delegate: SearchResultViewControllerDelegate?
     
     let searchCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -69,5 +74,11 @@ extension SearchResultViewController : UICollectionViewDelegate,UICollectionView
         cell.configure(with: movieResults[indexPath.row])
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        self.delegate?.searchResultViewControllerDidTapItem(self, movie: movieResults[indexPath.row])
     }
 }

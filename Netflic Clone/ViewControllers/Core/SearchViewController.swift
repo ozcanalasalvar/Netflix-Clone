@@ -56,7 +56,7 @@ class SearchViewController: UIViewController {
   
     
     private func discoverMovie(){
-        MovieStore.shared.discoverMovie() { [weak self] (result) in
+        MovieServiceImpl.shared.discoverMovie() { [weak self] (result) in
             guard let self = self else { return }
             
             switch result{
@@ -86,9 +86,10 @@ extension SearchViewController : UISearchResultsUpdating {
               let controller = searchController.searchResultsController as? SearchResultViewController else {
                   return
               }
+        controller.delegate = self
        
         
-        MovieStore.shared.searchMovie(query: query){ [weak self] (result) in
+        MovieServiceImpl.shared.searchMovie(query: query){ [weak self] (result) in
                guard let self = self else { return }
                
                switch result{
@@ -129,4 +130,16 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         return 140
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.navigationController?.navigateToPreview(with: movies[indexPath.row])
+    }
+    
+}
+
+extension SearchViewController : SearchResultViewControllerDelegate {
+    func searchResultViewControllerDidTapItem(_ viewController: SearchResultViewController, movie: Movie) {
+        self.navigationController?.navigateToPreview(with: movie)
+    }
 }

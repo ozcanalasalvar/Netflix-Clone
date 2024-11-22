@@ -12,19 +12,25 @@ class UpComingViewController: UIViewController{
     
     private var upComimgs: [Movie] = []
     
+    var centerCell : MovieListTableViewCell?
+    
     private let tableView : UITableView = {
         let table = UITableView()
         table.register(MovieListTableViewCell.self, forCellReuseIdentifier: MovieListTableViewCell.identifier)
+        table.rowHeight = UITableView.automaticDimension
+        table.estimatedRowHeight = 500
+        
         return table
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
         title = "Upcoming"
         
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         
         view.addSubview(tableView)
@@ -41,9 +47,9 @@ class UpComingViewController: UIViewController{
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-
+    
     private func fetchUpcomings(){
-        MovieStore.shared.fetchMovies(from: MovieListEndpoint.upComing) { [weak self] (result) in
+        MovieServiceImpl.shared.fetchMovies(from: MovieListEndpoint.upComing) { [weak self] (result) in
             guard let self = self else { return }
             
             switch result{
@@ -60,12 +66,13 @@ class UpComingViewController: UIViewController{
             
         }
     }
-  
+    
 }
 
 
 
-extension UpComingViewController: UITableViewDataSource, UITableViewDelegate {
+extension UpComingViewController: UITableViewDataSource, UITableViewDelegate,MovieListTableViewCellDelegate {
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return upComimgs.count
@@ -75,10 +82,63 @@ extension UpComingViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else { return UITableViewCell()}
         
         cell.configure(with: upComimgs[indexPath.row])
+        cell.delegate = self
         return  cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        150
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.navigationController?.navigateToPreview(with: upComimgs[indexPath.row])
     }
+    
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        videoPlayConfiguration()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            videoPlayConfiguration()
+        }
+    }
+    
+    
+    func videoPlayConfiguration(){
+        guard let visibleCells = tableView.visibleCells as? [MovieListTableViewCell] else { return }
+        
+        for cell in visibleCells {
+            let cellFrameInTableView = tableView.convert(cell.frame, to: tableView.superview)
+            let tableViewCenter = tableView.center.y
+            
+            if cellFrameInTableView.midY > tableViewCenter - cell.frame.height / 2 && cellFrameInTableView.midY < tableViewCenter + cell.frame.height / 2 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    cell.playTralier()
+                }
+                
+            } else {
+                cell.pauseTralier()
+            }
+        }
+    }
+    
+    
+    func movieListTableViewCellDidTapSound(_ cell: MovieListTableViewCell, isMuted: Bool) {
+        tableView.visibleCells.forEach { cell in
+            (cell as? MovieListTableViewCell)?.isMuted = isMuted
+        }
+    }
+    
+    
 }
+
+
+
+
