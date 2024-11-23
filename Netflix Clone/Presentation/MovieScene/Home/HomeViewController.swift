@@ -15,10 +15,13 @@ class HomeViewController: UIViewController  {
     
     private var homeData : HomeMovies?
     
+    var gradientLayer: CAGradientLayer?
+    
     private let homeFeedTable : UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.backgroundColor = UIColor.clear
         return table
     }()
     
@@ -33,6 +36,7 @@ class HomeViewController: UIViewController  {
         homeViewModel.delegate = self
         
         view.addSubview(homeFeedTable)
+        view.backgroundColor = .systemBackground
         
         
         homeFeedTable.delegate = self
@@ -46,7 +50,7 @@ class HomeViewController: UIViewController  {
         }
         
         
-        headerView = HeroHeaderUiView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 575))
+        headerView = HeroHeaderUiView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.bounds.height/1.3))
         headerView?.delegate = self
         homeFeedTable.tableHeaderView = headerView
         
@@ -84,6 +88,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         guard let cell  = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        cell.backgroundColor = .clear
         cell.delegate = self
         
         guard let movies = homeData?.sections[indexPath.section].movies else { return cell }
@@ -108,6 +113,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        view.backgroundColor = .clear
         let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.frame.width, height: 20))
         label.text = homeData?.sections[section].title.capitalizaFirstLetter()
         label.textAlignment = .left
@@ -117,10 +123,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let defaultOffset = view.safeAreaInsets.top
-        _ = scrollView.contentOffset.y + defaultOffset
-        
-        //  navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+        let scrollOffsetY = scrollView.contentOffset.y
+        let maxScrollOffset = CGFloat((headerView?.bounds.height ?? 300)*0.6)
+        let alpha = 1 - min(scrollOffsetY / maxScrollOffset, 1)
+       
+        UIView.animate(withDuration: 0.4) {
+            self.gradientLayer!.opacity = Float(alpha)
+        }
     }
 }
 
@@ -135,6 +144,11 @@ extension HomeViewController : CollectionViewTableViewCellDelegate {
 
 
 extension HomeViewController: HeroHeaderUiViewDelegate{
+    func heroHeaderImageLoaded(_ image: UIImage) {
+        let color = image.averageColor ?? UIColor.systemBackground
+        addGradintLayer(color: color)
+    }
+    
     
     func heroHeaderUiViewDidTapPlayButton(_ button: UIButton, movie: Movie) {
         self.navigateToPreview3(with: movie)
@@ -149,13 +163,26 @@ extension HomeViewController : HomeViewModeloutput {
     
     func didFetchHomeData(_ homeData: HomeMovies) {
         self.homeData = homeData
-        
         self.headerView?.configure(with: homeData.headerMovie)
         self.homeFeedTable.reloadData()
-        
     }
+    
     
     func didFetchMovieFailed(_ error: String) {
         print(error)
+    }
+    
+    func addGradintLayer(color : UIColor) {
+        let gradintLayer = CAGradientLayer()
+        gradintLayer.colors = [
+            color.cgColor,
+            color.cgColor,
+            UIColor.systemBackground.cgColor
+        ]
+        
+        
+        gradintLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: CGFloat(view.bounds.height/1.3))
+        self.gradientLayer = gradintLayer
+        self.view.layer.insertSublayer(self.gradientLayer! , at: 0)
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 protocol HeroHeaderUiViewDelegate : AnyObject {
     func heroHeaderUiViewDidTapPlayButton(_ button: UIButton, movie: Movie)
     func heroHeaderUiViewDidTapDownloadButton(_ button: UIButton, movie: Movie)
+    func heroHeaderImageLoaded(_ image: UIImage)
 }
 
 class HeroHeaderUiView: UIView {
@@ -58,7 +59,6 @@ class HeroHeaderUiView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(heroImageView)
-        addGradient(view: heroImageView, color: UIColor.systemBackground)
         addSubview(playButton)
         addSubview(downLoadButton)
         applyConstraints()
@@ -84,11 +84,9 @@ class HeroHeaderUiView: UIView {
         heroImageView.contentMode = .scaleAspectFill
         heroImageView.sd_setImage(with: movie.posterUrl) { [weak self] (image, err, cachType, url) in
             guard let image = image else { return }
-            
-            let color = image.averageColor ?? UIColor.systemBackground
-            self?.addGradient(view: self ?? UIView(),color: color)
+            self?.delegate?.heroHeaderImageLoaded(image)
+
         }
-//        heroImageView.downloaded(from: movie.posterUrl,contentMode: .scaleAspectFill)
     }
     
     
@@ -96,36 +94,25 @@ class HeroHeaderUiView: UIView {
         delegate?.heroHeaderUiViewDidTapPlayButton(sender, movie: movie!)
     }
     
-    private func addGradient(view:UIView, color : UIColor){
-        let gradintLayer = CAGradientLayer()
-        gradintLayer.colors = [
-            color.cgColor,
-            color.cgColor,
-            UIColor.systemBackground.cgColor
-        ]
-        
-        gradintLayer.frame = view.bounds
-        view.layer.insertSublayer(gradintLayer, at: 0)
-    }
     
     private func applyConstraints(){
         
         let playButtonConstraints = [
             playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
-            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
             playButton.widthAnchor.constraint(equalToConstant: 120)
         ]
         
         let downdloadButtonConstraints = [
             downLoadButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -70),
-            downLoadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            downLoadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
             downLoadButton.widthAnchor.constraint(equalToConstant: 120)
         ]
         
         let heroImageViewConstraints = [
-            heroImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:40),
-            heroImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
-            heroImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            heroImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:20),
+            heroImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            heroImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             heroImageView.topAnchor.constraint(equalTo: topAnchor, constant: 140)
         ]
         

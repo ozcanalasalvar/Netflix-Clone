@@ -33,6 +33,7 @@ class CollectionViewTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(collectionView)
+        collectionView.backgroundColor = .clear
         
         collectionView.dataSource = self
         collectionView.delegate = self
