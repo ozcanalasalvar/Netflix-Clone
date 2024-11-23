@@ -80,7 +80,7 @@ class HomeTabbarUiView: UIView {
     private let titleLabel : UILabel = {
         let label = UILabel()
         label.text = "For Ozcan"
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = .systemFont(ofSize: 21, weight: .bold)
         label.textColor = .white
         label.numberOfLines = 1 //default 1
         return label
@@ -93,11 +93,14 @@ class HomeTabbarUiView: UIView {
         return stackView
     }()
     
+    var blurEffectView : UIVisualEffectView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterial)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = bounds
+        blurEffectView.alpha = 0
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(blurEffectView)
         

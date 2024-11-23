@@ -74,7 +74,7 @@ class HomeViewController: UIViewController  {
 }
 
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource, CollectionViewTableViewCellDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return homeData?.sections.count ?? 0
@@ -122,6 +122,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         return view
     }
     
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, movie: Movie) {
+        self.navigateToPreview3(with: movie)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollOffsetY = scrollView.contentOffset.y
         let maxScrollOffset = CGFloat((headerView?.bounds.height ?? 300)*0.6)
@@ -130,16 +134,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         UIView.animate(withDuration: 0.4) {
             self.gradientLayer!.opacity = Float(alpha)
         }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.tabbar?.blurEffectView.alpha = 1 - alpha
+        }
     }
-}
-
-
-extension HomeViewController : CollectionViewTableViewCellDelegate {
-    
-    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, movie: Movie) {
-        self.navigateToPreview3(with: movie)
-    }
-    
 }
 
 
