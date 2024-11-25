@@ -29,7 +29,7 @@ class HomeTabbarUiView: UIView {
         return stackView
     }()
     
-    private let categoryStackView: UIStackView = {
+    let categoryStackView: UIStackView = {
         let stackView  = UIStackView()
         stackView.axis = .horizontal
 //        stackView.distribution = .fill

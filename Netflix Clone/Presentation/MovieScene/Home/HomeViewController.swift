@@ -130,13 +130,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
         let scrollOffsetY = scrollView.contentOffset.y
         let maxScrollOffset = CGFloat((headerView?.bounds.height ?? 300)*0.6)
         let alpha = 1 - min(scrollOffsetY / maxScrollOffset, 1)
-       
+        
         UIView.animate(withDuration: 0.4) {
             self.gradientLayer!.opacity = Float(alpha)
         }
         
-        UIView.animate(withDuration: 0.5) {
-            self.tabbar?.blurEffectView.alpha = 1 - alpha
+        UIView.animate(withDuration: 0.1) {
+            self.tabbar?.blurEffectView.alpha = if scrollOffsetY > 0 {
+                1
+            } else {
+                0
+            }
         }
     }
 }
