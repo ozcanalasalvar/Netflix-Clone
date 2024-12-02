@@ -17,6 +17,8 @@ class HomeViewController: UIViewController  {
     
     var gradientLayer: CAGradientLayer?
     
+    private var offsetY: CGFloat = 0
+    
     private let homeFeedTable : UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
@@ -27,7 +29,14 @@ class HomeViewController: UIViewController  {
     
     
     var headerView: HeroHeaderUiView?
-    var tabbar: TabbarView?
+    var tabbar: TabbarView = {
+        let tabbar = TabbarView()
+        tabbar.translatesAutoresizingMaskIntoConstraints = false
+        return tabbar
+    }()
+    
+    private var tabbarHeightConsraint: NSLayoutConstraint!
+    private var tabbarTopConsraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,26 +63,58 @@ class HomeViewController: UIViewController  {
         headerView?.delegate = self
         homeFeedTable.tableHeaderView = headerView
         
-        tabbar = TabbarView()
-//        tabbar?.delegate = self
-        view.addSubview(tabbar!)
+        view.addSubview(tabbar)
+        applyConsraints()
         
+//        setCategoriesToTabbar()
     }
     
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeFeedTable.frame = view.bounds
-        setTabbarBarFrame()
-       
+        setInitialFrameOfTabbar()
+        
     }
     
-    func setTabbarBarFrame(){
+    
+   
+    
+    private func applyConsraints(){
+        
+        let tableConstraints = [
+            homeFeedTable.topAnchor.constraint(equalTo: view.topAnchor),
+            homeFeedTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            homeFeedTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            homeFeedTable.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ]
+        
         let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         let defaultBarHeight = 75
         let tabbarHeight = statusbarHeight + CGFloat(defaultBarHeight)
-        tabbar?.frame =  CGRect(x: 0, y: 0, width: view.bounds.width, height:tabbarHeight)
-        tabbar?.setTopPadding(statusbarHeight)
+        
+        tabbarTopConsraint =  tabbar.topAnchor.constraint(equalTo: view.topAnchor)
+        tabbarHeightConsraint = tabbar.heightAnchor.constraint(equalToConstant: tabbarHeight)
+        
+        let tabbarConstarints = [
+            tabbarTopConsraint!,
+            tabbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tabbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tabbarHeightConsraint!
+        ]
+        
+        NSLayoutConstraint.activate(tableConstraints)
+        NSLayoutConstraint.activate(tabbarConstarints)
+    }
+    
+    var initialFrameSetted : Bool = false
+    
+    func setInitialFrameOfTabbar(){
+        if initialFrameSetted{ return }
+        let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        tabbar.setTopPadding(statusbarHeight)
+        tabbarHeightConsraint.constant =  statusbarHeight +  CGFloat(75)
+        initialFrameSetted = true
     }
     
 }
@@ -131,28 +172,57 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
         self.navigateToPreview3(with: movie)
     }
     
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollOffsetY = scrollView.contentOffset.y
         let maxScrollOffset = CGFloat((headerView?.bounds.height ?? 300)*0.6)
         let alpha = 1 - min(scrollOffsetY / maxScrollOffset, 1)
+        
+        let isScrollingUp  = scrollOffsetY > offsetY && scrollOffsetY > 0
+        
+        offsetY = scrollOffsetY
         
         UIView.animate(withDuration: 0.4) {
             self.gradientLayer!.opacity = Float(alpha)
         }
         
         UIView.animate(withDuration: 0.1) {
-            self.tabbar?.blurEffectView.alpha = if scrollOffsetY > 0 {
+            self.tabbar.blurEffectView.alpha = if scrollOffsetY > 0 {
                 1
             } else {
                 0
             }
         }
+        
+        
+        tabbar.configureScroll(isScrollingUp && scrollOffsetY != 0 )
+        
+        let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.tabbarHeightConsraint.constant =
+            if scrollOffsetY == 0 {
+                statusbarHeight +  CGFloat(75)
+            } else if isScrollingUp {
+                // User is scrolling up (i.e., the content is above the top of the scroll view)
+                statusbarHeight +  CGFloat(40)
+            } else  {
+                // User is scrolling down
+                statusbarHeight +  CGFloat(75)
+            }
+            
+            self.view.layoutIfNeeded()
+        })
+        
+        
+        
+        print(scrollOffsetY)
     }
 }
 
 extension HomeViewController : HomeTabbarUiViewDelegate {
     func didSelectCategory(_ category: ContentCategory) {
-       homeViewModel.filterCategoty( category)
+        homeViewModel.filterCategoty( category)
     }
     
 }
