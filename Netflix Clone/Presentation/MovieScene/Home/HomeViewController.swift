@@ -15,7 +15,7 @@ class HomeViewController: UIViewController  {
     
     private var homeData : HomeMovies?
     
-    var gradientLayer: CAGradientLayer?
+    private var gradientLayer: CAGradientLayer?
     
     private var offsetY: CGFloat = 0
     
@@ -28,15 +28,26 @@ class HomeViewController: UIViewController  {
     }()
     
     
-    var headerView: HeroHeaderUiView?
-    var tabbar: TabbarView = {
+    private var headerView: HeroHeaderUiView?
+    
+    private var tabbarHeightConsraint: NSLayoutConstraint!
+    private let  tabbar: TabbarView = {
         let tabbar = TabbarView()
         tabbar.translatesAutoresizingMaskIntoConstraints = false
         return tabbar
     }()
     
-    private var tabbarHeightConsraint: NSLayoutConstraint!
-    private var tabbarTopConsraint: NSLayoutConstraint!
+    private let categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(TabbarCollectionViewCell.self, forCellWithReuseIdentifier: TabbarCollectionViewCell.identifier)
+        collectionView.backgroundColor = .clear
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +77,7 @@ class HomeViewController: UIViewController  {
         view.addSubview(tabbar)
         applyConsraints()
         
-//        setCategoriesToTabbar()
+        setCategoriesToTabbar()
     }
     
     
@@ -74,11 +85,29 @@ class HomeViewController: UIViewController  {
         super.viewDidLayoutSubviews()
         homeFeedTable.frame = view.bounds
         setInitialFrameOfTabbar()
-        
     }
     
     
-   
+    private var subItemViewHeightConstraint : NSLayoutConstraint!
+    
+    private func setCategoriesToTabbar(){
+        
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
+        
+        tabbar.addSubview(categoryCollectionView)
+        
+        subItemViewHeightConstraint = categoryCollectionView.heightAnchor.constraint(equalToConstant: 30)
+        
+        let subItemViewViewConstraints = [
+            categoryCollectionView.leadingAnchor.constraint(equalTo: tabbar.leadingAnchor),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: tabbar.trailingAnchor),
+            categoryCollectionView.topAnchor.constraint(equalTo: tabbar.titleLabel.bottomAnchor),
+            subItemViewHeightConstraint!,
+        ]
+        
+        NSLayoutConstraint.activate(subItemViewViewConstraints)
+    }
     
     private func applyConsraints(){
         
@@ -93,11 +122,10 @@ class HomeViewController: UIViewController  {
         let defaultBarHeight = 75
         let tabbarHeight = statusbarHeight + CGFloat(defaultBarHeight)
         
-        tabbarTopConsraint =  tabbar.topAnchor.constraint(equalTo: view.topAnchor)
         tabbarHeightConsraint = tabbar.heightAnchor.constraint(equalToConstant: tabbarHeight)
         
         let tabbarConstarints = [
-            tabbarTopConsraint!,
+            tabbar.topAnchor.constraint(equalTo: view.topAnchor),
             tabbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tabbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tabbarHeightConsraint!
@@ -174,6 +202,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView != homeFeedTable { return }
+        
         let scrollOffsetY = scrollView.contentOffset.y
         let maxScrollOffset = CGFloat((headerView?.bounds.height ?? 300)*0.6)
         let alpha = 1 - min(scrollOffsetY / maxScrollOffset, 1)
@@ -186,37 +217,42 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
             self.gradientLayer!.opacity = Float(alpha)
         }
         
-        UIView.animate(withDuration: 0.1) {
-            self.tabbar.blurEffectView.alpha = if scrollOffsetY > 0 {
-                1
-            } else {
-                0
-            }
-        }
-        
-        
-        tabbar.configureScroll(isScrollingUp && scrollOffsetY != 0 )
+        tabbar.configureScroll(scrollOffsetY > 0)
         
         let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             self.tabbarHeightConsraint.constant =
             if scrollOffsetY == 0 {
                 statusbarHeight +  CGFloat(75)
             } else if isScrollingUp {
-                // User is scrolling up (i.e., the content is above the top of the scroll view)
                 statusbarHeight +  CGFloat(40)
             } else  {
-                // User is scrolling down
                 statusbarHeight +  CGFloat(75)
             }
+            
+            self.subItemViewHeightConstraint.constant =  isScrollingUp ?  0 : 30
             
             self.view.layoutIfNeeded()
         })
         
+    }
+}
+
+
+extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.identifier, for: indexPath) as? TabbarCollectionViewCell else { return UICollectionViewCell() }
         
-        
-        print(scrollOffsetY)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 100, height: 30)
     }
 }
 

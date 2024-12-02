@@ -38,6 +38,7 @@
 		A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E92CF10F8B007A854D /* HomeRepository.swift */; };
 		A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */; };
 		A197E8482CF52D2A005BDF32 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197E8472CF52D1F005BDF32 /* TabbarView.swift */; };
+		A1AAC4952CFE688A0062C75B /* TabbarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		A161D7E92CF10F8B007A854D /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
 		A197E8472CF52D1F005BDF32 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +134,7 @@
 		A1537FF92CDA36FB005DE4D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A197E8472CF52D1F005BDF32 /* TabbarView.swift */,
+				A1AAC4932CFE686A0062C75B /* Tabbar */,
 				A14E053A2CEFD94C00DD4092 /* VideoView.swift */,
 				A1537FFE2CDA37A7005DE4D1 /* CollectionViewTableViewCell.swift */,
 				A15380002CDA57DF005DE4D1 /* HeroHeaderUiView.swift */,
@@ -276,6 +278,15 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		A1AAC4932CFE686A0062C75B /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */,
+				A197E8472CF52D1F005BDF32 /* TabbarView.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -361,6 +372,7 @@
 				A1537FFF2CDA37A8005DE4D1 /* CollectionViewTableViewCell.swift in Sources */,
 				A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */,
 				A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */,
+				A1AAC4952CFE688A0062C75B /* TabbarCollectionViewCell.swift in Sources */,
 				A1537FF82CD95B49005DE4D1 /* DownloadsViewController.swift in Sources */,
 				A161D7E82CF10E0B007A854D /* HomeMovies.swift in Sources */,
 				A153800B2CDA9A98005DE4D1 /* Utils.swift in Sources */,
