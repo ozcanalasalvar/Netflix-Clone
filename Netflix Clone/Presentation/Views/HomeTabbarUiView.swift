@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol HomeTabbarUiViewDelegate: AnyObject {
+    func didSelectCategory(_ category: ContentCategory)
+}
+
 class HomeTabbarUiView: UIView {
     
     private let hederStackView: UIStackView = {
@@ -95,6 +99,8 @@ class HomeTabbarUiView: UIView {
     
     var blurEffectView : UIVisualEffectView!
     
+    var delegate: HomeTabbarUiViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterial)
@@ -141,6 +147,13 @@ class HomeTabbarUiView: UIView {
         categoryStackView.addArrangedSubview(UIView())
         containerStackView.addArrangedSubview(categoryStackView)
 
+        moviesButton.addTapGesture {
+            self.delegate?.didSelectCategory(.movie)
+        }
+        
+        tvButton.addTapGesture {
+            self.delegate?.didSelectCategory(.tv)
+        }
         
         
     }

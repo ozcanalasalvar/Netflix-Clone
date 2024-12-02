@@ -20,10 +20,14 @@ protocol MovieService {
 
 enum MovieListEndpoint : String{
     case trendingMovie = "trending/movie/day"
-    case trendingTv = "trending/tv/day"
     case upComing = "movie/upcoming"
     case popular = "movie/popular"
     case topRated = "movie/top_rated"
+    case trendingTv = "trending/tv/day"
+    case airingTodayTv = "tv/airing_today"
+    case ontheAirTv = "tv/on_the_air"
+    case popularTv = "tv/popular"
+    case topRatedTv = "tv/top_rated"
     case discover = "discover/movie"
     case search = "search/movie"
     case youtubeSearch = "outube/v3/search?"

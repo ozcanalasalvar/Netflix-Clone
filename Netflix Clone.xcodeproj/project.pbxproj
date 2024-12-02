@@ -37,6 +37,7 @@
 		A161D7E82CF10E0B007A854D /* HomeMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E72CF10DF6007A854D /* HomeMovies.swift */; };
 		A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E92CF10F8B007A854D /* HomeRepository.swift */; };
 		A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */; };
+		A197E8482CF52D2A005BDF32 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197E8472CF52D1F005BDF32 /* TabbarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		A161D7E72CF10DF6007A854D /* HomeMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMovies.swift; sourceTree = "<group>"; };
 		A161D7E92CF10F8B007A854D /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
+		A197E8472CF52D1F005BDF32 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 		A1537FF92CDA36FB005DE4D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A197E8472CF52D1F005BDF32 /* TabbarView.swift */,
 				A14E053A2CEFD94C00DD4092 /* VideoView.swift */,
 				A1537FFE2CDA37A7005DE4D1 /* CollectionViewTableViewCell.swift */,
 				A15380002CDA57DF005DE4D1 /* HeroHeaderUiView.swift */,
@@ -350,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A197E8482CF52D2A005BDF32 /* TabbarView.swift in Sources */,
 				A15380252CEA710A005DE4D1 /* HomeTabbarUiView.swift in Sources */,
 				A15380072CDA99DB005DE4D1 /* MovieServiceImpl.swift in Sources */,
 				A1537FF62CD95B2E005DE4D1 /* SearchViewController.swift in Sources */,

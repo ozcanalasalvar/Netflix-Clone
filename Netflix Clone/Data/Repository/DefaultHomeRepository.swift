@@ -25,13 +25,21 @@ class DefaultHomeRepository: HomeRepository {
         var popular : [Movie]?
         var upComing : [Movie]?
         var topRated : [Movie]?
+        var airingTodayTv : [Movie]?
+        var ontheAirTv : [Movie]?
+        var popularTv : [Movie]?
+        var topRatedTv : [Movie]?
+        
         
         var trendingMovieError : MovieError?
         var trendingTvError : MovieError?
         var popularError : MovieError?
         var upComingError : MovieError?
         var topRatedError : MovieError?
-        
+        var airingTodayTvError : MovieError?
+        var ontheAirTvError : MovieError?
+        var popularTvError : MovieError?
+        var topRatedTvError : MovieError?
         
         dispatchGroup.enter()
         movieService.fetchMovies(from: MovieListEndpoint.trendingMovie) { result in
@@ -97,6 +105,59 @@ class DefaultHomeRepository: HomeRepository {
             dispatchGroup.leave()
         }
         
+        dispatchGroup.enter()
+        movieService.fetchMovies(from: MovieListEndpoint.airingTodayTv) { result in
+            switch result{
+            case .success(let response):
+                airingTodayTv = response.results
+                
+            case .failure(let error):
+                airingTodayTvError = error
+            }
+            dispatchGroup.leave()
+        }
+        
+        
+        dispatchGroup.enter()
+        movieService.fetchMovies(from: MovieListEndpoint.ontheAirTv) { result in
+            switch result{
+            case .success(let response):
+                ontheAirTv = response.results
+                
+            case .failure(let error):
+                ontheAirTvError = error
+            }
+            dispatchGroup.leave()
+        }
+        
+        
+        
+        dispatchGroup.enter()
+        movieService.fetchMovies(from: MovieListEndpoint.popularTv) { result in
+            switch result{
+            case .success(let response):
+                popularTv = response.results
+                
+            case .failure(let error):
+                popularTvError = error
+            }
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        movieService.fetchMovies(from: MovieListEndpoint.topRatedTv) { result in
+            switch result{
+            case .success(let response):
+                topRatedTv = response.results
+                
+            case .failure(let error):
+                topRatedTvError = error
+            }
+            dispatchGroup.leave()
+        }
+        
+        
+        
         dispatchGroup.notify(queue: .main) {
             
             
@@ -125,7 +186,32 @@ class DefaultHomeRepository: HomeRepository {
                 return
             }
             
-            guard let headerMovie  = trendingTv?.randomElement() else {
+            if let airingTodayTvError = airingTodayTvError {
+                completion(.failure(airingTodayTvError))
+                return
+            }
+            
+            if let ontheAirTvError = ontheAirTvError {
+                completion(.failure(ontheAirTvError))
+                return
+            }
+            
+            if let popularTvError = popularTvError {
+                completion(.failure(popularTvError))
+                return
+            }
+            
+            if let topRatedTvError = topRatedTvError {
+                completion(.failure(topRatedTvError))
+                return
+            }
+            
+            
+            
+            
+            
+            
+            guard let headerMovie  = trendingMovie?.randomElement() else {
                 return
             }
             
@@ -135,7 +221,16 @@ class DefaultHomeRepository: HomeRepository {
                 .init(title: "Popular Movies", movies: popular!, sectionType: Sections.Popular.rawValue),
                 .init(title: "Upcoming Movies", movies: upComing!, sectionType: Sections.UpComimng.rawValue),
                 .init(title: "Top Rated Movies", movies: topRated!, sectionType: Sections.TopRated.rawValue),
+                .init(title: "Top Rated Tv Series", movies: topRatedTv!, sectionType: Sections.topRatedTv.rawValue),
+                .init(title: "Airing Today Tv Shows", movies: airingTodayTv!, sectionType: Sections.airingTodayTv.rawValue),
+                .init(title: "On the Air Tv Shows", movies: ontheAirTv!, sectionType: Sections.ontheAirTv.rawValue),
+                .init(title: "Popular Tv Series", movies: popularTv!, sectionType: Sections.popularTv.rawValue),
             ])
+            
+            
+            
+            
+            
             
            
             

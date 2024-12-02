@@ -25,4 +25,15 @@ enum Sections : Int {
     case Popular = 2
     case UpComimng = 3
     case TopRated = 4
+    case airingTodayTv = 5
+    case ontheAirTv = 6
+    case popularTv = 7
+    case topRatedTv = 8
+    
+}
+
+enum ContentCategory : Int {
+    case movie = 0
+    case tv = 1
+    case all = 2
 }

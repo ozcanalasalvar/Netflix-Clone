@@ -27,7 +27,7 @@ class HomeViewController: UIViewController  {
     
     
     var headerView: HeroHeaderUiView?
-    var tabbar: HomeTabbarUiView?
+    var tabbar: TabbarView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,11 +50,12 @@ class HomeViewController: UIViewController  {
         }
         
         
-        headerView = HeroHeaderUiView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: view.bounds.height/1.3))
+        headerView = HeroHeaderUiView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: view.bounds.height/1.3))
         headerView?.delegate = self
         homeFeedTable.tableHeaderView = headerView
         
-        tabbar = HomeTabbarUiView()
+        tabbar = TabbarView()
+//        tabbar?.delegate = self
         view.addSubview(tabbar!)
         
     }
@@ -63,13 +64,17 @@ class HomeViewController: UIViewController  {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeFeedTable.frame = view.bounds
-        let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        
-        let navigationBarHeight = 75
-        
-        tabbar?.frame =  CGRect(x: 0, y: 0, width: view.bounds.width, height: statusbarHeight + CGFloat(navigationBarHeight))
+        setTabbarBarFrame()
+       
     }
     
+    func setTabbarBarFrame(){
+        let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let defaultBarHeight = 75
+        let tabbarHeight = statusbarHeight + CGFloat(defaultBarHeight)
+        tabbar?.frame =  CGRect(x: 0, y: 0, width: view.bounds.width, height:tabbarHeight)
+        tabbar?.setTopPadding(statusbarHeight)
+    }
     
 }
 
@@ -145,12 +150,31 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
     }
 }
 
+extension HomeViewController : HomeTabbarUiViewDelegate {
+    func didSelectCategory(_ category: ContentCategory) {
+       homeViewModel.filterCategoty( category)
+    }
+    
+}
+
 
 extension HomeViewController: HeroHeaderUiViewDelegate{
     func heroHeaderImageLoaded(_ image: UIImage) {
         let color = image.averageColor ?? UIColor.systemBackground
-        addGradintLayer(color: color)
+        
+        guard let gradientLayer = gradientLayer else {
+            addGradintLayer(color: color)
+            return
+        }
+        
+        gradientLayer.colors = [
+            color.cgColor,
+            color.cgColor,
+            UIColor.systemBackground.cgColor
+        ]
+        
     }
+    
     
     
     func heroHeaderUiViewDidTapPlayButton(_ button: UIButton, movie: Movie) {
@@ -186,6 +210,6 @@ extension HomeViewController : HomeViewModeloutput {
         
         gradintLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: CGFloat(view.bounds.height/1.3))
         self.gradientLayer = gradintLayer
-        self.view.layer.insertSublayer(self.gradientLayer! , at: 0)
+        self.view.layer.insertSublayer(self.gradientLayer! , at: .zero)
     }
 }
