@@ -6,7 +6,8 @@
 //
 import Foundation
 
-protocol HomeViewModeloutput : AnyObject{
+protocol HomeViewModeloutput : AnyObject {
+    func didLoadCategories(_ categories: [TabbarCategory])
     func didFetchHomeData(_ homeData: HomeMovies)
     func didFetchMovieFailed(_  error : String)
 }
@@ -19,6 +20,11 @@ class HomeViewModel : NSObject {
     
     private var homeData: HomeMovies?
     
+    private var categories: [TabbarCategory] = [
+        TabbarCategory(category: TabbarCategoryType.MovieSection.rawValue, isSelected: false),
+        TabbarCategory(category: TabbarCategoryType.TVSection.rawValue, isSelected: false),
+        TabbarCategory(category: TabbarCategoryType.All.rawValue, isSelected: false),
+    ]
     
     override init() {
         super.init()
@@ -26,6 +32,9 @@ class HomeViewModel : NSObject {
         fetchHomeData()
     }
     
+    func initVm(){
+        self.delegate?.didLoadCategories(categories)
+    }
     
     
     private func fetchHomeData(){
@@ -46,19 +55,21 @@ class HomeViewModel : NSObject {
     }
     
     
-    func filterCategoty(_ category: ContentCategory){
+    func filterCategory(_ category: String){
         
         switch category {
-        case .movie :
+        case TabbarCategoryType.MovieSection.rawValue :
             filterForCategory(false)
-        case .tv:
+        case TabbarCategoryType.TVSection.rawValue :
             filterForCategory(true)
-        case .all:
+        case TabbarCategoryType.All.rawValue :
             if  homeData != nil {
                 self.delegate?.didFetchHomeData(homeData!)
             } else {
                 self.delegate?.didFetchMovieFailed("Data haven't been fetched")
             }
+        default:
+            print("")
         }
         
     }

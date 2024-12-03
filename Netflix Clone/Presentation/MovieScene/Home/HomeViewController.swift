@@ -14,6 +14,7 @@ class HomeViewController: UIViewController  {
     private var homeViewModel : HomeViewModel!
     
     private var homeData : HomeMovies?
+    private var tabbarCategories: [TabbarCategory]?
     
     private var gradientLayer: CAGradientLayer?
     
@@ -54,6 +55,7 @@ class HomeViewController: UIViewController  {
         
         homeViewModel = HomeViewModel()
         homeViewModel.delegate = self
+        homeViewModel.initVm()
         
         view.addSubview(homeFeedTable)
         view.backgroundColor = .systemBackground
@@ -242,25 +244,38 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
 
 extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return tabbarCategories?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabbarCollectionViewCell.identifier, for: indexPath) as? TabbarCollectionViewCell else { return UICollectionViewCell() }
         
+        guard let category = tabbarCategories?[indexPath.row] else { return UICollectionViewCell() }
+        
+        cell.configure(category)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 30)
-    }
-}
-
-extension HomeViewController : HomeTabbarUiViewDelegate {
-    func didSelectCategory(_ category: ContentCategory) {
-        homeViewModel.filterCategoty( category)
+        guard let category = tabbarCategories?[indexPath.row] else { return .zero}
+        
+        
+        let width = category.category.size(withAttributes: [.font: UIFont.systemFont(ofSize: 11)]).width + 20  // 30 for
+               
+        let calculatedWidth = if category.category == TabbarCategoryType.All.rawValue {
+            width + 10
+        }else {
+            width
+        }
+        return CGSize(width: calculatedWidth, height: 30)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
+        guard let category = tabbarCategories?[indexPath.row] else { return  }
+        
+        homeViewModel.filterCategory(category.category)
+    }
 }
 
 
@@ -293,6 +308,11 @@ extension HomeViewController: HeroHeaderUiViewDelegate{
 }
 
 extension HomeViewController : HomeViewModeloutput {
+    func didLoadCategories(_ categories: [TabbarCategory]) {
+        self.tabbarCategories = categories
+        self.categoryCollectionView.reloadData()
+    }
+    
     
     func didFetchHomeData(_ homeData: HomeMovies) {
         self.homeData = homeData

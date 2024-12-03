@@ -31,9 +31,3 @@ enum Sections : Int {
     case topRatedTv = 8
     
 }
-
-enum ContentCategory : Int {
-    case movie = 0
-    case tv = 1
-    case all = 2
-}
