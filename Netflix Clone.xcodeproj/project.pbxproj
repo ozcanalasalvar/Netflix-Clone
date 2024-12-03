@@ -15,7 +15,7 @@
 		A1537FE62CD956B1005DE4D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1537FE52CD956B1005DE4D1 /* Assets.xcassets */; };
 		A1537FE92CD956B1005DE4D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1537FE72CD956B1005DE4D1 /* LaunchScreen.storyboard */; };
 		A1537FF22CD95A94005DE4D1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF12CD95A94005DE4D1 /* HomeViewController.swift */; };
-		A1537FF42CD95AEF005DE4D1 /* UpComingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF32CD95AEF005DE4D1 /* UpComingViewController.swift */; };
+		A1537FF42CD95AEF005DE4D1 /* NewAndHotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF32CD95AEF005DE4D1 /* NewAndHotViewController.swift */; };
 		A1537FF62CD95B2E005DE4D1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF52CD95B2E005DE4D1 /* SearchViewController.swift */; };
 		A1537FF82CD95B49005DE4D1 /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF72CD95B49005DE4D1 /* DownloadsViewController.swift */; };
 		A1537FFF2CDA37A8005DE4D1 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FFE2CDA37A7005DE4D1 /* CollectionViewTableViewCell.swift */; };
@@ -52,7 +52,7 @@
 		A1537FE82CD956B1005DE4D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1537FEA2CD956B1005DE4D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1537FF12CD95A94005DE4D1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		A1537FF32CD95AEF005DE4D1 /* UpComingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpComingViewController.swift; sourceTree = "<group>"; };
+		A1537FF32CD95AEF005DE4D1 /* NewAndHotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAndHotViewController.swift; sourceTree = "<group>"; };
 		A1537FF52CD95B2E005DE4D1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A1537FF72CD95B49005DE4D1 /* DownloadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		A1537FFE2CDA37A7005DE4D1 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				A161D7DD2CF0ED1C007A854D /* Downloads */,
-				A161D7DC2CF0ED00007A854D /* UpComings */,
+				A161D7DC2CF0ED00007A854D /* NewAndHot */,
 				A161D7DB2CF0ECF0007A854D /* Preview */,
 				A161D7DA2CF0ECDD007A854D /* Search */,
 				A161D7D92CF0ECB4007A854D /* Home */,
@@ -211,12 +211,12 @@
 			path = Preview;
 			sourceTree = "<group>";
 		};
-		A161D7DC2CF0ED00007A854D /* UpComings */ = {
+		A161D7DC2CF0ED00007A854D /* NewAndHot */ = {
 			isa = PBXGroup;
 			children = (
-				A1537FF32CD95AEF005DE4D1 /* UpComingViewController.swift */,
+				A1537FF32CD95AEF005DE4D1 /* NewAndHotViewController.swift */,
 			);
-			path = UpComings;
+			path = NewAndHot;
 			sourceTree = "<group>";
 		};
 		A161D7DD2CF0ED1C007A854D /* Downloads */ = {
@@ -379,7 +379,7 @@
 				A15380052CDA99C2005DE4D1 /* MovieService.swift in Sources */,
 				A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */,
 				A15380012CDA57DF005DE4D1 /* HeroHeaderUiView.swift in Sources */,
-				A1537FF42CD95AEF005DE4D1 /* UpComingViewController.swift in Sources */,
+				A1537FF42CD95AEF005DE4D1 /* NewAndHotViewController.swift in Sources */,
 				A15380092CDA9A3B005DE4D1 /* MovieResponse.swift in Sources */,
 				A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */,
 				A15380132CDCCBFD005DE4D1 /* MovieListTableViewCell.swift in Sources */,

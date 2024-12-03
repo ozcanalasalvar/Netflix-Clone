@@ -10,7 +10,6 @@ class TabbarView : UIView {
     
     let titleLabel : UILabel = {
         let label = UILabel()
-        label.text = "For Ozcan"
         label.font = .systemFont(ofSize: 21, weight: .bold)
         label.textColor = .white
         label.numberOfLines = 1 //default 1
@@ -53,36 +52,6 @@ class TabbarView : UIView {
         
         addSubview(titleLabel)
         addSubview(iconStackView)
-//        addSubview(subItemView)
-        
-        
-        
-        let searchButton  = UIButton()
-        searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        searchButton.tintColor = .white
-        searchButton.addTapGesture {
-            print("searchButton")
-        }
-        
-        let downloadButoon  = UIButton()
-        downloadButoon.setImage(UIImage(systemName: "arrow.down.to.line"), for: .normal)
-        downloadButoon.tintColor = .white
-        downloadButoon.addTapGesture {
-            print("downloadButoon")
-        }
-        
-        let shareButton  = UIButton()
-        shareButton.setImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
-        shareButton.tintColor = .white
-        
-        downloadButoon.addTapGesture {
-            print("downloadButoon")
-        }
-        
-        
-        iconStackView.addArrangedSubview(shareButton)
-        iconStackView.addArrangedSubview(downloadButoon)
-        iconStackView.addArrangedSubview(searchButton)
         
         
         applyConstraints()
@@ -97,6 +66,18 @@ class TabbarView : UIView {
         blurEffectView.frame = bounds
     }
     
+    
+    func configure(_ title : String, icons : [UIButton]){
+        titleLabel.text = title
+        
+        iconStackView.arrangedSubviews.forEach { view in
+            view.removeFromSuperview()
+        }
+        
+        icons.forEach { button in
+            iconStackView.addArrangedSubview(button)
+        }
+    }
     
     private var titleConstraints : [NSLayoutConstraint]!
     private var subItemViewHeightConstraint : NSLayoutConstraint!

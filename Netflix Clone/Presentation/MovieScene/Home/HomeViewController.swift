@@ -79,7 +79,7 @@ class HomeViewController: UIViewController  {
         view.addSubview(tabbar)
         applyConsraints()
         
-        setCategoriesToTabbar()
+        configureTabbar()
     }
     
     
@@ -92,7 +92,33 @@ class HomeViewController: UIViewController  {
     
     private var subItemViewHeightConstraint : NSLayoutConstraint!
     
-    private func setCategoriesToTabbar(){
+    private func configureTabbar(){
+        
+        let searchButton  = UIButton()
+        searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        searchButton.tintColor = .white
+        searchButton.addTapGesture {
+            print("searchButton")
+        }
+        
+        let downloadButoon  = UIButton()
+        downloadButoon.setImage(UIImage(systemName: "arrow.down.to.line"), for: .normal)
+        downloadButoon.tintColor = .white
+        downloadButoon.addTapGesture {
+            print("downloadButoon")
+        }
+        
+        let shareButton  = UIButton()
+        shareButton.setImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
+        shareButton.tintColor = .white
+        
+        shareButton.addTapGesture {
+            print("shareButton")
+        }
+        let buttons: [UIButton] = [searchButton, downloadButoon, shareButton]
+        
+        tabbar.configure("For Ozcan", icons: buttons)
+        
         
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
@@ -261,7 +287,7 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         
         
         let width = category.category.size(withAttributes: [.font: UIFont.systemFont(ofSize: 11)]).width + 20  // 30 for
-               
+        
         let calculatedWidth = if category.category == TabbarCategoryType.All.rawValue {
             width + 10
         }else {
