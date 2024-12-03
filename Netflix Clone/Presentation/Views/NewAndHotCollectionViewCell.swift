@@ -8,11 +8,11 @@
 import UIKit
 import WebKit
 
-protocol MovieListTableViewCellDelegate: AnyObject {
-    func movieListTableViewCellDidTapSound(_ cell: MovieListTableViewCell, isMuted: Bool)
+protocol NewAndHotCollectionViewCellDelegate: AnyObject {
+    func newAndHotCollectionViewCellDidTapSound(_ cell: NewAndHotCollectionViewCell, isMuted: Bool)
 }
 
-class MovieListTableViewCell: UITableViewCell, VideoViewDelegate {
+class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     
     
     func videoViewDelegateVideoLoadDidFinish(_ videoView: VideoView) {
@@ -21,14 +21,14 @@ class MovieListTableViewCell: UITableViewCell, VideoViewDelegate {
     
     
     func videoViewDelegateDidTapSound(_ videoView: VideoView) {
-        delegate?.movieListTableViewCellDidTapSound(self, isMuted: !isMuted)
+        delegate?.newAndHotCollectionViewCellDidTapSound(self, isMuted: !isMuted)
     }
     
     
     
-    static let identifier = "MovieListTableViewCell"
+    static let identifier = "MovieListCollectionViewCell"
     
-    var delegate : MovieListTableViewCellDelegate?
+    var delegate : NewAndHotCollectionViewCellDelegate?
     
 
     private let titleLabel : UILabel = {
@@ -79,9 +79,9 @@ class MovieListTableViewCell: UITableViewCell, VideoViewDelegate {
         }
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         contentView.addSubview(videoView)
         contentView.addSubview(titleLabel)
@@ -98,6 +98,7 @@ class MovieListTableViewCell: UITableViewCell, VideoViewDelegate {
         
         applyConstraints()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError()

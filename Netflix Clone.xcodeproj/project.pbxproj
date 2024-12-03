@@ -26,7 +26,7 @@
 		A153800B2CDA9A98005DE4D1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153800A2CDA9A98005DE4D1 /* Utils.swift */; };
 		A153800D2CDAA162005DE4D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153800C2CDAA162005DE4D1 /* Extensions.swift */; };
 		A153800F2CDABAD9005DE4D1 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153800E2CDABAD9005DE4D1 /* MovieCollectionViewCell.swift */; };
-		A15380132CDCCBFD005DE4D1 /* MovieListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15380122CDCCBFD005DE4D1 /* MovieListTableViewCell.swift */; };
+		A15380132CDCCBFD005DE4D1 /* NewAndHotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15380122CDCCBFD005DE4D1 /* NewAndHotCollectionViewCell.swift */; };
 		A15380162CDCDF23005DE4D1 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = A15380152CDCDF23005DE4D1 /* SDWebImage */; };
 		A15380182CDCDF23005DE4D1 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A15380172CDCDF23005DE4D1 /* SDWebImageMapKit */; };
 		A153801A2CDE327D005DE4D1 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15380192CDE327D005DE4D1 /* SearchResultViewController.swift */; };
@@ -63,7 +63,7 @@
 		A153800A2CDA9A98005DE4D1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A153800C2CDAA162005DE4D1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A153800E2CDABAD9005DE4D1 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
-		A15380122CDCCBFD005DE4D1 /* MovieListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableViewCell.swift; sourceTree = "<group>"; };
+		A15380122CDCCBFD005DE4D1 /* NewAndHotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAndHotCollectionViewCell.swift; sourceTree = "<group>"; };
 		A15380192CDE327D005DE4D1 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		A153801B2CE524DF005DE4D1 /* YoutubeSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeSearchResponse.swift; sourceTree = "<group>"; };
 		A153801F2CE5323E005DE4D1 /* MoviePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePreviewViewController.swift; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 				A1537FFE2CDA37A7005DE4D1 /* CollectionViewTableViewCell.swift */,
 				A15380002CDA57DF005DE4D1 /* HeroHeaderUiView.swift */,
 				A153800E2CDABAD9005DE4D1 /* MovieCollectionViewCell.swift */,
-				A15380122CDCCBFD005DE4D1 /* MovieListTableViewCell.swift */,
+				A15380122CDCCBFD005DE4D1 /* NewAndHotCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,7 +187,7 @@
 		A161D7D92CF0ECB4007A854D /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A1AAC4962CFE74A80062C75B /* TabbarCategory.swift */,
+				A1AAC4982CFF892B0062C75B /* model */,
 				A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */,
 				A1537FF12CD95A94005DE4D1 /* HomeViewController.swift */,
 			);
@@ -287,6 +287,14 @@
 			path = Tabbar;
 			sourceTree = "<group>";
 		};
+		A1AAC4982CFF892B0062C75B /* model */ = {
+			isa = PBXGroup;
+			children = (
+				A1AAC4962CFE74A80062C75B /* TabbarCategory.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -382,7 +390,7 @@
 				A1537FF42CD95AEF005DE4D1 /* NewAndHotViewController.swift in Sources */,
 				A15380092CDA9A3B005DE4D1 /* MovieResponse.swift in Sources */,
 				A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */,
-				A15380132CDCCBFD005DE4D1 /* MovieListTableViewCell.swift in Sources */,
+				A15380132CDCCBFD005DE4D1 /* NewAndHotCollectionViewCell.swift in Sources */,
 				A1AAC4972CFE74B20062C75B /* TabbarCategory.swift in Sources */,
 				A153801C2CE524DF005DE4D1 /* YoutubeSearchResponse.swift in Sources */,
 				A1537FDF2CD956B0005DE4D1 /* SceneDelegate.swift in Sources */,

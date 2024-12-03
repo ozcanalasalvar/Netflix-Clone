@@ -12,7 +12,7 @@ class SearchViewController: UIViewController {
     
     private let tableView : UITableView = {
         let table = UITableView()
-        table.register(MovieListTableViewCell.self, forCellReuseIdentifier: MovieListTableViewCell.identifier)
+        //table.register(MovieListTableViewCell.self, forCellReuseIdentifier: MovieListTableViewCell.identifier)
         return table
     }()
     
@@ -116,14 +116,14 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let  cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else {
-            return UITableViewCell()
-            
-        }
+//        guard let  cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else {
+//            return UITableViewCell()
+//            
+//        }
+//        
+//        cell.configure(with: movies[indexPath.row])
         
-        cell.configure(with: movies[indexPath.row])
-        
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

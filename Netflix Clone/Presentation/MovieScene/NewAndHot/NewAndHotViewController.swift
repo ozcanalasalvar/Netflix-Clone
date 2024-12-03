@@ -12,18 +12,21 @@ class NewAndHotViewController: UIViewController{
     
     private var upComimgs: [Movie] = []
     
-    var centerCell : MovieListTableViewCell?
+    var centerCell : NewAndHotCollectionViewCell?
     
     
     private var tabbarHeightConsraint: NSLayoutConstraint!
     
-    private let tableView : UITableView = {
-        let table = UITableView()
-        table.register(MovieListTableViewCell.self, forCellReuseIdentifier: MovieListTableViewCell.identifier)
-        table.rowHeight = UITableView.automaticDimension
-        table.estimatedRowHeight = 500
-        table.translatesAutoresizingMaskIntoConstraints = false
-        return table
+    private let newAndHotCollectionView : UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 5
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 500) // Change height as needed
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(NewAndHotCollectionViewCell.self, forCellWithReuseIdentifier: NewAndHotCollectionViewCell.identifier)
+    
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
     private let tabbar : TabbarView = {
@@ -37,11 +40,11 @@ class NewAndHotViewController: UIViewController{
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        view.addSubview(tableView)
+        view.addSubview(newAndHotCollectionView)
         view.addSubview(tabbar)
         
-        tableView.dataSource = self
-        tableView.delegate = self
+        newAndHotCollectionView.dataSource = self
+        newAndHotCollectionView.delegate = self
         
         
         configureTabbar()
@@ -96,10 +99,10 @@ class NewAndHotViewController: UIViewController{
     private func applyConsraints(){
         
         let tableConstraints = [
-            tableView.topAnchor.constraint(equalTo: tabbar.bottomAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            newAndHotCollectionView.topAnchor.constraint(equalTo: tabbar.bottomAnchor),
+            newAndHotCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            newAndHotCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newAndHotCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
         
         let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
@@ -129,7 +132,7 @@ class NewAndHotViewController: UIViewController{
                 upComimgs.removeAll()
                 upComimgs = response.results
                 DispatchQueue.main.async { [weak self] in
-                    self?.tableView.reloadData()
+                    self?.newAndHotCollectionView.reloadData()
                 }
                 
             case .failure(let error):
@@ -143,34 +146,25 @@ class NewAndHotViewController: UIViewController{
 
 
 
-extension NewAndHotViewController: UITableViewDataSource, UITableViewDelegate,MovieListTableViewCellDelegate {
+extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewDelegate, NewAndHotCollectionViewCellDelegate {
     
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return upComimgs.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier, for: indexPath) as? MovieListTableViewCell else { return UITableViewCell()}
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewAndHotCollectionViewCell.identifier, for: indexPath) as? NewAndHotCollectionViewCell else { return UICollectionViewCell()}
         
         cell.configure(with: upComimgs[indexPath.row])
         cell.delegate = self
         return  cell
     }
     
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
         self.navigationController?.navigateToPreview(with: upComimgs[indexPath.row])
     }
-    
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
+        
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         videoPlayConfiguration()
@@ -188,13 +182,13 @@ extension NewAndHotViewController: UITableViewDataSource, UITableViewDelegate,Mo
     
     
     func videoPlayConfiguration(){
-        guard let visibleCells = tableView.visibleCells as? [MovieListTableViewCell] else { return }
+        guard let visibleCells = newAndHotCollectionView.visibleCells as? [NewAndHotCollectionViewCell] else { return }
         
         for cell in visibleCells {
-            let cellFrameInTableView = tableView.convert(cell.frame, to: tableView.superview)
-            let tableViewCenter = tableView.center.y
+            let cellFrameInCollectionView = newAndHotCollectionView.convert(cell.frame, to: newAndHotCollectionView.superview)
+            let collectionViewCenter = newAndHotCollectionView.center.y
             
-            if cellFrameInTableView.midY > tableViewCenter - cell.frame.height / 2 && cellFrameInTableView.midY < tableViewCenter + cell.frame.height / 2 {
+            if cellFrameInCollectionView.midY > collectionViewCenter - cell.frame.height / 2 && cellFrameInCollectionView.midY < collectionViewCenter + cell.frame.height / 2 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     cell.playTralier()
                 }
@@ -207,13 +201,13 @@ extension NewAndHotViewController: UITableViewDataSource, UITableViewDelegate,Mo
     
     
     func pauseVideoCells(){
-        guard let visibleCells = tableView.visibleCells as? [MovieListTableViewCell] else { return }
+        guard let visibleCells = newAndHotCollectionView.visibleCells as? [NewAndHotCollectionViewCell] else { return }
         
         for cell in visibleCells {
-            let cellFrameInTableView = tableView.convert(cell.frame, to: tableView.superview)
-            let tableViewCenter = tableView.center.y
+            let cellFrameInCollectionView = newAndHotCollectionView.convert(cell.frame, to: newAndHotCollectionView.superview)
+            let collectionViewCenter = newAndHotCollectionView.center.y
             
-            if cellFrameInTableView.midY > tableViewCenter - cell.frame.height / 2 && cellFrameInTableView.midY < tableViewCenter + cell.frame.height / 2 {
+            if cellFrameInCollectionView.midY > collectionViewCenter - cell.frame.height / 2 && cellFrameInCollectionView.midY < collectionViewCenter + cell.frame.height / 2 {
                 
             } else {
                 cell.pauseTralier()
@@ -222,9 +216,9 @@ extension NewAndHotViewController: UITableViewDataSource, UITableViewDelegate,Mo
     }
     
     
-    func movieListTableViewCellDidTapSound(_ cell: MovieListTableViewCell, isMuted: Bool) {
-        tableView.visibleCells.forEach { cell in
-            (cell as? MovieListTableViewCell)?.isMuted = isMuted
+    func newAndHotCollectionViewCellDidTapSound(_ cell: NewAndHotCollectionViewCell, isMuted: Bool) {
+        newAndHotCollectionView.visibleCells.forEach { cell in
+            (cell as? NewAndHotCollectionViewCell)?.isMuted = isMuted
         }
     }
     
