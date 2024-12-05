@@ -15,6 +15,8 @@ protocol MovieService {
     func fetchMovie(id: Int , completion: @escaping (Result<Movie , MovieError>) -> ())
     
     func searchMovie(query:String, completion: @escaping (Result<MovieResponse,MovieError>) -> ())
+    
+    func getTraliers(movieId:Int, completion: @escaping (Result<MovieVideoResponse,MovieError>) -> ())
 }
 
 
@@ -30,7 +32,7 @@ enum MovieListEndpoint : String{
     case topRatedTv = "tv/top_rated"
     case discover = "discover/movie"
     case search = "search/movie"
-    case youtubeSearch = "outube/v3/search?"
+    case youtubeSearch = "youtube/v3/search?"
     
 }
 

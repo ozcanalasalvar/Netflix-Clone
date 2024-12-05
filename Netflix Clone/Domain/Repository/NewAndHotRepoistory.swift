@@ -8,4 +8,6 @@
 protocol NewAndHotRepoistory : AnyObject{
     
     func fetchNewAndHotMovies(completion: @escaping (Result<[MovieUiModel], MovieError>) -> ())
+    
+    func getTralier(movieId: Int ,completion: @escaping (Result<String?,MovieError>) -> ())
 }

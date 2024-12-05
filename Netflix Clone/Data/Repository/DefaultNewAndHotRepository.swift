@@ -7,12 +7,27 @@
 import Foundation
 
 class DefaultNewAndHotRepository :  NewAndHotRepoistory {
+
     
     private var movieService: MovieService
     
     init() {
         self.movieService = MovieServiceImpl.shared
     }
+    
+    func getTralier(movieId: Int, completion: @escaping (Result<String?, MovieError>) -> ()) {
+        movieService.getTraliers(movieId: movieId){ result in
+            
+            switch result{
+            case .success(let response):
+                completion(.success(response.youtubeKey))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
     
     func fetchNewAndHotMovies(completion: @escaping (Result<[MovieUiModel], MovieError>) -> ()) {
         var movies : [MovieUiModel] = []

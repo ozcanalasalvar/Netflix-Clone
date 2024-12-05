@@ -70,6 +70,7 @@ class NewAndHotViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("viewWillAppear")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.centerCell?.playTralier()
         }
@@ -156,6 +157,7 @@ class NewAndHotViewController: UIViewController{
         
         NSLayoutConstraint.activate(tableConstraints)
     }
+    
 }
 
 
@@ -188,6 +190,11 @@ extension NewAndHotViewController : NewAndHotViewModelOutput {
         DispatchQueue.main.async { [weak self] in
             self?.categoryCollectionView.reloadData()
         }
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            self?.findCenterAndPlay()
+        })
         
     }
     
@@ -259,7 +266,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let view = scrollView as? UICollectionView else { return }
         if view == newAndHotCollectionView {
-            videoPlayConfiguration()
+            findCenterAndPlay()
         }
     }
     
@@ -267,7 +274,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
         if !decelerate {
             guard let view = scrollView as? UICollectionView else { return }
             if view == newAndHotCollectionView {
-                videoPlayConfiguration()
+                findCenterAndPlay()
             }
         }
     }
@@ -275,46 +282,10 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let view = scrollView as? UICollectionView else { return }
         if view == newAndHotCollectionView {
-            pauseVideoCells()
+            pauseOffCenterPlayers()
             guard let visibleIndex = newAndHotCollectionView.indexPathsForVisibleItems.first else  { return }
             viewModel.updateCategorySelection(section: newAndHots[visibleIndex.item].categoryType)
            
-        }
-    }
-    
-    
-    func videoPlayConfiguration(){
-        guard let visibleCells = newAndHotCollectionView.visibleCells as? [NewAndHotCollectionViewCell] else { return }
-        
-        for cell in visibleCells {
-            let cellFrameInCollectionView = newAndHotCollectionView.convert(cell.frame, to: newAndHotCollectionView.superview)
-            let collectionViewCenter = newAndHotCollectionView.center.y
-            
-            if cellFrameInCollectionView.midY > collectionViewCenter - cell.frame.height / 2 && cellFrameInCollectionView.midY < collectionViewCenter + cell.frame.height / 2 {
-                centerCell = cell
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    cell.playTralier()
-                }
-                
-            } else {
-                cell.pauseTralier()
-            }
-        }
-    }
-    
-    
-    func pauseVideoCells(){
-        guard let visibleCells = newAndHotCollectionView.visibleCells as? [NewAndHotCollectionViewCell] else { return }
-        
-        for cell in visibleCells {
-            let cellFrameInCollectionView = newAndHotCollectionView.convert(cell.frame, to: newAndHotCollectionView.superview)
-            let collectionViewCenter = newAndHotCollectionView.center.y
-            
-            if cellFrameInCollectionView.midY > collectionViewCenter - cell.frame.height / 2 && cellFrameInCollectionView.midY < collectionViewCenter + cell.frame.height / 2 {
-                
-            } else {
-                cell.pauseTralier()
-            }
         }
     }
     
@@ -330,4 +301,43 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
 
 
 
+extension NewAndHotViewController {
+    
+    func findCenterAndPlay(){
+        guard newAndHotCollectionView.visibleCells is [NewAndHotCollectionViewCell] else { return }
+        
+        let visibleIndexPaths = newAndHotCollectionView.indexPathsForVisibleItems
+        
+        for indexPath in visibleIndexPaths {
+            if let cell = newAndHotCollectionView.cellForItem(at: indexPath)  as? NewAndHotCollectionViewCell {
+                // Get the frame of the cell in the collection view
+                let cellFrame = newAndHotCollectionView.convert(cell.frame, to: newAndHotCollectionView.superview)
+                let collectionViewCenter = newAndHotCollectionView.center.y
+                
+                if cellFrame.midY > collectionViewCenter - cell.frame.height / 2 && cellFrame.midY < collectionViewCenter + cell.frame.height / 2 {
+                    cell.playTralier()
+                    centerCell = cell
+                    viewModel.loadVideoForIndexedCell(index : indexPath.item)
+                } else {
+                    cell.pauseTralier()
+                }
+            }
+        }
+    }
+    
+    
+    func pauseOffCenterPlayers(){
+        guard let visibleCells = newAndHotCollectionView.visibleCells as? [NewAndHotCollectionViewCell] else { return }
+        
+        for cell in visibleCells {
+            let cellFrameInCollectionView = newAndHotCollectionView.convert(cell.frame, to: newAndHotCollectionView.superview)
+            let collectionViewCenter = newAndHotCollectionView.center.y
+            
+            if cellFrameInCollectionView.midY > collectionViewCenter - cell.frame.height / 2 && cellFrameInCollectionView.midY < collectionViewCenter + cell.frame.height / 2 {
+            } else {
+                cell.pauseTralier()
+            }
+        }
+    }
+}
 

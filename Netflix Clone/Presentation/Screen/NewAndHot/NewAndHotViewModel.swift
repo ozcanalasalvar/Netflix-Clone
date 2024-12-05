@@ -87,4 +87,57 @@ class NewAndHotViewModel : NSObject {
         categories = updatedCategories
         self.delegate?.categoryUpdated(categories: updatedCategories)
     }
+    
+    
+    func loadVideoForIndexedCell(index : Int){
+        if index > movies.count-1 {
+            return
+        }
+        
+        let model = movies[index]
+        
+        if model.movie.tralierKey != nil {
+            return
+        }
+        
+        repository.getTralier(movieId: model.movie.id){ result in
+         
+            switch result {
+            case .success(let tralierKey):
+                let uiModel =  self.movies[index]
+                let movie = uiModel.movie
+                
+                print("movie \(String(describing: movie.title)) tralier key \(String(describing: tralierKey))")
+                
+                var updatedMovie = Movie(
+                    id: movie.id ,
+                    title: movie.title ,
+                    name: movie.name ,
+                    backdropPath: movie.backdropPath ,
+                    posterPath: movie.posterPath ,
+                    overview: movie.overview ,
+                    voteAverage: movie.voteAverage ,
+                    voteCount: movie.voteCount ,
+                    runtime: movie.runtime ,
+                    releaseDate: movie.releaseDate ,
+                    videos: movie.videos,
+                    genres: movie.genres
+                )
+                
+                updatedMovie.setTralierKey(key: tralierKey)
+                
+                self.movies[index] = MovieUiModel(
+                    priority: uiModel.priority,
+                    categoryType: uiModel.categoryType,
+                    movie: updatedMovie
+                )
+
+                self.movies = self.movies.sorted() //Sort result for right order
+                self.delegate?.moviesFetched(categories: self.categories , movies: self.movies)
+            
+            case .failure(let error):
+                self.delegate?.moviesFetchingFailed(error: error.localizedDescription)
+            }
+        }
+    }
 }

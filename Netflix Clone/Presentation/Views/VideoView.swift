@@ -15,7 +15,7 @@ protocol VideoViewDelegate: AnyObject {
 
 class VideoView: UIView, WKNavigationDelegate {
     
-    public let movieImageView : UIImageView = {
+    private let movieImageView : UIImageView = {
         let image : UIImageView = UIImageView()
         image.contentMode = .scaleToFill
         image.translatesAutoresizingMaskIntoConstraints = false

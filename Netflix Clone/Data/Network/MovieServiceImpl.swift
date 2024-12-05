@@ -80,6 +80,21 @@ class MovieServiceImpl : MovieService{
             completion: completion)
     }
     
+    func getTraliers(movieId: Int ,completion: @escaping (Result<MovieVideoResponse,MovieError>) -> ()) {
+        
+        guard let url = URL(string: "\(baseAPIURL)movie/\(movieId)/videos?language=en-US'") else {
+             completion(.failure(.invalidEndpoint))
+            return
+        }
+        
+        self.loadUrlAndDecode(
+            url: url,
+            params: [
+                "language" : "en-US",
+            ],
+            completion: completion)
+    }
+    
     private func loadUrlAndDecode<D : Decodable>(url : URL ,params: [String: String]? = nil, completion: @escaping (Result<D,MovieError>) -> ()){
         
         guard var urlComponents = URLComponents(url:url , resolvingAgainstBaseURL: false) else {

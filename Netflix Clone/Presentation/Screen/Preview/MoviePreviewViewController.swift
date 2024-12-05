@@ -91,6 +91,7 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     
     func configure(movie: Movie){
         
+        print(movie.id)
         titleLabel.text = movie.movieTitle
         overViewLabel.text = movie.overview
         movieImageView.downloaded(from: movie.backDropUrl,contentMode: .scaleAspectFill)

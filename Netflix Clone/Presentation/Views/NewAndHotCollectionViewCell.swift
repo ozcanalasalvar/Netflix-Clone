@@ -16,7 +16,10 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     
     
     func videoViewDelegateVideoLoadDidFinish(_ videoView: VideoView) {
-        
+        //playTralier()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            self?.movieImageView.isHidden = true
+        })
     }
     
     
@@ -31,6 +34,14 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     var delegate : NewAndHotCollectionViewCellDelegate?
     
 
+    
+    private let movieImageView : UIImageView = {
+        let image : UIImageView = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.clipsToBounds = true
+        return image
+    }()
+    
     private let titleLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .bold)
@@ -87,6 +98,7 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         contentView.addSubview(titleLabel)
         contentView.addSubview(overviewLabel)
         contentView.addSubview(downLoadButton)
+        contentView.addSubview(movieImageView)
         
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
@@ -118,10 +130,16 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     
     func playTralier(){
         videoView.playTralier()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            self?.movieImageView.isHidden = true
+        })
     }
     
     func pauseTralier(){
         videoView.pauseTralier()
+        UIView.animate(withDuration: 0.5) {
+            self.movieImageView.isHidden = false
+        }
     }
     
     
@@ -140,10 +158,10 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         
         titleLabel.text = movie.movieTitle
         overviewLabel.text = movie.overview
+        movieImageView.downloaded(from: movie.backDropUrl, contentMode: .scaleToFill)
         
-        let videoID = "pnAFeSoTMV8"
-        
-      
+        guard let videoID = movie.tralierKey else { return }
+
         videoView.configure(with:movie.backDropUrl , videoID: videoID)
     }
     
@@ -156,6 +174,12 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
             videoView.heightAnchor.constraint(equalToConstant: 250),
         ]
         
+        
+        let movieImageViewConstraints = [
+            movieImageView.topAnchor.constraint(equalTo: videoView.topAnchor),
+            movieImageView.widthAnchor.constraint(equalTo: videoView.widthAnchor),
+            movieImageView.heightAnchor.constraint(equalTo: videoView.heightAnchor),
+        ]
         
         let titleLabelConstraints = [
             titleLabel.topAnchor.constraint(equalTo: videoView.bottomAnchor, constant: 20),
@@ -182,6 +206,7 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overviewLabelConstraints)
         NSLayoutConstraint.activate(downLoadButtonConstraints)
+        NSLayoutConstraint.activate(movieImageViewConstraints)
     }
     
     
