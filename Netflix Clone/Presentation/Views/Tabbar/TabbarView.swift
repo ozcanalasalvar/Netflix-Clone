@@ -10,7 +10,7 @@ class TabbarView : UIView {
     
     let titleLabel : UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 21, weight: .bold)
+        label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textColor = .white
         label.numberOfLines = 1 //default 1
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +112,7 @@ class TabbarView : UIView {
         let titleLabelConstraints = [
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40),
+            titleLabel.heightAnchor.constraint(equalToConstant: CGFloat(Constant.defaultTabbarHeight)),
         ]
         
         titleConstraints = titleLabelConstraints

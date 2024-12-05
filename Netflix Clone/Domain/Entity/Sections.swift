@@ -1,23 +1,9 @@
 //
-//  HomeMovies.swift
+//  Sections.swift
 //  Netflix Clone
 //
-//  Created by Ozcan Alasalvar on 22.11.2024.
+//  Created by Ozcan Alasalvar on 4.12.2024.
 //
-
-struct HomeMovies {
-    var headerMovie : Movie
-    var sections : [MovieSection]
-}
-
-
-struct MovieSection {
-    var title : String
-    var movies : [Movie]
-    var sectionType : Int
-}
-
-
 
 enum Sections : Int {
     case TrendingsMovies = 0
@@ -29,5 +15,4 @@ enum Sections : Int {
     case ontheAirTv = 6
     case popularTv = 7
     case topRatedTv = 8
-    
 }

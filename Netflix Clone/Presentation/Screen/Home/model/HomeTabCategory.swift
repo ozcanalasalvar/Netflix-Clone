@@ -6,14 +6,13 @@
 //
 
 
-struct TabbarCategory {
-    let category: String
+struct HomeTabCategory {
+    let category: HomeTabCategoryType
     let isSelected: Bool
 }
 
-enum TabbarCategoryType: String{
+enum HomeTabCategoryType: String{
     case MovieSection = "Movies"
     case TVSection = "TV Series"
     case All = "All Categories"
-    
 }

@@ -7,6 +7,6 @@
 
 protocol HomeRepository {
     
-    func fetchHomeData(completion: @escaping (Result<HomeMovies?, MovieError>) -> ())
+    func fetchHomeData(completion: @escaping (Result<HomeMovieUiModel?, MovieError>) -> ())
     
 }

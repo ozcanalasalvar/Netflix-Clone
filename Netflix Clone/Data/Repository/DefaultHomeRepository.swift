@@ -14,9 +14,9 @@ class DefaultHomeRepository: HomeRepository {
         movieService = MovieServiceImpl.shared
     }
     
-    func fetchHomeData(completion: @escaping (Result<HomeMovies?, MovieError>) -> ()) {
+    func fetchHomeData(completion: @escaping (Result<HomeMovieUiModel?, MovieError>) -> ()) {
         
-        var homeMovies : HomeMovies?
+        var homeMovies : HomeMovieUiModel?
         
         let dispatchGroup = DispatchGroup()
         
@@ -215,7 +215,7 @@ class DefaultHomeRepository: HomeRepository {
                 return
             }
             
-            homeMovies = HomeMovies(headerMovie: headerMovie, sections: [
+            homeMovies = HomeMovieUiModel(headerMovie: headerMovie, sections: [
                 .init(title: "Trending Movies", movies: trendingMovie!, sectionType: Sections.TrendingsMovies.rawValue),
                 .init(title: "Trending TV Shows", movies: trendingTv!, sectionType: Sections.TrendingsTv.rawValue),
                 .init(title: "Popular Movies", movies: popular!, sectionType: Sections.Popular.rawValue),

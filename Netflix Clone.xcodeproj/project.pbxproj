@@ -33,12 +33,20 @@
 		A153801C2CE524DF005DE4D1 /* YoutubeSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153801B2CE524DF005DE4D1 /* YoutubeSearchResponse.swift */; };
 		A15380202CE5323E005DE4D1 /* MoviePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A153801F2CE5323E005DE4D1 /* MoviePreviewViewController.swift */; };
 		A15380232CE67AD2005DE4D1 /* NetflixCloneModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A15380212CE67AD2005DE4D1 /* NetflixCloneModel.xcdatamodeld */; };
-		A161D7E82CF10E0B007A854D /* HomeMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E72CF10DF6007A854D /* HomeMovies.swift */; };
+		A161D7E82CF10E0B007A854D /* HomeMovieUiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E72CF10DF6007A854D /* HomeMovieUiModel.swift */; };
 		A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E92CF10F8B007A854D /* HomeRepository.swift */; };
 		A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */; };
 		A197E8482CF52D2A005BDF32 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197E8472CF52D1F005BDF32 /* TabbarView.swift */; };
 		A1AAC4952CFE688A0062C75B /* TabbarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */; };
-		A1AAC4972CFE74B20062C75B /* TabbarCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4962CFE74A80062C75B /* TabbarCategory.swift */; };
+		A1AAC4972CFE74B20062C75B /* HomeTabCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4962CFE74A80062C75B /* HomeTabCategory.swift */; };
+		A1AAC49A2CFFBB8B0062C75B /* NewAndHotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4992CFFBB870062C75B /* NewAndHotViewModel.swift */; };
+		A1AAC49E2CFFBDEB0062C75B /* MovieUiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC49D2CFFBDC50062C75B /* MovieUiModel.swift */; };
+		A1AAC4A02CFFBFE80062C75B /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC49F2CFFBFE20062C75B /* Sections.swift */; };
+		A1AAC4A22CFFC02B0062C75B /* NewAndHotRepoistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4A12CFFC0210062C75B /* NewAndHotRepoistory.swift */; };
+		A1AAC4A42CFFC0A00062C75B /* DefaultNewAndHotRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4A32CFFC0900062C75B /* DefaultNewAndHotRepository.swift */; };
+		A1AAC4AA2D00CC160062C75B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4A92D00CBFD0062C75B /* CategoryCollectionViewCell.swift */; };
+		A1AAC4AC2D00D60E0062C75B /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4AB2D00D6080062C75B /* Constant.swift */; };
+		A1AAC4AF2D00F4A90062C75B /* NewHotCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4AE2D00F49F0062C75B /* NewHotCategory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,12 +76,20 @@
 		A153801B2CE524DF005DE4D1 /* YoutubeSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeSearchResponse.swift; sourceTree = "<group>"; };
 		A153801F2CE5323E005DE4D1 /* MoviePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePreviewViewController.swift; sourceTree = "<group>"; };
 		A15380222CE67AD2005DE4D1 /* NetflixCloneModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NetflixCloneModel.xcdatamodel; sourceTree = "<group>"; };
-		A161D7E72CF10DF6007A854D /* HomeMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMovies.swift; sourceTree = "<group>"; };
+		A161D7E72CF10DF6007A854D /* HomeMovieUiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMovieUiModel.swift; sourceTree = "<group>"; };
 		A161D7E92CF10F8B007A854D /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
 		A197E8472CF52D1F005BDF32 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCollectionViewCell.swift; sourceTree = "<group>"; };
-		A1AAC4962CFE74A80062C75B /* TabbarCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCategory.swift; sourceTree = "<group>"; };
+		A1AAC4962CFE74A80062C75B /* HomeTabCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabCategory.swift; sourceTree = "<group>"; };
+		A1AAC4992CFFBB870062C75B /* NewAndHotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAndHotViewModel.swift; sourceTree = "<group>"; };
+		A1AAC49D2CFFBDC50062C75B /* MovieUiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieUiModel.swift; sourceTree = "<group>"; };
+		A1AAC49F2CFFBFE20062C75B /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
+		A1AAC4A12CFFC0210062C75B /* NewAndHotRepoistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAndHotRepoistory.swift; sourceTree = "<group>"; };
+		A1AAC4A32CFFC0900062C75B /* DefaultNewAndHotRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNewAndHotRepository.swift; sourceTree = "<group>"; };
+		A1AAC4A92D00CBFD0062C75B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1AAC4AB2D00D6080062C75B /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		A1AAC4AE2D00F49F0062C75B /* NewHotCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHotCategory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				A1537FF92CDA36FB005DE4D1 /* Views */,
-				A153801E2CE5320E005DE4D1 /* MovieScene */,
+				A153801E2CE5320E005DE4D1 /* Screen */,
 				A1537FE02CD956B0005DE4D1 /* MainTabBarViewController.swift */,
 			);
 			path = Presentation;
@@ -134,6 +150,7 @@
 		A1537FF92CDA36FB005DE4D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1AAC4AB2D00D6080062C75B /* Constant.swift */,
 				A1AAC4932CFE686A0062C75B /* Tabbar */,
 				A14E053A2CEFD94C00DD4092 /* VideoView.swift */,
 				A1537FFE2CDA37A7005DE4D1 /* CollectionViewTableViewCell.swift */,
@@ -172,7 +189,7 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		A153801E2CE5320E005DE4D1 /* MovieScene */ = {
+		A153801E2CE5320E005DE4D1 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
 				A161D7DD2CF0ED1C007A854D /* Downloads */,
@@ -181,7 +198,7 @@
 				A161D7DA2CF0ECDD007A854D /* Search */,
 				A161D7D92CF0ECB4007A854D /* Home */,
 			);
-			path = MovieScene;
+			path = Screen;
 			sourceTree = "<group>";
 		};
 		A161D7D92CF0ECB4007A854D /* Home */ = {
@@ -214,6 +231,9 @@
 		A161D7DC2CF0ED00007A854D /* NewAndHot */ = {
 			isa = PBXGroup;
 			children = (
+				A1AAC4AD2D00F48E0062C75B /* Model */,
+				A1AAC4A82D00CBF20062C75B /* View */,
+				A1AAC4992CFFBB870062C75B /* NewAndHotViewModel.swift */,
 				A1537FF32CD95AEF005DE4D1 /* NewAndHotViewController.swift */,
 			);
 			path = NewAndHot;
@@ -248,6 +268,7 @@
 		A161D7E32CF10DA0007A854D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				A1AAC4A32CFFC0900062C75B /* DefaultNewAndHotRepository.swift */,
 				A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */,
 			);
 			path = Repository;
@@ -265,6 +286,7 @@
 		A161D7E52CF10DCF007A854D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				A1AAC4A12CFFC0210062C75B /* NewAndHotRepoistory.swift */,
 				A161D7E92CF10F8B007A854D /* HomeRepository.swift */,
 			);
 			path = Repository;
@@ -273,7 +295,9 @@
 		A161D7E62CF10DEC007A854D /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				A161D7E72CF10DF6007A854D /* HomeMovies.swift */,
+				A1AAC49F2CFFBFE20062C75B /* Sections.swift */,
+				A1AAC49D2CFFBDC50062C75B /* MovieUiModel.swift */,
+				A161D7E72CF10DF6007A854D /* HomeMovieUiModel.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -290,9 +314,25 @@
 		A1AAC4982CFF892B0062C75B /* model */ = {
 			isa = PBXGroup;
 			children = (
-				A1AAC4962CFE74A80062C75B /* TabbarCategory.swift */,
+				A1AAC4962CFE74A80062C75B /* HomeTabCategory.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		A1AAC4A82D00CBF20062C75B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A1AAC4A92D00CBFD0062C75B /* CategoryCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A1AAC4AD2D00F48E0062C75B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A1AAC4AE2D00F49F0062C75B /* NewHotCategory.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,24 +419,32 @@
 				A1537FFF2CDA37A8005DE4D1 /* CollectionViewTableViewCell.swift in Sources */,
 				A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */,
 				A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */,
+				A1AAC4AC2D00D60E0062C75B /* Constant.swift in Sources */,
 				A1AAC4952CFE688A0062C75B /* TabbarCollectionViewCell.swift in Sources */,
 				A1537FF82CD95B49005DE4D1 /* DownloadsViewController.swift in Sources */,
-				A161D7E82CF10E0B007A854D /* HomeMovies.swift in Sources */,
+				A161D7E82CF10E0B007A854D /* HomeMovieUiModel.swift in Sources */,
 				A153800B2CDA9A98005DE4D1 /* Utils.swift in Sources */,
 				A15380232CE67AD2005DE4D1 /* NetflixCloneModel.xcdatamodeld in Sources */,
 				A15380052CDA99C2005DE4D1 /* MovieService.swift in Sources */,
+				A1AAC49A2CFFBB8B0062C75B /* NewAndHotViewModel.swift in Sources */,
 				A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */,
 				A15380012CDA57DF005DE4D1 /* HeroHeaderUiView.swift in Sources */,
+				A1AAC49E2CFFBDEB0062C75B /* MovieUiModel.swift in Sources */,
 				A1537FF42CD95AEF005DE4D1 /* NewAndHotViewController.swift in Sources */,
 				A15380092CDA9A3B005DE4D1 /* MovieResponse.swift in Sources */,
 				A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */,
+				A1AAC4AA2D00CC160062C75B /* CategoryCollectionViewCell.swift in Sources */,
+				A1AAC4AF2D00F4A90062C75B /* NewHotCategory.swift in Sources */,
+				A1AAC4A02CFFBFE80062C75B /* Sections.swift in Sources */,
 				A15380132CDCCBFD005DE4D1 /* NewAndHotCollectionViewCell.swift in Sources */,
-				A1AAC4972CFE74B20062C75B /* TabbarCategory.swift in Sources */,
+				A1AAC4972CFE74B20062C75B /* HomeTabCategory.swift in Sources */,
 				A153801C2CE524DF005DE4D1 /* YoutubeSearchResponse.swift in Sources */,
 				A1537FDF2CD956B0005DE4D1 /* SceneDelegate.swift in Sources */,
 				A15380202CE5323E005DE4D1 /* MoviePreviewViewController.swift in Sources */,
 				A153801A2CDE327D005DE4D1 /* SearchResultViewController.swift in Sources */,
 				A153800F2CDABAD9005DE4D1 /* MovieCollectionViewCell.swift in Sources */,
+				A1AAC4A42CFFC0A00062C75B /* DefaultNewAndHotRepository.swift in Sources */,
+				A1AAC4A22CFFC02B0062C75B /* NewAndHotRepoistory.swift in Sources */,
 				A1537FF22CD95A94005DE4D1 /* HomeViewController.swift in Sources */,
 				A14E053B2CEFD95200DD4092 /* VideoView.swift in Sources */,
 				A153800D2CDAA162005DE4D1 /* Extensions.swift in Sources */,
@@ -538,6 +586,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 886H269M55;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Netflix Clone/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -564,6 +613,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 886H269M55;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Netflix Clone/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

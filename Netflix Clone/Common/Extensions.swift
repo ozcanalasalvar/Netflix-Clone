@@ -47,7 +47,7 @@ extension UIImage {
 
 extension UINavigationController {
     
-    func navigateToPreview(with movie : Movie){
+    func navigateToPreview3(with movie : Movie){
         
         DispatchQueue.main.async { [weak self] in
             let moviePreviewController = MoviePreviewViewController()
@@ -59,7 +59,7 @@ extension UINavigationController {
 
 extension UIViewController {
     
-    func navigateToPreview3(with movie : Movie){
+    func navigateToPreview(with movie : Movie){
         DispatchQueue.main.async { [weak self] in
             let moviePreviewController = MoviePreviewViewController()
             moviePreviewController.configure(movie: movie)

@@ -7,8 +7,8 @@
 import Foundation
 
 protocol HomeViewModeloutput : AnyObject {
-    func didLoadCategories(_ categories: [TabbarCategory])
-    func didFetchHomeData(_ homeData: HomeMovies)
+    func didLoadCategories(_ categories: [HomeTabCategory])
+    func didFetchHomeData(_ homeData: HomeMovieUiModel)
     func didFetchMovieFailed(_  error : String)
 }
 
@@ -18,12 +18,12 @@ class HomeViewModel : NSObject {
     
     var delegate: HomeViewModeloutput?
     
-    private var homeData: HomeMovies?
+    private var homeData: HomeMovieUiModel?
     
-    private var categories: [TabbarCategory] = [
-        TabbarCategory(category: TabbarCategoryType.MovieSection.rawValue, isSelected: false),
-        TabbarCategory(category: TabbarCategoryType.TVSection.rawValue, isSelected: false),
-        TabbarCategory(category: TabbarCategoryType.All.rawValue, isSelected: false),
+    private var categories: [HomeTabCategory] = [
+        HomeTabCategory(category: HomeTabCategoryType.MovieSection, isSelected: false),
+        HomeTabCategory(category: HomeTabCategoryType.TVSection, isSelected: false),
+        HomeTabCategory(category: HomeTabCategoryType.All, isSelected: false),
     ]
     
     override init() {
@@ -55,21 +55,19 @@ class HomeViewModel : NSObject {
     }
     
     
-    func filterCategory(_ category: String){
+    func filterCategory(_ category: HomeTabCategory){
         
-        switch category {
-        case TabbarCategoryType.MovieSection.rawValue :
+        switch category.category {
+        case .MovieSection :
             filterForCategory(false)
-        case TabbarCategoryType.TVSection.rawValue :
+        case .TVSection :
             filterForCategory(true)
-        case TabbarCategoryType.All.rawValue :
+        case .All :
             if  homeData != nil {
                 self.delegate?.didFetchHomeData(homeData!)
             } else {
                 self.delegate?.didFetchMovieFailed("Data haven't been fetched")
             }
-        default:
-            print("")
         }
         
     }
@@ -98,7 +96,7 @@ class HomeViewModel : NSObject {
             return
         }
         
-        let filteredHomeData = HomeMovies(
+        let filteredHomeData = HomeMovieUiModel(
             headerMovie: headerMovie,
             sections: moviesArray
         )

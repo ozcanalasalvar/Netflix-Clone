@@ -13,8 +13,8 @@ class HomeViewController: UIViewController  {
     
     private var homeViewModel : HomeViewModel!
     
-    private var homeData : HomeMovies?
-    private var tabbarCategories: [TabbarCategory]?
+    private var homeData : HomeMovieUiModel?
+    private var tabbarCategories: [HomeTabCategory]?
     
     private var gradientLayer: CAGradientLayer?
     
@@ -32,7 +32,9 @@ class HomeViewController: UIViewController  {
     private var headerView: HeroHeaderUiView?
     
     private var tabbarHeightConsraint: NSLayoutConstraint!
-    private let  tabbar: TabbarView = {
+    private var expanedHeight : CGFloat = 0
+    private var collapsedHeight : CGFloat = 0
+    private let tabbar: TabbarView = {
         let tabbar = TabbarView()
         tabbar.translatesAutoresizingMaskIntoConstraints = false
         return tabbar
@@ -113,7 +115,7 @@ class HomeViewController: UIViewController  {
         shareButton.tintColor = .white
         
         shareButton.addTapGesture {
-            print("shareButton")
+            print("downloadButoon")
         }
         let buttons: [UIButton] = [searchButton, downloadButoon, shareButton]
         
@@ -125,12 +127,25 @@ class HomeViewController: UIViewController  {
         
         tabbar.addSubview(categoryCollectionView)
         
-        subItemViewHeightConstraint = categoryCollectionView.heightAnchor.constraint(equalToConstant: 30)
+        let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let tabbarHeight = statusbarHeight + CGFloat(Constant.defaultTabbarHeight) + 10 //For Bottom padding
+        
+        tabbarHeightConsraint = tabbar.heightAnchor.constraint(equalToConstant: tabbarHeight)
+        
+        let tabbarConstarints = [
+            tabbar.topAnchor.constraint(equalTo: view.topAnchor),
+            tabbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tabbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tabbarHeightConsraint!
+        ]
+        NSLayoutConstraint.activate(tabbarConstarints)
+        
+        subItemViewHeightConstraint = categoryCollectionView.heightAnchor.constraint(equalToConstant: CGFloat(Constant.tabBarItemHeight))
         
         let subItemViewViewConstraints = [
             categoryCollectionView.leadingAnchor.constraint(equalTo: tabbar.leadingAnchor),
             categoryCollectionView.trailingAnchor.constraint(equalTo: tabbar.trailingAnchor),
-            categoryCollectionView.topAnchor.constraint(equalTo: tabbar.titleLabel.bottomAnchor),
+            categoryCollectionView.bottomAnchor.constraint(equalTo: tabbar.bottomAnchor, constant: -10),
             subItemViewHeightConstraint!,
         ]
         
@@ -145,22 +160,8 @@ class HomeViewController: UIViewController  {
             homeFeedTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             homeFeedTable.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
-        
-        let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        let defaultBarHeight = 75
-        let tabbarHeight = statusbarHeight + CGFloat(defaultBarHeight)
-        
-        tabbarHeightConsraint = tabbar.heightAnchor.constraint(equalToConstant: tabbarHeight)
-        
-        let tabbarConstarints = [
-            tabbar.topAnchor.constraint(equalTo: view.topAnchor),
-            tabbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tabbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabbarHeightConsraint!
-        ]
-        
         NSLayoutConstraint.activate(tableConstraints)
-        NSLayoutConstraint.activate(tabbarConstarints)
+      
     }
     
     var initialFrameSetted : Bool = false
@@ -169,7 +170,10 @@ class HomeViewController: UIViewController  {
         if initialFrameSetted{ return }
         let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         tabbar.setTopPadding(statusbarHeight)
-        tabbarHeightConsraint.constant =  statusbarHeight +  CGFloat(75)
+        tabbarHeightConsraint.constant =  statusbarHeight + tabbarHeightConsraint.constant + 30
+        
+        expanedHeight  = tabbarHeightConsraint.constant
+        collapsedHeight = tabbarHeightConsraint.constant - 50
         initialFrameSetted = true
     }
     
@@ -225,7 +229,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
     }
     
     func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, movie: Movie) {
-        self.navigateToPreview3(with: movie)
+        self.navigateToPreview(with: movie)
     }
     
     
@@ -247,19 +251,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
         
         tabbar.configureScroll(scrollOffsetY > 0)
         
-        let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        
         UIView.animate(withDuration: 0.4, animations: {
             self.tabbarHeightConsraint.constant =
             if scrollOffsetY == 0 {
-                statusbarHeight +  CGFloat(75)
+                self.expanedHeight
             } else if isScrollingUp {
-                statusbarHeight +  CGFloat(40)
+                self.collapsedHeight
             } else  {
-                statusbarHeight +  CGFloat(75)
+                self.expanedHeight
             }
             
-            self.subItemViewHeightConstraint.constant =  isScrollingUp ?  0 : 30
+            self.subItemViewHeightConstraint.constant =  isScrollingUp ?  0 : CGFloat(Constant.tabBarItemHeight)
             
             self.view.layoutIfNeeded()
         })
@@ -286,21 +288,21 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         guard let category = tabbarCategories?[indexPath.row] else { return .zero}
         
         
-        let width = category.category.size(withAttributes: [.font: UIFont.systemFont(ofSize: 11)]).width + 20  // 30 for
+        let width = category.category.rawValue.size(withAttributes: [.font: UIFont.systemFont(ofSize: 11)]).width + 20  // 30 for
         
-        let calculatedWidth = if category.category == TabbarCategoryType.All.rawValue {
+        let calculatedWidth = if category.category == HomeTabCategoryType.All {
             width + 10
         }else {
             width
         }
-        return CGSize(width: calculatedWidth, height: 30)
+        return CGSize(width: calculatedWidth, height: CGFloat(Constant.tabBarItemHeight))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
         guard let category = tabbarCategories?[indexPath.row] else { return  }
         
-        homeViewModel.filterCategory(category.category)
+        homeViewModel.filterCategory(category)
     }
 }
 
@@ -325,7 +327,7 @@ extension HomeViewController: HeroHeaderUiViewDelegate{
     
     
     func heroHeaderUiViewDidTapPlayButton(_ button: UIButton, movie: Movie) {
-        self.navigateToPreview3(with: movie)
+        self.navigateToPreview(with: movie)
     }
     
     func heroHeaderUiViewDidTapDownloadButton(_ button: UIButton, movie: Movie) {
@@ -334,13 +336,13 @@ extension HomeViewController: HeroHeaderUiViewDelegate{
 }
 
 extension HomeViewController : HomeViewModeloutput {
-    func didLoadCategories(_ categories: [TabbarCategory]) {
+    func didLoadCategories(_ categories: [HomeTabCategory]) {
         self.tabbarCategories = categories
         self.categoryCollectionView.reloadData()
     }
     
     
-    func didFetchHomeData(_ homeData: HomeMovies) {
+    func didFetchHomeData(_ homeData: HomeMovieUiModel) {
         self.homeData = homeData
         self.headerView?.configure(with: homeData.headerMovie)
         self.homeFeedTable.reloadData()

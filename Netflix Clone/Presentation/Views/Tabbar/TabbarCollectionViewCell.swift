@@ -14,8 +14,8 @@ class TabbarCollectionViewCell: UICollectionViewCell {
     private let label: UILabel = {
         let label = UILabel()
         label.text = "Cornered Text"
-        label.font = UIFont.systemFont(ofSize: 11)
         label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 11, weight: .semibold)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -35,7 +35,7 @@ class TabbarCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         
-        contentView.layer.cornerRadius = 15
+        contentView.layer.cornerRadius = CGFloat(Constant.tabBarItemHeight / 2)
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.white.cgColor
         contentView.layer.masksToBounds = true
@@ -55,9 +55,9 @@ class TabbarCollectionViewCell: UICollectionViewCell {
         fatalError()
     }
     
-    func configure(_ tabbarCategory : TabbarCategory) {
-        label.text = tabbarCategory.category
-        downImageView.isHidden = tabbarCategory.category != TabbarCategoryType.All.rawValue
+    func configure(_ tabbarCategory : HomeTabCategory) {
+        label.text = tabbarCategory.category.rawValue
+        downImageView.isHidden = true
     }
     
     private func applyConstraints(){
