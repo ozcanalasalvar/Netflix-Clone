@@ -12,8 +12,11 @@ class NewAndHotViewController: UIViewController{
     private var viewModel: NewAndHotViewModel!
     private var newAndHots: [MovieUiModel] = []
     private var categories: [NewHotCategory] = []
-    private var centerCell : NewAndHotCollectionViewCell?
     private var tabbarHeightConsraint: NSLayoutConstraint!
+    
+    private var isMuted: Bool = true
+    // Track the currently playing video
+    private var currentlyPlayingIndexPath: IndexPath? = IndexPath(row: 0, section: 0)
     
     private let newAndHotCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -72,15 +75,16 @@ class NewAndHotViewController: UIViewController{
         super.viewWillAppear(animated)
         print("viewWillAppear")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.centerCell?.playTralier()
+            self?.playPlayerIndexAt(self?.currentlyPlayingIndexPath)
         }
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        centerCell?.pauseTralier()
+        self.pausePlayerIndexAt(currentlyPlayingIndexPath)
     }
+
     
     var initialFrameSetted : Bool = false
     
@@ -193,7 +197,10 @@ extension NewAndHotViewController : NewAndHotViewModelOutput {
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-            self?.findCenterAndPlay()
+            guard let index = self?.currentlyPlayingIndexPath else { return }
+            if let cell = self?.newAndHotCollectionView.cellForItem(at: index)  as? NewAndHotCollectionViewCell {
+                cell.playTralier()
+            }
         })
         
     }
@@ -207,6 +214,7 @@ extension NewAndHotViewController : NewAndHotViewModelOutput {
 
 
 extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NewAndHotCollectionViewCellDelegate {
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == newAndHotCollectionView {
@@ -245,7 +253,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == newAndHotCollectionView {
             collectionView.deselectItem(at: indexPath, animated: false)
-            centerCell?.pauseTralier()
+            pausePlayerIndexAt(currentlyPlayingIndexPath)
             self.navigateToPreview(with: newAndHots[indexPath.row].movie)
         } else {
             collectionView.deselectItem(at: indexPath, animated: false)
@@ -253,10 +261,10 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
             viewModel.updateCategorySelection(section: section)
             
             if let firstVİsibleItemIndex = newAndHots.firstIndex(where: { $0.categoryType == section}) {
-                let itemToScroll = newAndHots.index(after: firstVİsibleItemIndex)
+                let itemToScroll = newAndHots.index(after: firstVİsibleItemIndex-1)
                 let indexPath = IndexPath(item: itemToScroll, section: 0)
-                newAndHotCollectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
-                
+                newAndHotCollectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+                viewModel.loadVideoForIndexedCell(index: indexPath.item)
             }
         }
         
@@ -266,7 +274,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let view = scrollView as? UICollectionView else { return }
         if view == newAndHotCollectionView {
-            findCenterAndPlay()
+            //findCenterAndPlay()
         }
     }
     
@@ -274,7 +282,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
         if !decelerate {
             guard let view = scrollView as? UICollectionView else { return }
             if view == newAndHotCollectionView {
-                findCenterAndPlay()
+                //findCenterAndPlay()
             }
         }
     }
@@ -282,7 +290,8 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let view = scrollView as? UICollectionView else { return }
         if view == newAndHotCollectionView {
-            pauseOffCenterPlayers()
+            //pauseOffCenterPlayers()
+            findCenterAndPlay()
             guard let visibleIndex = newAndHotCollectionView.indexPathsForVisibleItems.first else  { return }
             viewModel.updateCategorySelection(section: newAndHots[visibleIndex.item].categoryType)
            
@@ -293,6 +302,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func newAndHotCollectionViewCellDidTapSound(_ cell: NewAndHotCollectionViewCell, isMuted: Bool) {
         newAndHotCollectionView.visibleCells.forEach { cell in
             (cell as? NewAndHotCollectionViewCell)?.isMuted = isMuted
+            self.isMuted = isMuted
         }
     }
     
@@ -304,6 +314,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
 extension NewAndHotViewController {
     
     func findCenterAndPlay(){
+
         guard newAndHotCollectionView.visibleCells is [NewAndHotCollectionViewCell] else { return }
         
         let visibleIndexPaths = newAndHotCollectionView.indexPathsForVisibleItems
@@ -314,12 +325,15 @@ extension NewAndHotViewController {
                 let cellFrame = newAndHotCollectionView.convert(cell.frame, to: newAndHotCollectionView.superview)
                 let collectionViewCenter = newAndHotCollectionView.center.y
                 
-                if cellFrame.midY > collectionViewCenter - cell.frame.height / 2 && cellFrame.midY < collectionViewCenter + cell.frame.height / 2 {
-                    cell.playTralier()
-                    centerCell = cell
-                    viewModel.loadVideoForIndexedCell(index : indexPath.item)
-                } else {
-                    cell.pauseTralier()
+                if currentlyPlayingIndexPath != indexPath {
+                    if cellFrame.midY > collectionViewCenter - cell.frame.height / 2 && cellFrame.midY < collectionViewCenter + cell.frame.height / 2 {
+                        cell.playTralier()
+                        viewModel.loadVideoForIndexedCell(index : indexPath.item)
+                        currentlyPlayingIndexPath = indexPath
+                    } else {
+                        cell.pauseTralier()
+                    }
+                    cell.isMuted = self.isMuted
                 }
             }
         }
@@ -336,6 +350,70 @@ extension NewAndHotViewController {
             if cellFrameInCollectionView.midY > collectionViewCenter - cell.frame.height / 2 && cellFrameInCollectionView.midY < collectionViewCenter + cell.frame.height / 2 {
             } else {
                 cell.pauseTralier()
+            }
+        }
+    }
+    
+    
+    func pausePlayerIndexAt(_ indexPath : IndexPath?){
+        if let path = indexPath {
+            if let cell = newAndHotCollectionView.cellForItem(at: path)  as? NewAndHotCollectionViewCell {
+                cell.pauseTralier()
+            }
+        }
+    }
+    
+    func playPlayerIndexAt(_ indexPath : IndexPath?){
+        if let path = indexPath {
+            if let cell = newAndHotCollectionView.cellForItem(at: path)  as? NewAndHotCollectionViewCell {
+                cell.playTralier()
+            }
+        }
+    }
+    
+    func updatePlayer(){
+        // Get the center point of the collection view
+        let centerPoint = CGPoint(x: newAndHotCollectionView.contentOffset.x + newAndHotCollectionView.bounds.size.width / 2,
+                                  y: newAndHotCollectionView.contentOffset.y + newAndHotCollectionView.bounds.size.height / 2)
+        
+        // Get the index paths of all visible cells
+        let visibleIndexPaths = newAndHotCollectionView.indexPathsForVisibleItems
+        
+        var closestCellIndexPath: IndexPath?
+        var closestDistance: CGFloat = CGFloat.greatestFiniteMagnitude
+        
+        // Loop through all visible cells to find the closest to the center
+        for indexPath in visibleIndexPaths {
+            if let cell = newAndHotCollectionView.cellForItem(at: indexPath) {
+                let cellFrame = newAndHotCollectionView.convert(cell.frame, to: newAndHotCollectionView.superview)
+                let cellCenter = CGPoint(x: cellFrame.origin.x + cellFrame.size.width / 2,
+                                         y: cellFrame.origin.y + cellFrame.size.height / 2)
+                let distance = hypot(centerPoint.x - cellCenter.x, centerPoint.y - cellCenter.y)
+                
+                if distance < closestDistance {
+                    closestDistance = distance
+                    closestCellIndexPath = indexPath
+                }
+            }
+        }
+        
+        // Play the video in the closest centered cell and pause others
+        if let indexPath = closestCellIndexPath {
+            if currentlyPlayingIndexPath != indexPath {
+                // Pause the currently playing video
+                if let currentlyPlayingIndexPath = currentlyPlayingIndexPath,
+                   let currentCell = newAndHotCollectionView.cellForItem(at: currentlyPlayingIndexPath) as? NewAndHotCollectionViewCell {
+                    currentCell.pauseTralier()
+                }
+                
+                // Play the new centered video
+                if let cell = newAndHotCollectionView.cellForItem(at: indexPath) as? NewAndHotCollectionViewCell {
+                    cell.playTralier()
+                    viewModel.loadVideoForIndexedCell(index : indexPath.item)
+                }
+                
+                // Update the currently playing video
+                currentlyPlayingIndexPath = indexPath
             }
         }
     }

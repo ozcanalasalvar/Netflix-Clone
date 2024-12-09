@@ -16,7 +16,6 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     
     
     func videoViewDelegateVideoLoadDidFinish(_ videoView: VideoView) {
-        //playTralier()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             self?.movieImageView.isHidden = true
         })
@@ -126,20 +125,31 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         accessibilityElements = [subview, overviewLabel]
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        // Pause the video when the cell is reused
+        videoView.pauseTralier()
+    }
    
     
     func playTralier(){
-        videoView.playTralier()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-            self?.movieImageView.isHidden = true
-        })
+        if movie?.tralierKey != nil {
+            videoView.playTralier()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+                self?.movieImageView.isHidden = true
+            })
+        }
+       
     }
     
     func pauseTralier(){
-        videoView.pauseTralier()
-        UIView.animate(withDuration: 0.5) {
-            self.movieImageView.isHidden = false
+        if movie?.tralierKey != nil {
+            videoView.pauseTralier()
+            UIView.animate(withDuration: 0.5) {
+                self.movieImageView.isHidden = false
+            }
         }
+       
     }
     
     
@@ -153,6 +163,7 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         videoView.unmuteVideo()
     }
     
+    private var movie: Movie?
     
     func configure(with movie:Movie){
         
@@ -162,6 +173,7 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         
         guard let videoID = movie.tralierKey else { return }
 
+        self.movie = movie
         videoView.configure(with:movie.backDropUrl , videoID: videoID)
     }
     

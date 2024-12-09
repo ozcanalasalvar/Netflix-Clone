@@ -63,6 +63,7 @@ class NewAndHotViewModel : NSObject {
             switch result {
             case .success(let movies):
                 self.movies = movies.sorted() //Sort result for right order
+                self.loadVideoForIndexedCell(index: 0) 
                 self.delegate?.moviesFetched(categories: self.categories , movies: self.movies)
             case .failure(let error):
                 print(error)
