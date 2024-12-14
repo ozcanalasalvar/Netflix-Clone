@@ -93,7 +93,7 @@ class VideoView: UIView, WKNavigationDelegate {
                 print("Error starting video: \(error.localizedDescription)")
                 self.movieImageView.isHidden = false
                 self.tryCounter = self.tryCounter + 1
-                if self.tryCounter < 2 {
+                if self.tryCounter < 3 {
                     self.playTralier()
                 }
             } else {
@@ -135,7 +135,7 @@ class VideoView: UIView, WKNavigationDelegate {
         let jsCode = "document.querySelector('iframe').contentWindow.postMessage('{\"event\":\"command\",\"func\":\"unMute\",\"args\":[]}', '*');"
         videoView.evaluateJavaScript(jsCode) { (result, error) in
             if let error = error {
-                print("Error unmuting video: \(error.localizedDescription)")
+               // print("Error unmuting video: \(error.localizedDescription)")
             }
         }
     }

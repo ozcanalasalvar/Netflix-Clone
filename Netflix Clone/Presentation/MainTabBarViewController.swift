@@ -18,23 +18,24 @@ class MainTabBarViewController: UITabBarController {
         
         let homeVC = HomeViewController()
         let newAndHotVC = NewAndHotViewController()
-        let downloadsVC = UINavigationController(rootViewController: DownloadsViewController())
+        let myNetflixVC = MyNetflixViewController()
+//        let downloadsVC = UINavigationController(rootViewController: DownloadsViewController())
         
         
         homeVC.tabBarItem.image = UIImage(systemName: "house")
         newAndHotVC.tabBarItem.image = UIImage(systemName: "play.rectangle.on.rectangle")
-        downloadsVC.tabBarItem.image = UIImage(systemName: "arrow.down.to.line")
+        myNetflixVC.tabBarItem.image = UIImage(systemName: "arrow.down.to.line")
         
         
         homeVC.title  = "Home"
         newAndHotVC.title  = "New & Hot"
-        downloadsVC.title  = "My Netflix"
+        myNetflixVC.title  = "My Netflix"
         
         
         self.tabBar.tintColor = .label
         //self.tabBar.unselectedItemTintColor = .green
         
-        setViewControllers([homeVC,newAndHotVC,downloadsVC], animated: true)
+        setViewControllers([homeVC,newAndHotVC,myNetflixVC], animated: true)
     }
 
 

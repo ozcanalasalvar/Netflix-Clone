@@ -27,13 +27,7 @@ class TabbarView : UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-    
-//     let subItemView : UIView = {
-//        let view = UIView()
-//        return view
-//    }()
-//    
+
     
     var blurEffectView : UIVisualEffectView!
     
@@ -121,20 +115,9 @@ class TabbarView : UIView {
             iconStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             iconStackView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
         ]
-        
-//        subItemViewHeightConstraint = subItemView.heightAnchor.constraint(equalToConstant: 30)
-        
-//        let subItemViewViewConstraints = [
-//            subItemView.leadingAnchor.constraint(equalTo:leadingAnchor, constant: 20),
-//            subItemView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-//            subItemView.bottomAnchor.constraint(equalTo: bottomAnchor),
-//            subItemViewHeightConstraint!,
-//        ]
-//        
-//        
+             
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(iconStackViewConstraints)
-//        NSLayoutConstraint.activate(subItemViewViewConstraints)
     }
     
 }
