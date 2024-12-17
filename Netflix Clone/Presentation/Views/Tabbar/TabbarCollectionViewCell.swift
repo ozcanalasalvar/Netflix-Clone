@@ -58,6 +58,8 @@ class TabbarCollectionViewCell: UICollectionViewCell {
     func configure(_ tabbarCategory : HomeTabCategory) {
         label.text = tabbarCategory.category.rawValue
         downImageView.isHidden = true
+        
+        contentView.backgroundColor = tabbarCategory.isSelected ? UIColor.lightGray : UIColor.clear
     }
     
     private func applyConstraints(){
@@ -67,15 +69,10 @@ class TabbarCollectionViewCell: UICollectionViewCell {
             label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ]
         
-//        label.setContentHuggingPriority(.required, for: .horizontal) // Make sure label hugs its content
-//        label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        
         let downImageViewConstraints = [
             downImageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5),
             downImageView.topAnchor.constraint(equalTo: label.topAnchor),
             downImageView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
-//            downImageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 16),
-//            downImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 16),
         ]
         
         NSLayoutConstraint.activate(labelConstraints)

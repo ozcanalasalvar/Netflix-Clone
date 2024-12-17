@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10895922D105ABA00162025 /* AccountSeactionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10895912D105AAD00162025 /* AccountSeactionHeaderView.swift */; };
 		A14E053B2CEFD95200DD4092 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053A2CEFD94C00DD4092 /* VideoView.swift */; };
 		A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */; };
 		A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FDC2CD956B0005DE4D1 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 		A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E92CF10F8B007A854D /* HomeRepository.swift */; };
 		A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */; };
 		A197E8482CF52D2A005BDF32 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197E8472CF52D1F005BDF32 /* TabbarView.swift */; };
+		A1A88EA02D0E221F007E059C /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A88E9F2D0E21F3007E059C /* AccountHeaderView.swift */; };
 		A1AAC4952CFE688A0062C75B /* TabbarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */; };
 		A1AAC4972CFE74B20062C75B /* HomeTabCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4962CFE74A80062C75B /* HomeTabCategory.swift */; };
 		A1AAC49A2CFFBB8B0062C75B /* NewAndHotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4992CFFBB870062C75B /* NewAndHotViewModel.swift */; };
@@ -50,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A10895912D105AAD00162025 /* AccountSeactionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSeactionHeaderView.swift; sourceTree = "<group>"; };
 		A14E053A2CEFD94C00DD4092 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A1537FD92CD956B0005DE4D1 /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +83,7 @@
 		A161D7E92CF10F8B007A854D /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
 		A197E8472CF52D1F005BDF32 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		A1A88E9F2D0E21F3007E059C /* AccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
 		A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1AAC4962CFE74A80062C75B /* HomeTabCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabCategory.swift; sourceTree = "<group>"; };
 		A1AAC4992CFFBB870062C75B /* NewAndHotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAndHotViewModel.swift; sourceTree = "<group>"; };
@@ -242,6 +246,7 @@
 		A161D7DD2CF0ED1C007A854D /* MyNetflix */ = {
 			isa = PBXGroup;
 			children = (
+				A1A88E9E2D0E21EB007E059C /* View */,
 				A1537FF72CD95B49005DE4D1 /* MyNetflixViewController.swift */,
 			);
 			path = MyNetflix;
@@ -300,6 +305,15 @@
 				A161D7E72CF10DF6007A854D /* HomeMovieUiModel.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		A1A88E9E2D0E21EB007E059C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A10895912D105AAD00162025 /* AccountSeactionHeaderView.swift */,
+				A1A88E9F2D0E21F3007E059C /* AccountHeaderView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A1AAC4932CFE686A0062C75B /* Tabbar */ = {
@@ -437,6 +451,8 @@
 				A1AAC4AF2D00F4A90062C75B /* NewHotCategory.swift in Sources */,
 				A1AAC4A02CFFBFE80062C75B /* Sections.swift in Sources */,
 				A15380132CDCCBFD005DE4D1 /* NewAndHotCollectionViewCell.swift in Sources */,
+				A10895922D105ABA00162025 /* AccountSeactionHeaderView.swift in Sources */,
+				A1A88EA02D0E221F007E059C /* AccountHeaderView.swift in Sources */,
 				A1AAC4972CFE74B20062C75B /* HomeTabCategory.swift in Sources */,
 				A153801C2CE524DF005DE4D1 /* YoutubeSearchResponse.swift in Sources */,
 				A1537FDF2CD956B0005DE4D1 /* SceneDelegate.swift in Sources */,

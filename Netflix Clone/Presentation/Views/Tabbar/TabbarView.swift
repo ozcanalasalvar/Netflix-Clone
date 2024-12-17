@@ -27,7 +27,6 @@ class TabbarView : UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
     
     var blurEffectView : UIVisualEffectView!
     
@@ -74,7 +73,6 @@ class TabbarView : UIView {
     }
     
     private var titleConstraints : [NSLayoutConstraint]!
-    private var subItemViewHeightConstraint : NSLayoutConstraint!
     
     func setTopPadding(_ padding: CGFloat){
         let titleLabelConstraints = [
@@ -114,8 +112,8 @@ class TabbarView : UIView {
         let iconStackViewConstraints = [
             iconStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             iconStackView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            iconStackView.widthAnchor.constraint(equalToConstant: 100)
         ]
-             
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(iconStackViewConstraints)
     }

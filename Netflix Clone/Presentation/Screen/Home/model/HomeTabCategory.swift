@@ -8,7 +8,7 @@
 
 struct HomeTabCategory {
     let category: HomeTabCategoryType
-    let isSelected: Bool
+    var isSelected: Bool
 }
 
 enum HomeTabCategoryType: String{

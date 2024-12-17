@@ -110,8 +110,8 @@ class HeroHeaderUiView: UIView {
         ]
         
         let heroImageViewConstraints = [
-            heroImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:20),
-            heroImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            heroImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            heroImageView.widthAnchor.constraint(equalToConstant: bounds.width-40),
             heroImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             heroImageView.topAnchor.constraint(equalTo: topAnchor, constant: 140)
         ]

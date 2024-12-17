@@ -274,36 +274,6 @@
             endingLineNumber = "406"
             landmarkName = "updatePlayer()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "81D8DA07-42A6-4F37-B232-2869B844C817 - b629b8c72732b5ff"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Netflix_Clone.NewAndHotViewController.updatePlayer() -&gt; ()"
-                  moduleName = "Netflix Clone.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ozcanalasalvar/Documents/iosApp/Netflix%20Clone/Netflix%20Clone/Presentation/Screen/NewAndHot/NewAndHotViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "407"
-                  endingLineNumber = "407">
-               </Location>
-               <Location
-                  uuid = "81D8DA07-42A6-4F37-B232-2869B844C817 - b629b8c72732b520"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Netflix_Clone.NewAndHotViewController.updatePlayer() -&gt; ()"
-                  moduleName = "Netflix Clone.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ozcanalasalvar/Documents/iosApp/Netflix%20Clone/Netflix%20Clone/Presentation/Screen/NewAndHot/NewAndHotViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "406"
-                  endingLineNumber = "406">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -320,36 +290,6 @@
             endingLineNumber = "411"
             landmarkName = "updatePlayer()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "35E370C8-EB32-4BDD-80CD-9CB51ADC9734 - b629b8c72732b67b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Netflix_Clone.NewAndHotViewController.updatePlayer() -&gt; ()"
-                  moduleName = "Netflix Clone.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ozcanalasalvar/Documents/iosApp/Netflix%20Clone/Netflix%20Clone/Presentation/Screen/NewAndHot/NewAndHotViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "411"
-                  endingLineNumber = "411">
-               </Location>
-               <Location
-                  uuid = "35E370C8-EB32-4BDD-80CD-9CB51ADC9734 - b629b8c72732b67b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Netflix_Clone.NewAndHotViewController.updatePlayer() -&gt; ()"
-                  moduleName = "Netflix Clone.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ozcanalasalvar/Documents/iosApp/Netflix%20Clone/Netflix%20Clone/Presentation/Screen/NewAndHot/NewAndHotViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "411"
-                  endingLineNumber = "411">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

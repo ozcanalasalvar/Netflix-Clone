@@ -106,31 +106,16 @@ class NewAndHotViewModel : NSObject {
             switch result {
             case .success(let tralierKey):
                 let uiModel =  self.movies[index]
-                let movie = uiModel.movie
+                var movie = uiModel.movie
                 
                 print("movie \(String(describing: movie.title)) tralier key \(String(describing: tralierKey))")
                 
-                var updatedMovie = Movie(
-                    id: movie.id ,
-                    title: movie.title ,
-                    name: movie.name ,
-                    backdropPath: movie.backdropPath ,
-                    posterPath: movie.posterPath ,
-                    overview: movie.overview ,
-                    voteAverage: movie.voteAverage ,
-                    voteCount: movie.voteCount ,
-                    runtime: movie.runtime ,
-                    releaseDate: movie.releaseDate ,
-                    videos: movie.videos,
-                    genres: movie.genres
-                )
-                
-                updatedMovie.setTralierKey(key: tralierKey)
+                movie.setTralierKey(key: tralierKey)
                 
                 self.movies[index] = MovieUiModel(
                     priority: uiModel.priority,
                     categoryType: uiModel.categoryType,
-                    movie: updatedMovie
+                    movie: movie
                 )
 
                 self.movies = self.movies.sorted() //Sort result for right order

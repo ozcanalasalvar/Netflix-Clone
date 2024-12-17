@@ -23,7 +23,7 @@ class HomeViewModel : NSObject {
     private var categories: [HomeTabCategory] = [
         HomeTabCategory(category: HomeTabCategoryType.MovieSection, isSelected: false),
         HomeTabCategory(category: HomeTabCategoryType.TVSection, isSelected: false),
-        HomeTabCategory(category: HomeTabCategoryType.All, isSelected: false),
+        HomeTabCategory(category: HomeTabCategoryType.All, isSelected: true),
     ]
     
     override init() {
@@ -68,6 +68,15 @@ class HomeViewModel : NSObject {
             } else {
                 self.delegate?.didFetchMovieFailed("Data haven't been fetched")
             }
+        }
+        
+        let selectedIndex = categories.firstIndex { $0.category == category.category }
+        
+        if selectedIndex != nil {
+            categories.indices.forEach { index in
+                categories[index].isSelected = index == selectedIndex
+            }
+            delegate?.didLoadCategories(categories)
         }
         
     }
