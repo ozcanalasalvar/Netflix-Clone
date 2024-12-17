@@ -113,7 +113,7 @@ class HeroHeaderUiView: UIView {
             heroImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             heroImageView.widthAnchor.constraint(equalToConstant: bounds.width-40),
             heroImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-            heroImageView.topAnchor.constraint(equalTo: topAnchor, constant: 140)
+            heroImageView.topAnchor.constraint(equalTo: topAnchor, constant: 150)
         ]
         
         NSLayoutConstraint.activate(playButtonConstraints)
