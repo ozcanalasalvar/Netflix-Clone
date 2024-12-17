@@ -14,7 +14,7 @@ protocol SearchResultViewControllerDelegate : AnyObject {
 class SearchResultViewController: UIViewController {
 
     
-    private var movieResults: [Movie] = []
+    private var movieResults: [MovieData] = []
     weak var delegate: SearchResultViewControllerDelegate?
     
     let searchCollectionView : UICollectionView = {
@@ -46,7 +46,7 @@ class SearchResultViewController: UIViewController {
         searchCollectionView.frame = view.bounds
     }
     
-    public func configure(with resultOfMovies : [Movie]){
+    public func configure(with resultOfMovies : [MovieData]){
         movieResults.removeAll()
         movieResults = resultOfMovies
         
@@ -71,7 +71,7 @@ extension SearchResultViewController : UICollectionViewDelegate,UICollectionView
             return UICollectionViewCell()
         }
         
-        cell.configure(with: movieResults[indexPath.row])
+        cell.configure(with: movieResults[indexPath.row].mapToMovie())
         
         return cell
     }
@@ -79,6 +79,6 @@ extension SearchResultViewController : UICollectionViewDelegate,UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        self.delegate?.searchResultViewControllerDidTapItem(self, movie: movieResults[indexPath.row])
+        self.delegate?.searchResultViewControllerDidTapItem(self, movie: movieResults[indexPath.row].mapToMovie())
     }
 }

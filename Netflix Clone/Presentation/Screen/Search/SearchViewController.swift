@@ -23,7 +23,7 @@ class SearchViewController: UIViewController {
         return controller
     }()
     
-    private var movies :  [Movie] = []
+    private var movies :  [MovieData] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,7 +133,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        self.navigationController?.navigateToPreview(with: movies[indexPath.row])
+        self.navigationController?.navigateToPreview(with: movies[indexPath.row].mapToMovie())
     }
     
 }

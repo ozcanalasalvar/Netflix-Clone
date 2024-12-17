@@ -52,7 +52,7 @@ class DefaultNewAndHotRepository :  NewAndHotRepoistory {
         movieService.fetchMovies(from: MovieListEndpoint.popular) { result in
             switch result{
             case .success(let response):
-                popular = response.results
+                popular = response.results.map { $0.mapToMovie() }
                 
             case .failure(let error):
                 popularError = error
@@ -65,7 +65,7 @@ class DefaultNewAndHotRepository :  NewAndHotRepoistory {
         movieService.fetchMovies(from: MovieListEndpoint.upComing) { result in
             switch result{
             case .success(let response):
-                upComing = response.results
+                upComing = response.results.map { $0.mapToMovie() }
                 
             case .failure(let error):
                 upComingError = error
@@ -78,7 +78,7 @@ class DefaultNewAndHotRepository :  NewAndHotRepoistory {
         movieService.fetchMovies(from: MovieListEndpoint.topRated) { result in
             switch result{
             case .success(let response):
-                topRated = response.results
+                topRated = response.results.map { $0.mapToMovie() }
                 
             case .failure(let error):
                 topRatedError = error
@@ -91,7 +91,7 @@ class DefaultNewAndHotRepository :  NewAndHotRepoistory {
         movieService.fetchMovies(from: MovieListEndpoint.topRatedTv) { result in
             switch result{
             case .success(let response):
-                topRatedTv = response.results
+                topRatedTv = response.results.map { $0.mapToMovie() }
                 
             case .failure(let error):
                 topRatedTvError = error

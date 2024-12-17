@@ -120,14 +120,14 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         MovieServiceImpl.shared.fetchMovie(id: movieId){ [weak self] result in
             switch result {
             case .success(let movie) :
-                if  movie.youtubeTraliers?.isEmpty == true {
+                if  movie.mapToMovie().youtubeTraliers?.isEmpty == true {
                     return
                 }
-                guard let traliers = movie.youtubeTraliers else {return}
+                guard let traliers = movie.mapToMovie().youtubeTraliers else {return}
                 let videoId = traliers[0].key
                 
                 print(videoId)
-                self?.videoView.configure(with: movie.backDropUrl, videoID: videoId)
+                self?.videoView.configure(with: movie.mapToMovie().backDropUrl, videoID: videoId)
                 
             case .failure(let error):
                 print(error.localizedDescription)

@@ -33,7 +33,7 @@ class MovieServiceImpl : MovieService{
     
     }
     
-    func fetchMovie(id: Int, completion: @escaping (Result<Movie, MovieError>) -> ()) {
+    func fetchMovie(id: Int, completion: @escaping (Result<MovieData, MovieError>) -> ()) {
         guard let url = URL(string: "\(baseAPIURL)movie/\(id)") else {
             completion(.failure(.invalidEndpoint))
             return
