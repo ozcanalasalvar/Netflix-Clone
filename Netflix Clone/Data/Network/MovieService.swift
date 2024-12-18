@@ -43,6 +43,7 @@ enum MovieError : Error{
     case invalidResponse
     case noData
     case serializationError
+    case localFetchError
     
     var localizedDescription : String {
         switch self {
@@ -51,6 +52,7 @@ enum MovieError : Error{
         case .invalidResponse: return "Invalid response"
         case .noData: return "No data"
         case .serializationError: return "Failed to decode data"
+        case .localFetchError: return "Cannot fetch movie from database"
         }
     }
     

@@ -10,6 +10,14 @@
 		A10895922D105ABA00162025 /* AccountSeactionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10895912D105AAD00162025 /* AccountSeactionHeaderView.swift */; };
 		A11322A62D11FA9B000F5A74 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322A52D11FA94000F5A74 /* Movie.swift */; };
 		A11322AA2D11FAFE000F5A74 /* MovieMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322A92D11FAF8000F5A74 /* MovieMapper.swift */; };
+		A11322AD2D120167000F5A74 /* MovieEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322AC2D12015C000F5A74 /* MovieEntity.swift */; };
+		A11322AF2D120E32000F5A74 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322AE2D120E20000F5A74 /* PersistenceManager.swift */; };
+		A11322B42D121D9C000F5A74 /* LocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322B32D121D86000F5A74 /* LocalSource.swift */; };
+		A11322B62D121DB2000F5A74 /* DefaultLocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322B52D121DAF000F5A74 /* DefaultLocalSource.swift */; };
+		A11322B82D135E91000F5A74 /* MoviePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322B72D135E8D000F5A74 /* MoviePreviewViewModel.swift */; };
+		A11322BB2D136ECB000F5A74 /* PreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322BA2D136EC6000F5A74 /* PreviewModel.swift */; };
+		A11322BD2D136FC1000F5A74 /* PreviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322BC2D136FBB000F5A74 /* PreviewRepository.swift */; };
+		A11322BF2D13712C000F5A74 /* DefaultPreviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322BE2D137127000F5A74 /* DefaultPreviewRepository.swift */; };
 		A14E053B2CEFD95200DD4092 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053A2CEFD94C00DD4092 /* VideoView.swift */; };
 		A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */; };
 		A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FDC2CD956B0005DE4D1 /* AppDelegate.swift */; };
@@ -57,6 +65,14 @@
 		A10895912D105AAD00162025 /* AccountSeactionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSeactionHeaderView.swift; sourceTree = "<group>"; };
 		A11322A52D11FA94000F5A74 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		A11322A92D11FAF8000F5A74 /* MovieMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMapper.swift; sourceTree = "<group>"; };
+		A11322AC2D12015C000F5A74 /* MovieEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieEntity.swift; sourceTree = "<group>"; };
+		A11322AE2D120E20000F5A74 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		A11322B32D121D86000F5A74 /* LocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSource.swift; sourceTree = "<group>"; };
+		A11322B52D121DAF000F5A74 /* DefaultLocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocalSource.swift; sourceTree = "<group>"; };
+		A11322B72D135E8D000F5A74 /* MoviePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePreviewViewModel.swift; sourceTree = "<group>"; };
+		A11322BA2D136EC6000F5A74 /* PreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModel.swift; sourceTree = "<group>"; };
+		A11322BC2D136FBB000F5A74 /* PreviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewRepository.swift; sourceTree = "<group>"; };
+		A11322BE2D137127000F5A74 /* DefaultPreviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPreviewRepository.swift; sourceTree = "<group>"; };
 		A14E053A2CEFD94C00DD4092 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A1537FD92CD956B0005DE4D1 /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +135,49 @@
 				A11322A92D11FAF8000F5A74 /* MovieMapper.swift */,
 			);
 			path = Mapper;
+			sourceTree = "<group>";
+		};
+		A11322AB2D12014E000F5A74 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				A11322B22D121D7D000F5A74 /* Source */,
+				A11322B12D121B0A000F5A74 /* Manager */,
+				A11322B02D121AFF000F5A74 /* Models */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		A11322B02D121AFF000F5A74 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A11322AC2D12015C000F5A74 /* MovieEntity.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A11322B12D121B0A000F5A74 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				A11322AE2D120E20000F5A74 /* PersistenceManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		A11322B22D121D7D000F5A74 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A11322B52D121DAF000F5A74 /* DefaultLocalSource.swift */,
+				A11322B32D121D86000F5A74 /* LocalSource.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		A11322B92D136EB5000F5A74 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A11322BA2D136EC6000F5A74 /* PreviewModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A1537FD02CD956B0005DE4D1 = {
@@ -198,9 +257,9 @@
 		A1537FFD2CDA3750005DE4D1 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A11322AB2D12014E000F5A74 /* Local */,
 				A161D7E32CF10DA0007A854D /* Repository */,
 				A161D7E02CF0FFE0007A854D /* Network */,
-				A1537FFB2CDA3721005DE4D1 /* Models */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -239,6 +298,8 @@
 		A161D7DB2CF0ECF0007A854D /* Preview */ = {
 			isa = PBXGroup;
 			children = (
+				A11322B92D136EB5000F5A74 /* Model */,
+				A11322B72D135E8D000F5A74 /* MoviePreviewViewModel.swift */,
 				A153801F2CE5323E005DE4D1 /* MoviePreviewViewController.swift */,
 			);
 			path = Preview;
@@ -276,6 +337,7 @@
 		A161D7E02CF0FFE0007A854D /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				A1537FFB2CDA3721005DE4D1 /* Models */,
 				A15380062CDA99DB005DE4D1 /* MovieServiceImpl.swift */,
 				A15380042CDA99C2005DE4D1 /* MovieService.swift */,
 			);
@@ -285,6 +347,7 @@
 		A161D7E32CF10DA0007A854D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				A11322BE2D137127000F5A74 /* DefaultPreviewRepository.swift */,
 				A1AAC4A32CFFC0900062C75B /* DefaultNewAndHotRepository.swift */,
 				A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */,
 			);
@@ -304,6 +367,7 @@
 		A161D7E52CF10DCF007A854D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				A11322BC2D136FBB000F5A74 /* PreviewRepository.swift */,
 				A1AAC4A12CFFC0210062C75B /* NewAndHotRepoistory.swift */,
 				A161D7E92CF10F8B007A854D /* HomeRepository.swift */,
 			);
@@ -444,25 +508,33 @@
 				A15380072CDA99DB005DE4D1 /* MovieServiceImpl.swift in Sources */,
 				A1537FF62CD95B2E005DE4D1 /* SearchViewController.swift in Sources */,
 				A1537FE12CD956B0005DE4D1 /* MainTabBarViewController.swift in Sources */,
+				A11322AD2D120167000F5A74 /* MovieEntity.swift in Sources */,
 				A1537FFF2CDA37A8005DE4D1 /* CollectionViewTableViewCell.swift in Sources */,
+				A11322B42D121D9C000F5A74 /* LocalSource.swift in Sources */,
 				A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */,
 				A11322A62D11FA9B000F5A74 /* Movie.swift in Sources */,
 				A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */,
 				A1AAC4AC2D00D60E0062C75B /* Constant.swift in Sources */,
 				A1AAC4952CFE688A0062C75B /* TabbarCollectionViewCell.swift in Sources */,
 				A1537FF82CD95B49005DE4D1 /* MyNetflixViewController.swift in Sources */,
+				A11322B82D135E91000F5A74 /* MoviePreviewViewModel.swift in Sources */,
 				A161D7E82CF10E0B007A854D /* HomeMovieUiModel.swift in Sources */,
 				A153800B2CDA9A98005DE4D1 /* Utils.swift in Sources */,
 				A15380232CE67AD2005DE4D1 /* NetflixCloneModel.xcdatamodeld in Sources */,
+				A11322AF2D120E32000F5A74 /* PersistenceManager.swift in Sources */,
 				A15380052CDA99C2005DE4D1 /* MovieService.swift in Sources */,
 				A1AAC49A2CFFBB8B0062C75B /* NewAndHotViewModel.swift in Sources */,
 				A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */,
 				A15380012CDA57DF005DE4D1 /* HeroHeaderUiView.swift in Sources */,
 				A1AAC49E2CFFBDEB0062C75B /* MovieUiModel.swift in Sources */,
 				A1537FF42CD95AEF005DE4D1 /* NewAndHotViewController.swift in Sources */,
+				A11322BD2D136FC1000F5A74 /* PreviewRepository.swift in Sources */,
+				A11322BB2D136ECB000F5A74 /* PreviewModel.swift in Sources */,
+				A11322BF2D13712C000F5A74 /* DefaultPreviewRepository.swift in Sources */,
 				A15380092CDA9A3B005DE4D1 /* MovieResponse.swift in Sources */,
 				A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */,
 				A1AAC4AA2D00CC160062C75B /* CategoryCollectionViewCell.swift in Sources */,
+				A11322B62D121DB2000F5A74 /* DefaultLocalSource.swift in Sources */,
 				A1AAC4AF2D00F4A90062C75B /* NewHotCategory.swift in Sources */,
 				A1AAC4A02CFFBFE80062C75B /* Sections.swift in Sources */,
 				A15380132CDCCBFD005DE4D1 /* NewAndHotCollectionViewCell.swift in Sources */,

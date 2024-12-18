@@ -11,6 +11,9 @@ import WebKit
 class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     
     
+    private var viewModel : MoviePreviewViewModel!
+    private var movie : Movie!
+    
     public let videoView : VideoView = {
         let wb = VideoView()
         wb.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +76,11 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel = MoviePreviewViewModel()
+        viewModel?.delegate = self
+        
+        viewModel?.fetchPreview(with: movie.id)
+        
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.transform = .identity
         
@@ -85,54 +93,40 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         
         videoView.delegate = self
         
-        configureConstraints()
-    }
-    
-    
-    func configure(movie: Movie){
         
-        print(movie.id)
-        titleLabel.text = movie.movieTitle
-        overViewLabel.text = movie.overview
-        movieImageView.downloaded(from: movie.backDropUrl,contentMode: .scaleAspectFill)
-        
-        fetchDetail(movieId: movie.id)
-        
-        downloadButton.addAction(UIAction(handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-                                }), for: .touchUpInside)
+        downloadButton.addTapGesture {
+            self.viewModel.updateDownloadStatus()
+        }
         
         
         
         closeImageView.addTapGesture {
             self.dismiss(animated: true)
         }
-
+        
+        configureConstraints()
     }
     
-//    @objc func tapDetected() {
-//        
-//    }
-//    
-   
-    private func fetchDetail(movieId:Int){
+    
+    func configure(movie: Movie){
+        self.movie = movie
+    }
+    
+    
+    func fillUi(with preview : PreviewModel){
+        let movie = preview.movie
+        titleLabel.text = movie.movieTitle
+        overViewLabel.text = movie.overview
+        movieImageView.downloaded(from: movie.backDropUrl,contentMode: .scaleAspectFill)
         
-        MovieServiceImpl.shared.fetchMovie(id: movieId){ [weak self] result in
-            switch result {
-            case .success(let movie) :
-                if  movie.mapToMovie().youtubeTraliers?.isEmpty == true {
-                    return
-                }
-                guard let traliers = movie.mapToMovie().youtubeTraliers else {return}
-                let videoId = traliers[0].key
-                
-                print(videoId)
-                self?.videoView.configure(with: movie.mapToMovie().backDropUrl, videoID: videoId)
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
+        if  movie.youtubeTraliers?.isEmpty == true {
+            return
         }
+        guard let traliers = movie.youtubeTraliers else {return}
+        let videoId = traliers[0].key
+        
+        print(videoId)
+        self.videoView.configure(with: movie.backDropUrl, videoID: videoId)
     }
     
     
@@ -206,5 +200,17 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         NSLayoutConstraint.activate(downloadButtonConstraints)
         NSLayoutConstraint.activate(closeImageViewConstraints)
     }
+    
+}
+
+extension MoviePreviewViewController: MoviePreviewViewModelOutput {
+    func previewFetched(movieDetail: PreviewModel) {
+        self.fillUi(with: movieDetail)
+    }
+    
+    func previewFetchFailed(error: String) {
+        print(error)
+    }
+    
     
 }
