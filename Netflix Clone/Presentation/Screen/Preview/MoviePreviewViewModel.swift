@@ -8,13 +8,13 @@
 import Foundation
 
 protocol MoviePreviewViewModelOutput {
-    func previewFetched(movieDetail : PreviewModel)
+    func previewFetched(preview : PreviewModel)
     func previewFetchFailed(error: String)
 }
 
 class MoviePreviewViewModel: NSObject {
     
-    private var movieDetail : PreviewModel!
+    private var preview : PreviewModel!
     private var repository : PreviewRepository!
     
     var delegate : MoviePreviewViewModelOutput?
@@ -29,8 +29,9 @@ class MoviePreviewViewModel: NSObject {
         repository.fetchPreview(id: id){ result in
             switch result{
             case .success(let movieDeta):
-                self.movieDetail = movieDeta
-                self.delegate?.previewFetched(movieDetail: movieDeta)
+                self.preview = movieDeta
+                self.setTralierWatched()
+                self.delegate?.previewFetched(preview: movieDeta)
             case .failure(let error):
                 self.delegate?.previewFetchFailed(error: error.localizedDescription)
             }
@@ -40,12 +41,12 @@ class MoviePreviewViewModel: NSObject {
     
     
     func updateDownloadStatus(){
-        repository.updateDownloadStatus(movie: movieDetail.movie, isDownloaded: !movieDetail.isDownloaed){ result in
+        repository.updateDownloadStatus(movie: preview.movie, isDownloaded: !preview.isDownloaed){ result in
             switch result {
             case .success(()):
-                var updatedMovie = self.movieDetail!
-                updatedMovie.isDownloaed = !self.movieDetail.isDownloaed
-                self.delegate?.previewFetched(movieDetail: updatedMovie)
+                var updatedMovie = self.preview!
+                updatedMovie.isDownloaed = !self.preview.isDownloaed
+                self.delegate?.previewFetched(preview: updatedMovie)
             case .failure(let error):
                 self.delegate?.previewFetchFailed(error: error.localizedDescription)
             }
@@ -53,12 +54,12 @@ class MoviePreviewViewModel: NSObject {
     }
     
     func updateFavoriteStatus(){
-        repository.updateFavoriteStatus(movie: movieDetail.movie, onFavorite: !movieDetail.isFavorite){ result in
+        repository.updateFavoriteStatus(movie: preview.movie, onFavorite: !preview.isFavorite){ result in
             switch result {
             case .success(()):
-                var updatedMovie = self.movieDetail!
-                updatedMovie.isFavorite = !self.movieDetail.isFavorite
-                self.delegate?.previewFetched(movieDetail: updatedMovie)
+                var updatedMovie = self.preview!
+                updatedMovie.isFavorite = !self.preview.isFavorite
+                self.delegate?.previewFetched(preview: updatedMovie)
             case .failure(let error):
                 self.delegate?.previewFetchFailed(error: error.localizedDescription)
             }
@@ -66,15 +67,21 @@ class MoviePreviewViewModel: NSObject {
     }
     
     func updateWatchListStatus(){
-        repository.updateWatchListStatus(movie: movieDetail.movie, onWatchList: !movieDetail.onWatchList){ result in
+        repository.updateWatchListStatus(movie: preview.movie, onWatchList: !preview.onWatchList){ result in
             switch result {
             case .success(()):
-                var updatedMovie = self.movieDetail!
-                updatedMovie.onWatchList = !self.movieDetail.onWatchList
-                self.delegate?.previewFetched(movieDetail: updatedMovie)
+                var updatedMovie = self.preview!
+                updatedMovie.onWatchList = !self.preview.onWatchList
+                self.delegate?.previewFetched(preview: updatedMovie)
             case .failure(let error):
                 self.delegate?.previewFetchFailed(error: error.localizedDescription)
             }
+        }
+    }
+    
+    private func setTralierWatched(){
+        repository.updateTralierWatchedStatus(movie: preview.movie, tralierWatched: true){ result in
+            
         }
     }
     

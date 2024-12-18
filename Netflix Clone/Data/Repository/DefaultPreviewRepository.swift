@@ -77,4 +77,10 @@ class DefaultPreviewRepository: PreviewRepository {
         localSource.updateFavoriteStatus(movie: movie, isFavorite: onFavorite, completion: completion)
     }
     
+    
+    func updateTralierWatchedStatus(movie: Movie, tralierWatched: Bool, completion: @escaping (Result<Void, MovieError>) -> ()) {
+        localSource.updateTralierWatchedStatus(movie: movie, tralierWatched: tralierWatched, completion: completion)
+    }
+    
+    
 }

@@ -14,5 +14,7 @@ protocol PreviewRepository {
     func updateWatchListStatus(movie : Movie, onWatchList : Bool, completion: @escaping( Result<Void,MovieError>) -> ())
     
     func updateFavoriteStatus(movie : Movie, onFavorite : Bool, completion: @escaping( Result<Void,MovieError>) -> ())
+    
+    func updateTralierWatchedStatus(movie : Movie, tralierWatched : Bool, completion: @escaping( Result<Void,MovieError>) -> ())
 
 }

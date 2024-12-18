@@ -204,8 +204,8 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
 }
 
 extension MoviePreviewViewController: MoviePreviewViewModelOutput {
-    func previewFetched(movieDetail: PreviewModel) {
-        self.fillUi(with: movieDetail)
+    func previewFetched(preview: PreviewModel) {
+        self.fillUi(with: preview)
     }
     
     func previewFetchFailed(error: String) {
