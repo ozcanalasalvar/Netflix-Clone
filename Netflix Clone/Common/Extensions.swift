@@ -61,7 +61,7 @@ extension UINavigationController {
     func navigateToPreview3(with movie : Movie){
         
         DispatchQueue.main.async { [weak self] in
-            let moviePreviewController = MoviePreviewViewController()
+            let moviePreviewController = MainPreviewViewController()
             moviePreviewController.configure(movie: movie)
             self?.pushViewController(moviePreviewController, animated: true)
         }
@@ -72,7 +72,7 @@ extension UIViewController {
     
     func navigateToPreview(with movie : Movie){
         DispatchQueue.main.async { [weak self] in
-            let moviePreviewController = MoviePreviewViewController()
+            let moviePreviewController = MainPreviewViewController()
             moviePreviewController.configure(movie: movie)
             self?.present(moviePreviewController, animated: true)
         }

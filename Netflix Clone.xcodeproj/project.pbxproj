@@ -22,6 +22,7 @@
 		A11322C42D1592DE000F5A74 /* AppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322C32D1592D8000F5A74 /* AppButton.swift */; };
 		A11322C62D15AB4E000F5A74 /* MovieType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322C52D15AB43000F5A74 /* MovieType.swift */; };
 		A11322C92D170313000F5A74 /* PreviewActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322C82D170313000F5A74 /* PreviewActionView.swift */; };
+		A11322CB2D177783000F5A74 /* MainPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322CA2D17776C000F5A74 /* MainPreviewViewController.swift */; };
 		A14E053B2CEFD95200DD4092 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053A2CEFD94C00DD4092 /* VideoView.swift */; };
 		A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */; };
 		A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FDC2CD956B0005DE4D1 /* AppDelegate.swift */; };
@@ -81,6 +82,7 @@
 		A11322C32D1592D8000F5A74 /* AppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButton.swift; sourceTree = "<group>"; };
 		A11322C52D15AB43000F5A74 /* MovieType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieType.swift; sourceTree = "<group>"; };
 		A11322C82D170313000F5A74 /* PreviewActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewActionView.swift; sourceTree = "<group>"; };
+		A11322CA2D17776C000F5A74 /* MainPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPreviewViewController.swift; sourceTree = "<group>"; };
 		A14E053A2CEFD94C00DD4092 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A1537FD92CD956B0005DE4D1 /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,6 +318,7 @@
 		A161D7DB2CF0ECF0007A854D /* Preview */ = {
 			isa = PBXGroup;
 			children = (
+				A11322CA2D17776C000F5A74 /* MainPreviewViewController.swift */,
 				A11322C02D14452D000F5A74 /* View */,
 				A11322B92D136EB5000F5A74 /* Model */,
 				A11322B72D135E8D000F5A74 /* MoviePreviewViewModel.swift */,
@@ -537,6 +540,7 @@
 				A1AAC4AC2D00D60E0062C75B /* ViewConstant.swift in Sources */,
 				A1AAC4952CFE688A0062C75B /* TabbarCollectionViewCell.swift in Sources */,
 				A1537FF82CD95B49005DE4D1 /* MyNetflixViewController.swift in Sources */,
+				A11322CB2D177783000F5A74 /* MainPreviewViewController.swift in Sources */,
 				A11322B82D135E91000F5A74 /* MoviePreviewViewModel.swift in Sources */,
 				A161D7E82CF10E0B007A854D /* HomeMovieUiModel.swift in Sources */,
 				A153800B2CDA9A98005DE4D1 /* Utils.swift in Sources */,

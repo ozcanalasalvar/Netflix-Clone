@@ -45,6 +45,21 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         return image
     }()
     
+    private let backImageView : UIImageView = {
+        let image : UIImageView = UIImageView()
+        image.layer.borderWidth = 1
+        image.image = UIImage(systemName: "chevron.left")
+        image.layer.masksToBounds = false
+        image.layer.backgroundColor = UIColor.black.withAlphaComponent(0.5).cgColor
+        image.layer.cornerRadius = 8
+        image.clipsToBounds = true
+        image.tintColor = .white
+        image.isHidden = true
+        image.isUserInteractionEnabled = true
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     private let tableView : UITableView = {
         let tableView = UITableView()
         tableView.register(ContentCell.self, forCellReuseIdentifier: ContentCell.identifier)
@@ -55,6 +70,12 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     }()
     
     private var preview: PreviewModel?
+    
+    var isBackEnabled : Bool = false {
+       didSet {
+            backImageView.isHidden = !isBackEnabled
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +92,7 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         view.addSubview(videoView)
         view.addSubview(movieImageView)
         view.addSubview(closeImageView)
+        view.addSubview(backImageView)
         view.addSubview(tableView)
         
         tableView.dataSource = self
@@ -82,9 +104,24 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
             self.dismiss(animated: true)
         }
         
+        backImageView.addTapGesture {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
         configureConstraints()
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        videoView.playTralier()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        videoView.pauseTralier()
+    }
+
     
     func configure(movie: Movie){
         self.movie = movie
@@ -168,9 +205,16 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
             closeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
         ]
         
+        
+        let backImageViewConstraints = [
+            backImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            backImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+        ]
+        
         NSLayoutConstraint.activate(webviewConstraints)
         NSLayoutConstraint.activate(movieImageViewConstraints)
         NSLayoutConstraint.activate(closeImageViewConstraints)
+        NSLayoutConstraint.activate(backImageViewConstraints)
     }
     
 }
@@ -201,7 +245,10 @@ extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSourc
     }
     
     func didSelectMovie(movie: Movie) {
-        
+        let nextVC = MoviePreviewViewController()
+        nextVC.configure(movie: movie)
+        nextVC.isBackEnabled = true
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     
