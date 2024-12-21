@@ -128,7 +128,7 @@ class HomeViewController: UIViewController  {
         tabbar.addSubview(categoryCollectionView)
         
         let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        let tabbarHeight = statusbarHeight + CGFloat(Constant.defaultTabbarHeight) + 10 //For Bottom padding
+        let tabbarHeight = statusbarHeight + CGFloat(ViewConstant.defaultTabbarHeight) + 10 //For Bottom padding
         
         tabbarHeightConsraint = tabbar.heightAnchor.constraint(equalToConstant: tabbarHeight)
         
@@ -140,7 +140,7 @@ class HomeViewController: UIViewController  {
         ]
         NSLayoutConstraint.activate(tabbarConstarints)
         
-        subItemViewHeightConstraint = categoryCollectionView.heightAnchor.constraint(equalToConstant: CGFloat(Constant.tabBarItemHeight))
+        subItemViewHeightConstraint = categoryCollectionView.heightAnchor.constraint(equalToConstant: CGFloat(ViewConstant.tabBarItemHeight))
         
         let subItemViewViewConstraints = [
             categoryCollectionView.leadingAnchor.constraint(equalTo: tabbar.leadingAnchor),
@@ -261,7 +261,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
                 self.expanedHeight
             }
             
-            self.subItemViewHeightConstraint.constant =  isScrollingUp ?  0 : CGFloat(Constant.tabBarItemHeight)
+            self.subItemViewHeightConstraint.constant =  isScrollingUp ?  0 : CGFloat(ViewConstant.tabBarItemHeight)
             
             self.view.layoutIfNeeded()
         })
@@ -295,7 +295,7 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         }else {
             width
         }
-        return CGSize(width: calculatedWidth, height: CGFloat(Constant.tabBarItemHeight))
+        return CGSize(width: calculatedWidth, height: CGFloat(ViewConstant.tabBarItemHeight))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

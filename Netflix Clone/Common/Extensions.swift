@@ -17,6 +17,17 @@ extension String {
     }
 }
 
+extension String {
+    
+    func toViewWidth(font : UIFont) -> CGFloat {
+        return self.size(withAttributes: [.font: font]).width
+    }
+    
+    func toViewHeight(font : UIFont) -> CGFloat {
+        return self.size(withAttributes: [.font: font]).height
+    }
+}
+
 
 extension UIImageView {
     func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {

@@ -10,7 +10,7 @@ import Foundation
 
 extension MovieData {
     
-    func mapToMovie() -> Movie {
+    func mapToMovie(_ type:String) -> Movie {
         
         return Movie(
             id: id,
@@ -24,6 +24,7 @@ extension MovieData {
             runtime: runtime,
             releaseDate: releaseDate,
             videos: videos,
-            genres: genres)
+            genres: genres,
+            type: type)
     }
 }

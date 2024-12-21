@@ -44,34 +44,14 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         return image
     }()
     
-    
-    
-    private let titleLabel : UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private let tableView : UITableView = {
+        let tableView = UITableView()
+        tableView.register(ContentCell.self, forCellReuseIdentifier: ContentCell.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
-    private let overViewLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .regular)
-        label.numberOfLines = 0 //allow multiple lines
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    
-    private let downloadButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .red
-        button.setTitle("Download", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 5
-        button.layer.masksToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private var preview: PreviewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,26 +59,21 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         viewModel = MoviePreviewViewModel()
         viewModel?.delegate = self
         
-        viewModel?.fetchPreview(with: movie.id)
+        viewModel?.fetchPreview(with: movie.id,type: movie.type ?? MovieType.movie)
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.transform = .identity
         
-        view.addSubview(titleLabel)
-        view.addSubview(overViewLabel)
-        view.addSubview(downloadButton)
+        
         view.addSubview(videoView)
         view.addSubview(movieImageView)
         view.addSubview(closeImageView)
+        view.addSubview(tableView)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
         
         videoView.delegate = self
-        
-        
-        downloadButton.addTapGesture {
-            self.viewModel.updateDownloadStatus()
-        }
-        
-        
         
         closeImageView.addTapGesture {
             self.dismiss(animated: true)
@@ -113,10 +88,13 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     }
     
     
-    func fillUi(with preview : PreviewModel){
+    private func fillUi(with preview : PreviewModel){
+        self.preview = preview
+        tableView.reloadData()
+        
         let movie = preview.movie
-        titleLabel.text = movie.movieTitle
-        overViewLabel.text = movie.overview
+        //        titleLabel.text = movie.movieTitle
+        //        overViewLabel.text = movie.overview
         movieImageView.downloaded(from: movie.backDropUrl,contentMode: .scaleAspectFill)
         
         if  movie.youtubeTraliers?.isEmpty == true {
@@ -170,24 +148,12 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
             movieImageView.topAnchor.constraint(equalTo: guide.topAnchor )
         ]
         
-        let titleLabelConstraints = [
-            titleLabel.topAnchor.constraint(equalTo: videoView.bottomAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
-        ]
-        
-        let overViewLabelConstraints = [
-            overViewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            overViewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            overViewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
-        ]
-        
-        let downloadButtonConstraints = [
-            downloadButton.topAnchor.constraint(equalTo: overViewLabel.bottomAnchor, constant: 50),
-            downloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            downloadButton.widthAnchor.constraint(equalToConstant: 100)
-        ]
-        
-        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: videoView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
         let closeImageViewConstraints = [
             closeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             closeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
@@ -195,11 +161,30 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         
         NSLayoutConstraint.activate(webviewConstraints)
         NSLayoutConstraint.activate(movieImageViewConstraints)
-        NSLayoutConstraint.activate(titleLabelConstraints)
-        NSLayoutConstraint.activate(overViewLabelConstraints)
-        NSLayoutConstraint.activate(downloadButtonConstraints)
         NSLayoutConstraint.activate(closeImageViewConstraints)
     }
+    
+}
+
+extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier) as? ContentCell else { return UITableViewCell() }
+        cell.selectionStyle = .none
+        guard let preview = self.preview else { return cell }
+        cell.configure(preview)
+        return cell
+    }
+    
     
 }
 

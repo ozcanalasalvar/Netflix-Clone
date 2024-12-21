@@ -126,7 +126,7 @@ class NewAndHotViewController: UIViewController{
         tabbar.addSubview(categoryCollectionView)
         
         let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        let barHeight = Constant.defaultTabbarHeight + Constant.tabBarItemHeight + 5 //For padding
+        let barHeight = ViewConstant.defaultTabbarHeight + ViewConstant.tabBarItemHeight + 5 //For padding
         let tabbarHeight = statusbarHeight + CGFloat(barHeight)
         tabbarHeightConsraint = tabbar.heightAnchor.constraint(equalToConstant: tabbarHeight)
         
@@ -146,7 +146,7 @@ class NewAndHotViewController: UIViewController{
             categoryCollectionView.bottomAnchor.constraint(equalTo: tabbar.bottomAnchor, constant: -5),
             categoryCollectionView.leadingAnchor.constraint(equalTo: tabbar.leadingAnchor),
             categoryCollectionView.trailingAnchor.constraint(equalTo: tabbar.trailingAnchor),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: CGFloat(Constant.tabBarItemHeight)),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: CGFloat(ViewConstant.tabBarItemHeight)),
         ])
     }
     
@@ -240,10 +240,10 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == categoryCollectionView {
             let category = categories[indexPath.row] 
-            let width = category.title.size(withAttributes: [.font: UIFont.systemFont(ofSize: 11, weight: .semibold)]).width + 20 
+            let width = category.title.toViewWidth(font: UIFont.systemFont(ofSize: 11, weight: .semibold)) + 20 
             
             let calculatedWidth = width + 20
-            return CGSize(width: calculatedWidth, height: CGFloat(Constant.tabBarItemHeight))
+            return CGSize(width: calculatedWidth, height: CGFloat(ViewConstant.tabBarItemHeight))
         }else {
             return CGSize(width: UIScreen.main.bounds.width, height: 500) // Change height as needed
         }

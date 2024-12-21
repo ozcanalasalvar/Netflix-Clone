@@ -25,8 +25,8 @@ class MoviePreviewViewModel: NSObject {
         repository = DefaultPreviewRepository()
     }
     
-    func fetchPreview(with id : Int){
-        repository.fetchPreview(id: id){ result in
+    func fetchPreview(with id : Int, type: String){
+        repository.fetchPreview(id: id, type: type){ result in
             switch result{
             case .success(let movieDeta):
                 self.preview = movieDeta

@@ -71,7 +71,7 @@ extension SearchResultViewController : UICollectionViewDelegate,UICollectionView
             return UICollectionViewCell()
         }
         
-        cell.configure(with: movieResults[indexPath.row].mapToMovie())
+        cell.configure(with: movieResults[indexPath.row].mapToMovie(MovieType.movie))
         
         return cell
     }
@@ -79,6 +79,6 @@ extension SearchResultViewController : UICollectionViewDelegate,UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        self.delegate?.searchResultViewControllerDidTapItem(self, movie: movieResults[indexPath.row].mapToMovie())
+        self.delegate?.searchResultViewControllerDidTapItem(self, movie: movieResults[indexPath.row].mapToMovie(MovieType.movie))
     }
 }

@@ -107,7 +107,7 @@ class MyNetflixViewController: UIViewController {
         tabbar.configure("My Netflix", icons: buttons)
         
         let statusbarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        let barHeight = Constant.defaultTabbarHeight
+        let barHeight = ViewConstant.defaultTabbarHeight
         let tabbarHeight = statusbarHeight + CGFloat(barHeight)
         tabbarHeightConsraint = tabbar.heightAnchor.constraint(equalToConstant: tabbarHeight)
         

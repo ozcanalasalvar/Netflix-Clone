@@ -14,6 +14,8 @@ protocol MovieService {
     
     func fetchMovie(id: Int , completion: @escaping (Result<MovieData , MovieError>) -> ())
     
+    func fetchTv(id: Int , completion: @escaping (Result<MovieData , MovieError>) -> ())
+    
     func searchMovie(query:String, completion: @escaping (Result<MovieResponse,MovieError>) -> ())
     
     func getTraliers(movieId:Int, completion: @escaping (Result<MovieVideoResponse,MovieError>) -> ())

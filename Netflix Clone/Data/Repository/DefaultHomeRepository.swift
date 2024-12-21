@@ -45,7 +45,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.trendingMovie) { result in
             switch result{
             case .success(let response):
-                trendingMovie = response.results.map { $0.mapToMovie() }
+                trendingMovie = response.results.map { $0.mapToMovie(MovieType.movie) }
                 
             case .failure(let error):
                 trendingMovieError = error
@@ -58,7 +58,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.trendingTv) { result in
             switch result{
             case .success(let response):
-                trendingTv = response.results.map { $0.mapToMovie() }
+                trendingTv = response.results.map { $0.mapToMovie(MovieType.tv) }
                 
             case .failure(let error):
                 trendingTvError = error
@@ -71,7 +71,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.popular) { result in
             switch result{
             case .success(let response):
-                popular = response.results.map { $0.mapToMovie() }
+                popular = response.results.map { $0.mapToMovie(MovieType.movie) }
                 
             case .failure(let error):
                 popularError = error
@@ -84,7 +84,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.upComing) { result in
             switch result{
             case .success(let response):
-                upComing = response.results.map { $0.mapToMovie() }
+                upComing = response.results.map { $0.mapToMovie(MovieType.movie) }
                 
             case .failure(let error):
                 upComingError = error
@@ -97,7 +97,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.topRated) { result in
             switch result{
             case .success(let response):
-                topRated = response.results.map { $0.mapToMovie() }
+                topRated = response.results.map { $0.mapToMovie(MovieType.movie) }
                 
             case .failure(let error):
                 topRatedError = error
@@ -109,7 +109,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.airingTodayTv) { result in
             switch result{
             case .success(let response):
-                airingTodayTv = response.results.map { $0.mapToMovie() }
+                airingTodayTv = response.results.map { $0.mapToMovie(MovieType.tv) }
                 
             case .failure(let error):
                 airingTodayTvError = error
@@ -122,7 +122,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.ontheAirTv) { result in
             switch result{
             case .success(let response):
-                ontheAirTv = response.results.map { $0.mapToMovie() }
+                ontheAirTv = response.results.map { $0.mapToMovie(MovieType.tv) }
                 
             case .failure(let error):
                 ontheAirTvError = error
@@ -136,7 +136,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.popularTv) { result in
             switch result{
             case .success(let response):
-                popularTv = response.results.map { $0.mapToMovie() }
+                popularTv = response.results.map { $0.mapToMovie(MovieType.tv) }
                 
             case .failure(let error):
                 popularTvError = error
@@ -148,7 +148,7 @@ class DefaultHomeRepository: HomeRepository {
         movieService.fetchMovies(from: MovieListEndpoint.topRatedTv) { result in
             switch result{
             case .success(let response):
-                topRatedTv = response.results.map { $0.mapToMovie() }
+                topRatedTv = response.results.map { $0.mapToMovie(MovieType.tv) }
                 
             case .failure(let error):
                 topRatedTvError = error

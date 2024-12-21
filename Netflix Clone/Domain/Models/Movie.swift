@@ -24,6 +24,7 @@ struct Movie {
     let genres: [MovieGenre]?
     
     var tralierKey : String? = nil
+    var type: String? = nil
 }
 
 extension Movie {
@@ -39,8 +40,19 @@ extension Movie {
         return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
     }
     
-    var genreText : String {
-        return genres?.first?.name ?? "n/a"
+    var genreText : String? {
+        var text = ""
+        guard let genres else {
+            return nil
+        }
+        for index in 0...genres.count-1 {
+            let genre = genres[index]
+            text += genre.name
+            if index < genres.count - 1 {
+                text += "•"
+            }
+        }
+        return text
     }
     
     var ratingText: String {

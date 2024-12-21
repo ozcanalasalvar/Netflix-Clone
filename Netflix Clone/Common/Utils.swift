@@ -32,7 +32,7 @@ class Utils {
     
     static let durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .full
+        formatter.unitsStyle = .brief
         formatter.allowedUnits = [.hour, .minute]
         return formatter
     }()

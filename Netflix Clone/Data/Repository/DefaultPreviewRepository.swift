@@ -18,7 +18,7 @@ class DefaultPreviewRepository: PreviewRepository {
     
     
     
-    func fetchPreview(id: Int, completion: @escaping (Result<PreviewModel, MovieError>) -> ()) {
+    func fetchPreview(id: Int, type: String, completion: @escaping (Result<PreviewModel, MovieError>) -> ()) {
         
         let dispatchGroup = DispatchGroup()
         
@@ -29,15 +29,28 @@ class DefaultPreviewRepository: PreviewRepository {
         var isFavorite: Bool = false
         
         dispatchGroup.enter()
-        movieService.fetchMovie(id: id, completion: { result in
-            switch result {
-            case .success(let _movie):
-                movieData = _movie
-            case .failure(let error):
-                movieError = error
-            }
-            dispatchGroup.leave()
-        })
+        if type == MovieType.movie.description {
+            movieService.fetchMovie(id: id, completion: { result in
+                switch result {
+                case .success(let _movie):
+                    movieData = _movie
+                case .failure(let error):
+                    movieError = error
+                }
+                dispatchGroup.leave()
+            })
+        } else {
+            movieService.fetchTv(id: id, completion: { result in
+                switch result {
+                case .success(let _movie):
+                    movieData = _movie
+                case .failure(let error):
+                    movieError = error
+                }
+                dispatchGroup.leave()
+            })
+        }
+      
         
         
         dispatchGroup.enter()
@@ -60,7 +73,7 @@ class DefaultPreviewRepository: PreviewRepository {
                 return
             }
             
-            completion(.success(.init(movie: movieData!.mapToMovie(), isDownloaed: isDownloaded, isFavorite: isFavorite, onWatchList: isWatchList)))
+            completion(.success(.init(movie: movieData!.mapToMovie(type), isDownloaed: isDownloaded, isFavorite: isFavorite, onWatchList: isWatchList)))
         }
         
     }

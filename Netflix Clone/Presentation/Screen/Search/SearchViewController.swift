@@ -133,7 +133,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        self.navigationController?.navigateToPreview(with: movies[indexPath.row].mapToMovie())
+        self.navigationController?.navigateToPreview(with: movies[indexPath.row].mapToMovie(MovieType.movie))
     }
     
 }

@@ -7,7 +7,7 @@
 
 protocol PreviewRepository {
     
-    func fetchPreview(id: Int, completion: @escaping( Result<PreviewModel,MovieError>) -> ())
+    func fetchPreview(id: Int ,type: String , completion: @escaping( Result<PreviewModel,MovieError>) -> ())
     
     func updateDownloadStatus(movie : Movie, isDownloaded : Bool, completion: @escaping( Result<Void,MovieError>) -> ())
     
@@ -16,5 +16,5 @@ protocol PreviewRepository {
     func updateFavoriteStatus(movie : Movie, onFavorite : Bool, completion: @escaping( Result<Void,MovieError>) -> ())
     
     func updateTralierWatchedStatus(movie : Movie, tralierWatched : Bool, completion: @escaping( Result<Void,MovieError>) -> ())
-
+    
 }

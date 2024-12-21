@@ -104,7 +104,7 @@ class TabbarView : UIView {
         let titleLabelConstraints = [
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleLabel.heightAnchor.constraint(equalToConstant: CGFloat(Constant.defaultTabbarHeight)),
+            titleLabel.heightAnchor.constraint(equalToConstant: CGFloat(ViewConstant.defaultTabbarHeight)),
         ]
         
         titleConstraints = titleLabelConstraints

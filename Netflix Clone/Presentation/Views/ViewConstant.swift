@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class Constant {
+class ViewConstant {
     static let defaultTabbarHeight: Int = 50
     static let tabBarItemHeight: Int = 34
 }

@@ -9,6 +9,7 @@ import Foundation
 
 
 class MovieServiceImpl : MovieService{
+    
   
     static let shared = MovieServiceImpl()
     private init() {}
@@ -35,6 +36,19 @@ class MovieServiceImpl : MovieService{
     
     func fetchMovie(id: Int, completion: @escaping (Result<MovieData, MovieError>) -> ()) {
         guard let url = URL(string: "\(baseAPIURL)movie/\(id)") else {
+            completion(.failure(.invalidEndpoint))
+            return
+        }
+        
+        self.loadUrlAndDecode(url: url, params:[
+            "append_to_response": "videos,credits"
+        ],completion: completion)
+    }
+    
+    
+    
+    func fetchTv(id: Int, completion: @escaping (Result<MovieData, MovieError>) -> ()) {
+        guard let url = URL(string: "\(baseAPIURL)tv/\(id)") else {
             completion(.failure(.invalidEndpoint))
             return
         }

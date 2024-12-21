@@ -36,7 +36,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.layer.cornerRadius = CGFloat(Constant.tabBarItemHeight / 2)
+        contentView.layer.cornerRadius = CGFloat(ViewConstant.tabBarItemHeight / 2)
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.white.cgColor
         contentView.layer.masksToBounds = true
