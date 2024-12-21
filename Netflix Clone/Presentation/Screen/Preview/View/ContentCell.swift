@@ -51,9 +51,6 @@ class ContentCell : UITableViewCell {
         yearLabel.numberOfLines = 0 //allow multiple lines
         yearLabel.text = preview.movie.yearText
         
-//        yearLabel.widthAnchor.constraint(equalToConstant:   preview.movie.yearText.toViewWidth(font: .systemFont(ofSize: 16, weight: .regular))).isActive = true
-//        yearLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
         
         let voteWidth = "\(preview.movie.voteAverage)".toViewWidth(font: .systemFont(ofSize: 11, weight: .regular))
         

@@ -9,6 +9,8 @@ protocol PreviewRepository {
     
     func fetchPreview(id: Int ,type: String , completion: @escaping( Result<PreviewModel,MovieError>) -> ())
     
+    func fetchSimiliars(id: Int, type: String, completion: @escaping(Result<[Movie]?,MovieError>) -> ())
+    
     func updateDownloadStatus(movie : Movie, isDownloaded : Bool, completion: @escaping( Result<Void,MovieError>) -> ())
     
     func updateWatchListStatus(movie : Movie, onWatchList : Bool, completion: @escaping( Result<Void,MovieError>) -> ())

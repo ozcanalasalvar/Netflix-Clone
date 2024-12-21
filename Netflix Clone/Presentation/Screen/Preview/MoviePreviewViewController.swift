@@ -13,6 +13,7 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     
     private var viewModel : MoviePreviewViewModel!
     private var movie : Movie!
+    private var similars : [Movie]?
     
     public let videoView : VideoView = {
         let wb = VideoView()
@@ -107,6 +108,12 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         self.videoView.configure(with: movie.backDropUrl, videoID: videoId)
     }
     
+    private func setRelateds(movies : [Movie]?){
+        guard let moiveList =  movies else {return}
+        self.similars = moiveList
+        tableView.reloadData()
+    }
+    
     
     private var isMuted : Bool = false {
         didSet {
@@ -189,6 +196,11 @@ extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSourc
 }
 
 extension MoviePreviewViewController: MoviePreviewViewModelOutput {
+    func similiarsFetched(movies: [Movie]?) {
+        self.setRelateds(movies: movies)
+        print("Similiars movies count = \(movies?.count)")
+    }
+    
     func previewFetched(preview: PreviewModel) {
         self.fillUi(with: preview)
     }

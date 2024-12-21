@@ -78,6 +78,35 @@ class DefaultPreviewRepository: PreviewRepository {
         
     }
     
+    
+    
+    func fetchSimiliars(id: Int, type: String, completion: @escaping (Result<[Movie]?, MovieError>) -> ()) {
+        
+        if type == MovieType.movie {
+            movieService.fetchMovieSimilars(id: id){ result in
+                switch result {
+                case .success(let response):
+                    completion(.success(response.results.map { $0.mapToMovie(MovieType.movie)}))
+                    
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            movieService.fetchTvSimilars(id: id){ result in
+                switch result {
+                case .success(let response):
+                    completion(.success(response.results.map { $0.mapToMovie(MovieType.movie)}))
+                    
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+        
+    }
+    
+    
     func updateDownloadStatus(movie: Movie, isDownloaded: Bool, completion: @escaping (Result<Void, MovieError>) -> ()) {
         localSource.updateDownloadStatus(movie: movie, isDownload: isDownloaded, completion: completion)
     }

@@ -12,6 +12,10 @@ protocol MovieService {
     
     func fetchMovies(from endPoint : MovieListEndpoint, completion: @escaping (Result<MovieResponse,MovieError>) -> () )
     
+    func fetchMovieSimilars(id: Int , completion: @escaping (Result<MovieResponse,MovieError>) -> () )
+    
+    func fetchTvSimilars(id: Int , completion: @escaping (Result<MovieResponse,MovieError>) -> () )
+    
     func fetchMovie(id: Int , completion: @escaping (Result<MovieData , MovieError>) -> ())
     
     func fetchTv(id: Int , completion: @escaping (Result<MovieData , MovieError>) -> ())

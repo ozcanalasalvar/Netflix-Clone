@@ -9,12 +9,14 @@ import Foundation
 
 protocol MoviePreviewViewModelOutput {
     func previewFetched(preview : PreviewModel)
+    func similiarsFetched(movies : [Movie]?)
     func previewFetchFailed(error: String)
 }
 
 class MoviePreviewViewModel: NSObject {
     
     private var preview : PreviewModel!
+    private var similiars : [Movie]? = nil
     private var repository : PreviewRepository!
     
     var delegate : MoviePreviewViewModelOutput?
@@ -36,6 +38,21 @@ class MoviePreviewViewModel: NSObject {
                 self.delegate?.previewFetchFailed(error: error.localizedDescription)
             }
             
+        }
+        
+        fetchSimilar(with: id, type: type)
+    }
+    
+    
+    private func fetchSimilar(with id : Int, type: String){
+        repository.fetchSimiliars(id: id, type: type){ result in
+            switch result {
+            case .success(let movies):
+                self.similiars = movies
+                self.delegate?.similiarsFetched(movies: movies)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
     
