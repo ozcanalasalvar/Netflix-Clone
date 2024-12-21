@@ -175,7 +175,35 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     
 }
 
-extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSource {
+extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSource,ContentCellDelegate {
+    func didTapShare(preview: PreviewModel) {
+        let path = "https://www.themoviedb.org/\(MovieType.movie)/\(preview.movie.id)"
+        let urlToShare = URL(string: path)!
+        let activityViewController = UIActivityViewController(activityItems: [urlToShare], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [.addToReadingList, .postToFacebook]
+        present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func didTapWatchList(status: Bool) {
+        viewModel.updateWatchListStatus(status: status)
+    }
+    
+    func didTapFavorite(status: Bool) {
+        viewModel.updateFavoriteStatus(status: status)
+    }
+    
+    func didTapDownload(status: Bool) {
+        viewModel.updateDownloadStatus(status: status)
+    }
+    
+    func didTapPlay(preview: PreviewModel) {
+        
+    }
+    
+    func didSelectMovie(movie: Movie) {
+        
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -191,6 +219,11 @@ extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSourc
         cell.selectionStyle = .none
         guard let preview = self.preview else { return cell }
         cell.configure(preview,movies: similars ?? [])
+        cell.delegate = self
+        
+        cell.isFavorite = preview.isFavorite
+        cell.onWatchList = preview.onWatchList
+        cell.isDowmloaded = preview.isDownloaed
         return cell
     }
     
@@ -198,9 +231,26 @@ extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSourc
 }
 
 extension MoviePreviewViewController: MoviePreviewViewModelOutput {
+    func favoriteStatusChanged(status: Bool) {
+        if let cell = tableView.visibleCells.first as? ContentCell{
+            cell.isFavorite = status
+        }
+    }
+    
+    func watchListStatusChanged(status: Bool) {
+        if let cell = tableView.visibleCells.first as? ContentCell{
+            cell.onWatchList = status
+        }
+    }
+    
+    func downloadStatusChanged(status: Bool) {
+        if let cell = tableView.visibleCells.first as? ContentCell{
+            cell.isDowmloaded = status
+        }
+    }
+    
     func similiarsFetched(movies: [Movie]?) {
         self.setRelateds(movies: movies)
-        print("Similiars movies count = \(movies?.count)")
     }
     
     func previewFetched(preview: PreviewModel) {

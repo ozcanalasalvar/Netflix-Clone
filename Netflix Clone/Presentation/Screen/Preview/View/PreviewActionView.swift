@@ -12,7 +12,12 @@ class PreviewActionView: UIView {
     
     var icon : UIImage? {
         didSet {
-            iconImageView.image = icon
+            
+            UIView.transition(with: iconImageView,
+                              duration: 0.75,
+                              options: .transitionFlipFromLeft,
+                              animations: { self.iconImageView.image = self.icon },
+                              completion: nil)
             setNeedsLayout()
         }
     }

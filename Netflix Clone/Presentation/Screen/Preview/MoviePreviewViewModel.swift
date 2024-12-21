@@ -11,6 +11,10 @@ protocol MoviePreviewViewModelOutput {
     func previewFetched(preview : PreviewModel)
     func similiarsFetched(movies : [Movie]?)
     func previewFetchFailed(error: String)
+    
+    func favoriteStatusChanged(status : Bool)
+    func watchListStatusChanged(status : Bool)
+    func downloadStatusChanged(status : Bool)
 }
 
 class MoviePreviewViewModel: NSObject {
@@ -57,39 +61,36 @@ class MoviePreviewViewModel: NSObject {
     }
     
     
-    func updateDownloadStatus(){
-        repository.updateDownloadStatus(movie: preview.movie, isDownloaded: !preview.isDownloaed){ result in
+    func updateDownloadStatus(status: Bool){
+        repository.updateDownloadStatus(movie: preview.movie, isDownloaded: !status){ result in
             switch result {
             case .success(()):
-                var updatedMovie = self.preview!
-                updatedMovie.isDownloaed = !self.preview.isDownloaed
-                self.delegate?.previewFetched(preview: updatedMovie)
+                self.preview.isDownloaed = !status
+                self.delegate?.downloadStatusChanged(status: !status)
             case .failure(let error):
                 self.delegate?.previewFetchFailed(error: error.localizedDescription)
             }
         }
     }
     
-    func updateFavoriteStatus(){
-        repository.updateFavoriteStatus(movie: preview.movie, onFavorite: !preview.isFavorite){ result in
+    func updateFavoriteStatus(status: Bool){
+        repository.updateFavoriteStatus(movie: preview.movie, onFavorite: !status){ result in
             switch result {
             case .success(()):
-                var updatedMovie = self.preview!
-                updatedMovie.isFavorite = !self.preview.isFavorite
-                self.delegate?.previewFetched(preview: updatedMovie)
+                self.preview.isFavorite = !status
+                self.delegate?.favoriteStatusChanged(status: !status)
             case .failure(let error):
                 self.delegate?.previewFetchFailed(error: error.localizedDescription)
             }
         }
     }
     
-    func updateWatchListStatus(){
-        repository.updateWatchListStatus(movie: preview.movie, onWatchList: !preview.onWatchList){ result in
+    func updateWatchListStatus(status: Bool){
+        repository.updateWatchListStatus(movie: preview.movie, onWatchList: !status){ result in
             switch result {
             case .success(()):
-                var updatedMovie = self.preview!
-                updatedMovie.onWatchList = !self.preview.onWatchList
-                self.delegate?.previewFetched(preview: updatedMovie)
+                self.preview.onWatchList = !status
+                self.delegate?.watchListStatusChanged(status: !status)
             case .failure(let error):
                 self.delegate?.previewFetchFailed(error: error.localizedDescription)
             }

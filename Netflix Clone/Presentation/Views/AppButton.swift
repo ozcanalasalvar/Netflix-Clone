@@ -26,7 +26,11 @@ class AppButton : UIView {
     
     var image: UIImage? {
         didSet {
-            imageView.image = image
+            UIView.transition(with: imageView,
+                              duration: 0.75,
+                              options: .transitionFlipFromLeft,
+                              animations: { self.imageView.image = self.image },
+                              completion: nil)
             setNeedsLayout()  // Request a layout update
         }
     }

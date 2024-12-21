@@ -7,11 +7,55 @@
 
 import UIKit
 
+protocol ContentCellDelegate : AnyObject {
+    
+    func didSelectMovie(movie: Movie)
+    
+    func didTapWatchList(status: Bool)
+    
+    func didTapFavorite(status: Bool)
+    
+    func didTapShare(preview: PreviewModel)
+    
+    func didTapDownload(status: Bool)
+    
+    func didTapPlay(preview: PreviewModel)
+}
+
 class ContentCell : UITableViewCell {
     
     static let identifier: String = "ContentCell"
     
     private var movies: [Movie] = []
+    
+    var delegate : ContentCellDelegate?
+    
+    let myListView = PreviewActionView()
+    let givePointView = PreviewActionView()
+    let shareView = PreviewActionView()
+    let actionStackView = UIStackView()
+    
+    let downloadButton = AppButton()
+    
+    
+    public var isFavorite : Bool = true {
+        didSet {
+            givePointView.icon =  isFavorite ? UIImage(systemName: "hand.thumbsup.fill") : UIImage(systemName: "hand.thumbsup")
+        }
+    }
+    
+    public var onWatchList : Bool = true {
+        didSet {
+            myListView.icon =  onWatchList ? UIImage(systemName: "checkmark") : UIImage(systemName: "plus")
+        }
+    }
+    
+    
+    public var isDowmloaded : Bool = true {
+        didSet {
+            downloadButton.image = !isDowmloaded ? UIImage(systemName: "arrow.down.to.line")  : UIImage(systemName: "checkmark.rectangle.portrait")
+        }
+    }
     
     private let collectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -27,6 +71,11 @@ class ContentCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        
+        actionStackView.addArrangedSubview(myListView)
+        actionStackView.addArrangedSubview(givePointView)
+        actionStackView.addArrangedSubview(shareView)
+        actionStackView.addArrangedSubview(UIView())
     }
     
     required init?(coder: NSCoder) {
@@ -107,14 +156,18 @@ class ContentCell : UITableViewCell {
         playButton.tintColor = .black
         playButton.backgroundColor = .white
         playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.addTapGesture {
+            self.delegate?.didTapPlay(preview: preview)
+        }
         
-        let downloadButton = AppButton()
+
         downloadButton.titleText = "Download"
-        downloadButton.image = UIImage(systemName: "arrow.down.to.line")
         downloadButton.tintColor = .white
         downloadButton.backgroundColor = .darkGray
         downloadButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        downloadButton.addTapGesture {
+            self.delegate?.didTapDownload(status: self.isDowmloaded)
+        }
         
         
         let genreLabel = UILabel()
@@ -129,38 +182,40 @@ class ContentCell : UITableViewCell {
       
         
         
-        let actionStackView = UIStackView()
+       
         actionStackView.axis = .horizontal
         actionStackView.spacing = 5
         actionStackView.alignment = .leading
         actionStackView.translatesAutoresizingMaskIntoConstraints = false
         
         
-        let myListView = PreviewActionView()
-        myListView.icon = UIImage(systemName: "plus")
+        
         myListView.text = "MyList"
         myListView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         myListView.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        myListView.addTapGesture {
+            self.delegate?.didTapWatchList(status: self.onWatchList)
+        }
         
         
-        
-        let givePointView = PreviewActionView()
-        givePointView.icon = UIImage(systemName: "hand.thumbsup")
         givePointView.text = "Give Score"
         givePointView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         givePointView.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        givePointView.addTapGesture {
+            self.delegate?.didTapFavorite(status: self.isFavorite)
+        }
         
-        let shareView = PreviewActionView()
+      
         shareView.icon = UIImage(systemName: "paperplane")
         shareView.text = "Share"
         shareView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         shareView.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        shareView.addTapGesture {
+            self.delegate?.didTapShare(preview: preview)
+        }
         
         
-        actionStackView.addArrangedSubview(myListView)
-        actionStackView.addArrangedSubview(givePointView)
-        actionStackView.addArrangedSubview(shareView)
-        actionStackView.addArrangedSubview(UIView())
+      
         
         
         let similarLabel = UILabel()
@@ -258,8 +313,7 @@ extension ContentCell : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let movie = movies[indexPath.row]
-        print("id = \(movie.id)")
-       // delegate?.collectionViewTableViewCellDidTapCell(self , movie: movie)
+        self.delegate?.didSelectMovie(movie: movie)
     }
     
 }
