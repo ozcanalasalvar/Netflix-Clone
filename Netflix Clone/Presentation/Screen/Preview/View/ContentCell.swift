@@ -11,6 +11,18 @@ class ContentCell : UITableViewCell {
     
     static let identifier: String = "ContentCell"
     
+    private var movies: [Movie] = []
+    
+    private let collectionView : UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 105, height: 150)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
+        collectionView.contentInset = UIEdgeInsets(top: 0 , left: 10, bottom: 0, right: 10)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,7 +33,14 @@ class ContentCell : UITableViewCell {
         fatalError()
     }
     
-    func configure(_ preview: PreviewModel){
+    func configure(_ preview: PreviewModel, movies: [Movie]){
+        
+        self.movies = movies
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.reloadData()
         
         let titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
@@ -143,6 +162,15 @@ class ContentCell : UITableViewCell {
         actionStackView.addArrangedSubview(shareView)
         actionStackView.addArrangedSubview(UIView())
         
+        
+        let similarLabel = UILabel()
+        similarLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        similarLabel.textColor = .white
+        similarLabel.translatesAutoresizingMaskIntoConstraints = false
+        similarLabel.text = "Similars"
+        
+        similarLabel.isHidden = movies.count <= 0
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(stackView)
         contentView.addSubview(overViewLabel)
@@ -150,7 +178,11 @@ class ContentCell : UITableViewCell {
         contentView.addSubview(downloadButton)
         contentView.addSubview(genreLabel)
         contentView.addSubview(actionStackView)
+        contentView.addSubview(similarLabel)
+        contentView.addSubview(collectionView)
         
+        let extra = Int((movies.count%3))
+        let collectionHeight = (Int((movies.count/3)) + (extra > 0 ? 2 : 1)) * 150
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -187,8 +219,47 @@ class ContentCell : UITableViewCell {
             actionStackView.topAnchor.constraint(equalTo: genreLabel.bottomAnchor, constant: 20),
             actionStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             actionStackView.heightAnchor.constraint(equalToConstant: 50),
-            actionStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            similarLabel.topAnchor.constraint(equalTo: actionStackView.bottomAnchor, constant: 20),
+            similarLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            similarLabel.heightAnchor.constraint(equalToConstant: 50),
+            
+            collectionView.topAnchor.constraint(equalTo: similarLabel.bottomAnchor, constant: 0),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            collectionView.heightAnchor.constraint(equalToConstant: CGFloat(collectionHeight)),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         
     }
+}
+
+
+
+extension ContentCell : UICollectionViewDataSource, UICollectionViewDelegate {
+    
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return movies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.identifier, for: indexPath) as? MovieCollectionViewCell
+        else {
+           return UICollectionViewCell()
+        }
+        
+        cell.configure(with: movies[indexPath.row])
+
+        return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let movie = movies[indexPath.row]
+        print("id = \(movie.id)")
+       // delegate?.collectionViewTableViewCellDidTapCell(self , movie: movie)
+    }
+    
 }

@@ -48,6 +48,8 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     private let tableView : UITableView = {
         let tableView = UITableView()
         tableView.register(ContentCell.self, forCellReuseIdentifier: ContentCell.identifier)
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -188,7 +190,7 @@ extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSourc
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentCell.identifier) as? ContentCell else { return UITableViewCell() }
         cell.selectionStyle = .none
         guard let preview = self.preview else { return cell }
-        cell.configure(preview)
+        cell.configure(preview,movies: similars ?? [])
         return cell
     }
     
