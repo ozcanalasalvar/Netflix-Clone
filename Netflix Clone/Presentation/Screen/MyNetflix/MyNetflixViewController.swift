@@ -9,6 +9,10 @@ import UIKit
 
 class MyNetflixViewController: UIViewController {
     
+    private var viewModel: MyNetflixViewModel!
+    
+    
+    private var accountSections: [AccountSectionModel] = []
     
     private var tabbarHeightConsraint: NSLayoutConstraint!
     private let tabbar : TabbarView = {
@@ -21,13 +25,16 @@ class MyNetflixViewController: UIViewController {
     private let myNetflixTableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemBackground
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel = MyNetflixViewModel()
+        viewModel.delegate = self
         
         view.backgroundColor = .systemBackground
         view.addSubview(myNetflixTableView)
@@ -51,6 +58,11 @@ class MyNetflixViewController: UIViewController {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchAccountSection()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setInitialFrameOfTabbar()
@@ -70,7 +82,7 @@ class MyNetflixViewController: UIViewController {
         
         let tableConstraints = [
             myNetflixTableView.topAnchor.constraint(equalTo: tabbar.bottomAnchor),
-            myNetflixTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            myNetflixTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             myNetflixTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             myNetflixTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
@@ -126,7 +138,7 @@ class MyNetflixViewController: UIViewController {
 extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return accountSections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,9 +146,14 @@ extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? UITableViewCell else {
+        guard let cell  = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        cell.backgroundColor = .clear
+        //cell.delegate = self
+        
+        guard let movies = accountSections[indexPath.section].movie else { return cell }
+        cell.configure(with: movies)
         
         return cell
     }
@@ -144,21 +161,23 @@ extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //indexPath.section == 0 ? 0 : 150
         
-        switch indexPath.section {
-        case 0:
-            return 0
-            
-        case 1:
-            return 150
-        case 2:
-            return 150
-        case 3:
-            return 150
-            
-        default:
-            break
-        }
-        return 150
+        return accountSections[indexPath.section].movie != nil ? 150 : 0
+        
+//        switch indexPath.section {
+//        case 0:
+//            return 0
+//            
+//        case 1:
+//            return 150
+//        case 2:
+//            return 150
+//        case 3:
+//            return 150
+//            
+//        default:
+//            break
+//        }
+//        return 150
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -171,23 +190,19 @@ extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = AccountSeactionHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 36))
-        switch section {
-        case 0:
-            view.configure(sectionTitle: "Notifications", icon: "bell.fill", iconBGColor: .red, redirectText: nil, redirectEnabled: true)
-            
-        case 1:
-            view.configure(sectionTitle: "Downloads", icon: "arrow.down.to.line", iconBGColor: .blue, redirectText: nil, redirectEnabled: true)
-        case 2:
-            view.configure(sectionTitle: "Your Favorite Series&Movies", icon: nil, iconBGColor: .red, redirectText: nil)
-        case 3:
-            view.configure(sectionTitle: "Your Favorite Series&Movies", icon: nil, iconBGColor: .red, redirectText: nil)
-            
-        default:
-            break
-        }
+        let section = accountSections[section]
         
-        
+        view.configure(sectionTitle: section.title, icon: section.icon, iconBGColor: section.iconTint, redirectText: section.actionText, redirectEnabled: section.hasAction)
         return view
+    }
+    
+}
+
+
+extension MyNetflixViewController : MyNetflixViewModelOutput {
+    func didSectionFetched(sections: [AccountSectionModel]) {
+        self.accountSections = sections
+        myNetflixTableView.reloadData()
     }
     
     

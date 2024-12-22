@@ -24,7 +24,7 @@ class NewAndHotViewController: UIViewController{
         layout.minimumLineSpacing = 5
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(NewAndHotCollectionViewCell.self, forCellWithReuseIdentifier: NewAndHotCollectionViewCell.identifier)
-        
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -154,7 +154,7 @@ class NewAndHotViewController: UIViewController{
         
         let tableConstraints = [
             newAndHotCollectionView.topAnchor.constraint(equalTo: tabbar.bottomAnchor),
-            newAndHotCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            newAndHotCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             newAndHotCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             newAndHotCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
@@ -178,6 +178,10 @@ extension NewAndHotViewController : NewAndHotViewModelOutput {
             let indexPath = IndexPath(item: itemToScrollTo, section: 0)
             categoryCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            self?.playPlayerIndexAt(self?.currentlyPlayingIndexPath)
+        })
     }
     
     
@@ -194,14 +198,6 @@ extension NewAndHotViewController : NewAndHotViewModelOutput {
         DispatchQueue.main.async { [weak self] in
             self?.categoryCollectionView.reloadData()
         }
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-            guard let index = self?.currentlyPlayingIndexPath else { return }
-            if let cell = self?.newAndHotCollectionView.cellForItem(at: index)  as? NewAndHotCollectionViewCell {
-                cell.playTralier()
-            }
-        })
         
     }
     
@@ -274,7 +270,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let view = scrollView as? UICollectionView else { return }
         if view == newAndHotCollectionView {
-            //findCenterAndPlay()
+            self.playPlayerIndexAt(self.currentlyPlayingIndexPath)
         }
     }
     
@@ -282,7 +278,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
         if !decelerate {
             guard let view = scrollView as? UICollectionView else { return }
             if view == newAndHotCollectionView {
-                //findCenterAndPlay()
+                self.playPlayerIndexAt(self.currentlyPlayingIndexPath)
             }
         }
     }
@@ -327,7 +323,6 @@ extension NewAndHotViewController {
                 
                 if currentlyPlayingIndexPath != indexPath {
                     if cellFrame.midY > collectionViewCenter - cell.frame.height / 2 && cellFrame.midY < collectionViewCenter + cell.frame.height / 2 {
-                        cell.playTralier()
                         viewModel.loadVideoForIndexedCell(index : indexPath.item)
                         currentlyPlayingIndexPath = indexPath
                     } else {

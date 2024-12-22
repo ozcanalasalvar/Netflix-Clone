@@ -26,6 +26,7 @@ class CollectionViewTableViewCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
         collectionView.contentInset = UIEdgeInsets(top: 0 , left: 10, bottom: 0, right: 10)
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     

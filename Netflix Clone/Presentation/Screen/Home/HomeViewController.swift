@@ -87,7 +87,6 @@ class HomeViewController: UIViewController  {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        homeFeedTable.frame = view.bounds
         setInitialFrameOfTabbar()
     }
     
@@ -161,7 +160,7 @@ class HomeViewController: UIViewController  {
         
         let tableConstraints = [
             homeFeedTable.topAnchor.constraint(equalTo: view.topAnchor),
-            homeFeedTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            homeFeedTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             homeFeedTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             homeFeedTable.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
