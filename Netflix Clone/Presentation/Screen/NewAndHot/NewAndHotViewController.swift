@@ -102,7 +102,8 @@ class NewAndHotViewController: UIViewController{
         searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         searchButton.tintColor = .white
         searchButton.addTapGesture {
-            print("searchButton")
+            let controller = SearchResultViewController()
+            self.navigationController?.pushViewController(controller, animated: false)
         }
         
         let downloadButoon  = UIButton()

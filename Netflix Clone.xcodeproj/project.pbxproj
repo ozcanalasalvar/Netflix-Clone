@@ -36,7 +36,6 @@
 		A1537FE92CD956B1005DE4D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1537FE72CD956B1005DE4D1 /* LaunchScreen.storyboard */; };
 		A1537FF22CD95A94005DE4D1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF12CD95A94005DE4D1 /* HomeViewController.swift */; };
 		A1537FF42CD95AEF005DE4D1 /* NewAndHotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF32CD95AEF005DE4D1 /* NewAndHotViewController.swift */; };
-		A1537FF62CD95B2E005DE4D1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF52CD95B2E005DE4D1 /* SearchViewController.swift */; };
 		A1537FF82CD95B49005DE4D1 /* MyNetflixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FF72CD95B49005DE4D1 /* MyNetflixViewController.swift */; };
 		A1537FFF2CDA37A8005DE4D1 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FFE2CDA37A7005DE4D1 /* CollectionViewTableViewCell.swift */; };
 		A15380012CDA57DF005DE4D1 /* HeroHeaderUiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15380002CDA57DF005DE4D1 /* HeroHeaderUiView.swift */; };
@@ -102,7 +101,6 @@
 		A1537FEA2CD956B1005DE4D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1537FF12CD95A94005DE4D1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A1537FF32CD95AEF005DE4D1 /* NewAndHotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAndHotViewController.swift; sourceTree = "<group>"; };
-		A1537FF52CD95B2E005DE4D1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A1537FF72CD95B49005DE4D1 /* MyNetflixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNetflixViewController.swift; sourceTree = "<group>"; };
 		A1537FFE2CDA37A7005DE4D1 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
 		A15380002CDA57DF005DE4D1 /* HeroHeaderUiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHeaderUiView.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 		A161D7DA2CF0ECDD007A854D /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				A1537FF52CD95B2E005DE4D1 /* SearchViewController.swift */,
 				A15380192CDE327D005DE4D1 /* SearchResultViewController.swift */,
 			);
 			path = Search;
@@ -557,7 +554,6 @@
 			files = (
 				A197E8482CF52D2A005BDF32 /* TabbarView.swift in Sources */,
 				A15380072CDA99DB005DE4D1 /* MovieServiceImpl.swift in Sources */,
-				A1537FF62CD95B2E005DE4D1 /* SearchViewController.swift in Sources */,
 				A1537FE12CD956B0005DE4D1 /* MainTabBarViewController.swift in Sources */,
 				A11322AD2D120167000F5A74 /* MovieEntity.swift in Sources */,
 				A1537FFF2CDA37A8005DE4D1 /* CollectionViewTableViewCell.swift in Sources */,

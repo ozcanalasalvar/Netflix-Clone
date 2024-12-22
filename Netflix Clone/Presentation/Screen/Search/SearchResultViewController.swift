@@ -7,15 +7,12 @@
 
 import UIKit
 
-protocol SearchResultViewControllerDelegate : AnyObject {
-    func searchResultViewControllerDidTapItem(_ viewController : SearchResultViewController, movie: Movie)
-}
-
 class SearchResultViewController: UIViewController {
-
+    
     
     private var movieResults: [MovieData] = []
-    weak var delegate: SearchResultViewControllerDelegate?
+    
+    var searchController: UISearchController!
     
     let searchCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -30,20 +27,42 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
         
+        view.backgroundColor = .red
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "Search for a movie or Tv show"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.isNavigationBarHidden = false
+        
+        navigationItem.searchController = searchController
+        navigationController?.navigationBar.tintColor = .white
         
         view.addSubview(searchCollectionView)
         
         searchCollectionView.dataSource = self
         searchCollectionView.delegate = self
+        
     }
     
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         searchCollectionView.frame = view.bounds
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = true
     }
     
     public func configure(with resultOfMovies : [MovieData]){
@@ -78,7 +97,39 @@ extension SearchResultViewController : UICollectionViewDelegate,UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        self.navigateToPreview(with: movieResults[indexPath.row].mapToMovie(MovieType.movie))
+    }
+}
+
+
+extension SearchResultViewController : UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
         
-        self.delegate?.searchResultViewControllerDidTapItem(self, movie: movieResults[indexPath.row].mapToMovie(MovieType.movie))
+        guard let query = searchController.searchBar.text,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty,
+              query.trimmingCharacters(in: .whitespaces).count >= 3
+        else {
+            movieResults = []
+            searchCollectionView.reloadData()
+            return
+        }
+        
+        
+        MovieServiceImpl.shared.searchMovie(query: query){ [weak self] (result) in
+            guard let self = self else { return }
+            
+            switch result{
+            case .success(let response):
+                movieResults = response.results
+                searchCollectionView.reloadData()
+                
+            case .failure(let error):
+                print(error as NSError)
+            }
+            
+        }
+        
+        
     }
 }

@@ -7,12 +7,17 @@
 
 import UIKit
 
-class MainTabBarViewController: UITabBarController {
+class MainTabBarViewController: UIViewController {
 
+    private var tabbarController : UITabBarController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        tabbarController = UITabBarController()
+      
+        
+       
         
         let homeVC = HomeViewController()
         let newAndHotVC = NewAndHotViewController()
@@ -30,12 +35,28 @@ class MainTabBarViewController: UITabBarController {
         myNetflixVC.title  = "My Netflix"
         
         
-        self.tabBar.tintColor = .label
+        tabbarController.tabBar.tintColor = .label
         //self.tabBar.unselectedItemTintColor = .green
         
-        setViewControllers([homeVC,newAndHotVC,myNetflixVC], animated: true)
+        tabbarController.setViewControllers([homeVC,newAndHotVC,myNetflixVC], animated: true)
+        
+        let navigationController = UINavigationController(rootViewController: tabbarController)
+        navigationController.isNavigationBarHidden = true
+        
+        // Add the navigation controller to the current view
+        self.addChild(navigationController)
+        self.view.addSubview(navigationController.view)
+        
+        // Set the navigation controller’s frame to fit your layout
+        navigationController.view.frame = self.view.bounds
+        
+        // Notify the navigation controller that it was added
+        
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
 
 }
 
