@@ -136,7 +136,12 @@ class MyNetflixViewController: UIViewController {
 }
 
 
-extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource {
+extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource,CollectionViewTableViewCellDelegate {
+    
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, movie: Movie) {
+        self.navigateToPreview(with: movie)
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return accountSections.count
@@ -151,7 +156,7 @@ extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.backgroundColor = .clear
-        //cell.delegate = self
+        cell.delegate = self
         
         guard let movies = accountSections[indexPath.section].movie else { return cell }
         cell.configure(with: movies)
@@ -160,25 +165,7 @@ extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //indexPath.section == 0 ? 0 : 150
-        
         return accountSections[indexPath.section].movie != nil ? 150 : 0
-        
-//        switch indexPath.section {
-//        case 0:
-//            return 0
-//            
-//        case 1:
-//            return 150
-//        case 2:
-//            return 150
-//        case 3:
-//            return 150
-//            
-//        default:
-//            break
-//        }
-//        return 150
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
