@@ -85,19 +85,11 @@ class VideoView: UIView, WKNavigationDelegate {
     }
     
     
-    var tryCounter: Int = 0
-    
     func playTralier(){
         videoView.evaluateJavaScript("playVideo();") { (result, error) in
             if let error = error {
-                print("Error starting video: \(error.localizedDescription)")
+                //print("Error starting video: \(error.localizedDescription)")
                 self.movieImageView.isHidden = false
-                self.tryCounter = self.tryCounter + 1
-                if self.tryCounter < 3 {
-                    self.playTralier()
-                }
-            } else {
-                self.tryCounter = 0
             }
         }
         
@@ -107,7 +99,7 @@ class VideoView: UIView, WKNavigationDelegate {
     func pauseTralier(){
         videoView.evaluateJavaScript("pauseVideo();") { (result, error) in
             if let error = error {
-                print("Error starting video: \(error.localizedDescription)")
+                //print("Error starting video: \(error.localizedDescription)")
             }
         }
         
