@@ -9,6 +9,8 @@ import Foundation
 protocol HomeViewModeloutput : AnyObject {
     func didLoadCategories(_ categories: [HomeTabCategory])
     func didFetchHomeData(_ homeData: HomeMovieUiModel)
+    func updateWatchListHeaderStatus(_ header: PreviewModel, onWatchlist: Bool)
+    func updateDownloadHeaderStatus(_ header: PreviewModel, isDownloaded: Bool)
     func didFetchMovieFailed(_  error : String)
 }
 
@@ -19,6 +21,8 @@ class HomeViewModel : NSObject {
     var delegate: HomeViewModeloutput?
     
     private var homeData: HomeMovieUiModel?
+    
+    private var headerMovie :PreviewModel?
     
     private var categories: [HomeTabCategory] = [
         HomeTabCategory(category: HomeTabCategoryType.MovieSection, isSelected: false),
@@ -44,6 +48,10 @@ class HomeViewModel : NSObject {
             case .success(let homeData):
                 if  homeData != nil {
                     self.homeData = homeData
+                    if homeData?.headerMovie != nil {
+                        self.headerMovie = homeData!.headerMovie
+                        self.setHeaderStatus()
+                    }
                     self.delegate?.didFetchHomeData(homeData!)
                 } else {
                     self.delegate?.didFetchMovieFailed("Data haven't been fetched")
@@ -54,6 +62,24 @@ class HomeViewModel : NSObject {
         }
     }
     
+    func setHeaderStatus(){
+        guard let headerMovie else { return }
+        homeRepository.appendStatusOfMovie(preview: headerMovie){ result in
+            switch result {
+            case .success(let header):
+                guard let header else { return }
+                if headerMovie.isDownloaed != header.isDownloaed {
+                    self.delegate?.updateDownloadHeaderStatus(header, isDownloaded: header.isDownloaed)
+                }
+                if headerMovie.onWatchList != header.onWatchList {
+                    self.delegate?.updateWatchListHeaderStatus(header, onWatchlist: header.onWatchList)
+                }
+                self.headerMovie = header
+            case .failure(_):
+                print("")
+            }
+        }
+    }
     
     func filterCategory(_ category: HomeTabCategory){
         
@@ -104,9 +130,17 @@ class HomeViewModel : NSObject {
         guard let headerMovie  = header.first?.movies.randomElement() else {
             return
         }
+        let headerModel = PreviewModel(
+            movie: headerMovie,
+            isDownloaed:false,
+            isFavorite:false,
+            onWatchList:false
+        )
+        self.headerMovie = headerModel
+        setHeaderStatus()
         
         let filteredHomeData = HomeMovieUiModel(
-            headerMovie: headerMovie,
+            headerMovie: headerModel,
             sections: moviesArray
         )
         
@@ -118,4 +152,28 @@ class HomeViewModel : NSObject {
         
     }
     
+    
+    func updateDownloadStatus(status: Bool){
+        homeRepository.updateDownloadStatus(movie: headerMovie!.movie, isDownloaded: !status){ result in
+            switch result {
+            case .success(()):
+                
+                self.delegate?.updateDownloadHeaderStatus(self.headerMovie!, isDownloaded: !status)
+            case .failure(_):
+                print("")
+            }
+        }
+    }
+    
+    
+    func updateWatchListStatus(status: Bool){
+        homeRepository.updateWatchListStatus(movie: headerMovie!.movie, onWatchList: !status){ result in
+            switch result {
+            case .success(()):
+                self.delegate?.updateWatchListHeaderStatus(self.headerMovie!, onWatchlist: !status)
+            case .failure(_):
+                print("")
+            }
+        }
+    }
 }

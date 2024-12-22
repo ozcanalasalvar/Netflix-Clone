@@ -91,6 +91,11 @@ class HomeViewController: UIViewController  {
         setInitialFrameOfTabbar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        homeViewModel.setHeaderStatus()
+    }
+    
     
     private var subItemViewHeightConstraint : NSLayoutConstraint!
     
@@ -308,6 +313,18 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
 
 
 extension HomeViewController: HeroHeaderUiViewDelegate{
+    func didTapWatchList(status: Bool, movie: Movie) {
+        homeViewModel.updateWatchListStatus(status: status)
+    }
+    
+    func didTapDownload(status: Bool, movie: Movie) {
+        homeViewModel.updateDownloadStatus(status: status)
+    }
+    
+    func didTapContent(movie: Movie) {
+        self.navigateToPreview(with: movie)
+    }
+    
     func heroHeaderImageLoaded(_ image: UIImage) {
         let color = image.averageColor ?? UIColor.systemBackground
         
@@ -324,18 +341,18 @@ extension HomeViewController: HeroHeaderUiViewDelegate{
         
     }
     
-    
-    
-    func heroHeaderUiViewDidTapPlayButton(_ button: UIButton, movie: Movie) {
-        self.navigateToPreview(with: movie)
-    }
-    
-    func heroHeaderUiViewDidTapDownloadButton(_ button: UIButton, movie: Movie) {
-        
-    }
 }
 
 extension HomeViewController : HomeViewModeloutput {
+    func updateWatchListHeaderStatus(_ header: PreviewModel, onWatchlist: Bool) {
+      
+        self.headerView?.onWatchList = onWatchlist
+    }
+    
+    func updateDownloadHeaderStatus(_ header: PreviewModel, isDownloaded: Bool) {
+        self.headerView?.isDowmloaded = isDownloaded
+    }
+    
     func didLoadCategories(_ categories: [HomeTabCategory]) {
         self.tabbarCategories = categories
         self.categoryCollectionView.reloadData()
@@ -344,7 +361,7 @@ extension HomeViewController : HomeViewModeloutput {
     
     func didFetchHomeData(_ homeData: HomeMovieUiModel) {
         self.homeData = homeData
-        self.headerView?.configure(with: homeData.headerMovie)
+        self.headerView?.configure(with: homeData.headerMovie.movie)
         self.homeFeedTable.reloadData()
     }
     

@@ -6,7 +6,7 @@
 //
 
 struct HomeMovieUiModel {
-    var headerMovie : Movie
+    var headerMovie : PreviewModel
     var sections : [MovieSection]
 }
 

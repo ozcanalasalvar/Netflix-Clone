@@ -9,9 +9,11 @@ import Foundation
 class DefaultHomeRepository: HomeRepository {
     
     private var movieService: MovieService!
+    private var localSource: LocalSource!
     
     init() {
         movieService = MovieServiceImpl.shared
+        localSource = DefaultLocalSource()
     }
     
     func fetchHomeData(completion: @escaping (Result<HomeMovieUiModel?, MovieError>) -> ()) {
@@ -215,7 +217,7 @@ class DefaultHomeRepository: HomeRepository {
                 return
             }
             
-            homeMovies = HomeMovieUiModel(headerMovie: headerMovie, sections: [
+            homeMovies = HomeMovieUiModel(headerMovie: PreviewModel(movie: headerMovie, isDownloaed: false, isFavorite: false, onWatchList: false), sections: [
                 .init(title: "Trending Movies", movies: trendingMovie!, sectionType: Sections.TrendingsMovies.rawValue),
                 .init(title: "Trending TV Shows", movies: trendingTv!, sectionType: Sections.TrendingsTv.rawValue),
                 .init(title: "Popular Movies", movies: popular!, sectionType: Sections.Popular.rawValue),
@@ -243,5 +245,41 @@ class DefaultHomeRepository: HomeRepository {
         
     }
     
+    
+    
+    func appendStatusOfMovie(preview: PreviewModel,completion: @escaping (Result<PreviewModel?, MovieError>) -> ()) {
+        
+        let dispatchGroup = DispatchGroup()
+        var isDownloaded: Bool = false
+        var isWatchList: Bool = false
+        
+        
+        dispatchGroup.enter()
+        isDownloaded = localSource.isDownloaded(id: preview.movie.id)
+        dispatchGroup.leave()
+        
+        
+        dispatchGroup.enter()
+        isWatchList = localSource.isOnWatchlist(id: preview.movie.id)
+        dispatchGroup.leave()
+        
+        
+        dispatchGroup.notify(queue: .main) {
+            var model = preview
+            model.isDownloaed = isDownloaded
+            model.onWatchList = isWatchList
+            completion(.success(model))
+        }
+    }
+    
+    
+    
+    func updateDownloadStatus(movie: Movie, isDownloaded: Bool, completion: @escaping (Result<Void, MovieError>) -> ()) {
+        localSource.updateDownloadStatus(movie: movie, isDownload: isDownloaded, completion: completion)
+    }
+    
+    func updateWatchListStatus(movie: Movie, onWatchList: Bool, completion: @escaping (Result<Void, MovieError>) -> ()) {
+        localSource.updateWatchlistStatus(movie: movie, inWatchList: onWatchList, completion: completion)
+    }
     
 }

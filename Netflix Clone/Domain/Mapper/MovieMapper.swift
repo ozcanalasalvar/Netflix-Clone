@@ -28,3 +28,24 @@ extension MovieData {
             type: type)
     }
 }
+
+extension MovieEntity {
+    
+    func mapToMovie(_ type:String) -> Movie {
+        
+        return Movie(
+            id: Int(id),
+            title: title,
+            name: name,
+            backdropPath: backdropPath,
+            posterPath: posterPath,
+            overview: overview ?? "",
+            voteAverage: voteAverage,
+            voteCount: Int(voteCount),
+            runtime: Int(runtime),
+            releaseDate: releaseDate,
+            videos: nil,
+            genres: nil,
+            type: type)
+    }
+}

@@ -8,8 +8,9 @@
 import UIKit
 
 protocol HeroHeaderUiViewDelegate : AnyObject {
-    func heroHeaderUiViewDidTapPlayButton(_ button: UIButton, movie: Movie)
-    func heroHeaderUiViewDidTapDownloadButton(_ button: UIButton, movie: Movie)
+    func didTapWatchList(status: Bool, movie: Movie)
+    func didTapDownload(status: Bool, movie: Movie)
+    func didTapContent(movie: Movie)
     func heroHeaderImageLoaded(_ image: UIImage)
 }
 
@@ -29,42 +30,54 @@ class HeroHeaderUiView: UIView {
         return imageView
     }()
     
-    
-   
-    
-    
-    private let playButton : UIButton = {
-        let button = UIButton()
-        button.setTitle("Play", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.layer.backgroundColor = UIColor.white.cgColor
-        button.layer.cornerRadius = 5
-        
-        button.translatesAutoresizingMaskIntoConstraints = false //To use constraints
+    let downloadButton: AppButton = {
+        let button = AppButton()
+        button.titleText = "Download"
+        button.tintColor = .white
+        button.backgroundColor = .darkGray
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let downLoadButton : UIButton = {
-        let button = UIButton()
-        button.setTitle("Download", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.backgroundColor = UIColor.systemGray3.cgColor
-        button.layer.cornerRadius = 5
-        
-        button.translatesAutoresizingMaskIntoConstraints = false //To use constraints
+    let watchListButton: AppButton = {
+        let button = AppButton()
+        button.titleText = "WatchList"
+        button.tintColor = .black
+        button.backgroundColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    public var onWatchList : Bool = true {
+        didSet {
+            watchListButton.image =  onWatchList ? UIImage(systemName: "checkmark") : UIImage(systemName: "plus")
+        }
+    }
+    
+    
+    public var isDowmloaded : Bool = true {
+        didSet {
+            downloadButton.image = !isDowmloaded ? UIImage(systemName: "arrow.down.to.line")  : UIImage(systemName: "checkmark.rectangle.portrait")
+        }
+    }
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(heroImageView)
-        addSubview(playButton)
-        addSubview(downLoadButton)
         applyConstraints()
         
         
-        playButton.addTarget(self, action: #selector(self.playButtonTapped), for: .touchUpInside)
+        watchListButton.addTapGesture {
+            self.delegate?.didTapWatchList(status: self.onWatchList, movie: self.movie!)
+        }
+        downloadButton.addTapGesture {
+            self.delegate?.didTapDownload(status: self.isDowmloaded, movie: self.movie!)
+        }
+        
+        heroImageView.addTapGesture {
+            self.delegate?.didTapContent(movie: self.movie!)
+        }
         
     }
     
@@ -87,27 +100,34 @@ class HeroHeaderUiView: UIView {
             self?.delegate?.heroHeaderImageLoaded(image)
 
         }
-    }
-    
-    
-    @objc func playButtonTapped(sender: UIButton){
-        delegate?.heroHeaderUiViewDidTapPlayButton(sender, movie: movie!)
+        
+        isDowmloaded = false
+        onWatchList = false
     }
     
     
     private func applyConstraints(){
         
-        let playButtonConstraints = [
-            playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
-            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
-            playButton.widthAnchor.constraint(equalToConstant: 120)
-        ]
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        let downdloadButtonConstraints = [
-            downLoadButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -70),
-            downLoadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
-            downLoadButton.widthAnchor.constraint(equalToConstant: 120)
-        ]
+        stackView.addArrangedSubview(watchListButton)
+        stackView.addArrangedSubview(downloadButton)
+      
+
+        
+        addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalTo: heroImageView.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: heroImageView.trailingAnchor, constant: -10),
+            stackView.bottomAnchor.constraint(equalTo: heroImageView.bottomAnchor, constant: -10),
+            stackView.heightAnchor.constraint(equalToConstant: 40),
+        ])
         
         let heroImageViewConstraints = [
             heroImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -116,8 +136,6 @@ class HeroHeaderUiView: UIView {
             heroImageView.topAnchor.constraint(equalTo: topAnchor, constant: 150)
         ]
         
-        NSLayoutConstraint.activate(playButtonConstraints)
-        NSLayoutConstraint.activate(downdloadButtonConstraints)
         NSLayoutConstraint.activate(heroImageViewConstraints)
     }
 }

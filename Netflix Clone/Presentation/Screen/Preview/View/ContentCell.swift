@@ -54,6 +54,7 @@ class ContentCell : UITableViewCell {
     public var isDowmloaded : Bool = true {
         didSet {
             downloadButton.image = !isDowmloaded ? UIImage(systemName: "arrow.down.to.line")  : UIImage(systemName: "checkmark.rectangle.portrait")
+            downloadButton.titleText = !isDowmloaded ? "Download"  : "Downloaded"
         }
     }
     
@@ -160,8 +161,6 @@ class ContentCell : UITableViewCell {
             self.delegate?.didTapPlay(preview: preview)
         }
         
-
-        downloadButton.titleText = "Download"
         downloadButton.tintColor = .white
         downloadButton.backgroundColor = .darkGray
         downloadButton.translatesAutoresizingMaskIntoConstraints = false
