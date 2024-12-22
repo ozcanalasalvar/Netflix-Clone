@@ -43,7 +43,7 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
         localDataSource.fetchFavoritesMovies(){ result in
             switch result {
             case .success(let moviesEntity):
-                if moviesEntity.isEmpty { downloads = nil } else {
+                if moviesEntity.isEmpty { favorites = nil } else {
                     favorites = moviesEntity.map { $0.mapToMovie(MovieType.movie) }
                 }
             case .failure(_):
@@ -56,7 +56,7 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
         localDataSource.fetchOnWatchlistMovies(){ result in
             switch result {
             case .success(let moviesEntity):
-                if moviesEntity.isEmpty { downloads = nil } else {
+                if moviesEntity.isEmpty { watchList = nil } else {
                     watchList = moviesEntity.map { $0.mapToMovie(MovieType.movie) }
                 }
             case .failure(_):
@@ -70,7 +70,7 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
         localDataSource.fetchTralierWatchedMovies(){ result in
             switch result {
             case .success(let moviesEntity):
-                if moviesEntity.isEmpty { downloads = nil } else {
+                if moviesEntity.isEmpty { tralierWactched = nil } else {
                     tralierWactched = moviesEntity.map { $0.mapToMovie(MovieType.movie) }
                 }
             case .failure(_):
@@ -83,9 +83,15 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
             
             sections.append(.init(icon: "bell.fill", iconTint: .red, title: "Notifications", hasAction: true, actionText: nil, movie: nil))
             sections.append(.init(icon: "arrow.down.to.line", iconTint: .blue, title: "Downloads", hasAction: true, actionText: nil, movie: downloads))
-            sections.append(.init(icon: nil, iconTint: .blue, title: "Your Favorite Series&Movies", hasAction: false, actionText: nil, movie: favorites))
-            sections.append(.init(icon: nil, iconTint: .blue, title: "My List", hasAction: true, actionText: "See all", movie: watchList))
-            sections.append(.init(icon: nil, iconTint: .blue, title: "Tralier Watched", hasAction: false, actionText: nil, movie: tralierWactched))
+            if favorites != nil {
+                sections.append(.init(icon: nil, iconTint: .blue, title: "Your Favorite Series&Movies", hasAction: false, actionText: nil, movie: favorites))
+            }
+            if watchList != nil {
+                sections.append(.init(icon: nil, iconTint: .blue, title: "My List", hasAction: true, actionText: "See all", movie: watchList))
+            }
+            if tralierWactched != nil {
+                sections.append(.init(icon: nil, iconTint: .blue, title: "Tralier Watched", hasAction: false, actionText: nil, movie: tralierWactched))
+            }
             
             completion(.success(sections))
             return

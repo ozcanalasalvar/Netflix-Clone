@@ -109,14 +109,14 @@ class NewAndHotViewController: UIViewController{
         downloadButoon.setImage(UIImage(systemName: "arrow.down.to.line"), for: .normal)
         downloadButoon.tintColor = .white
         downloadButoon.addTapGesture {
-            print("downloadButoon")
+            self.tabBarController?.selectedIndex = 2
         }
         
         let shareButton  = UIButton()
         shareButton.setImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
         shareButton.tintColor = .white
         
-        downloadButoon.addTapGesture {
+        shareButton.addTapGesture {
             print("downloadButoon")
         }
         let buttons: [UIButton] = [searchButton, downloadButoon, shareButton]

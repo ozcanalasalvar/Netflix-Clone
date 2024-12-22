@@ -42,7 +42,7 @@ extension Movie {
     
     var genreText : String? {
         var text = ""
-        guard let genres else {
+        guard let genres = genres else {
             return nil
         }
         for index in 0...genres.count-1 {

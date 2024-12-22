@@ -111,7 +111,7 @@ class HomeViewController: UIViewController  {
         downloadButoon.setImage(UIImage(systemName: "arrow.down.to.line"), for: .normal)
         downloadButoon.tintColor = .white
         downloadButoon.addTapGesture {
-            print("downloadButoon")
+            self.tabBarController?.selectedIndex = 2
         }
         
         let shareButton  = UIButton()
