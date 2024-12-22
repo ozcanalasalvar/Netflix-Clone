@@ -23,6 +23,7 @@ class HomeViewController: UIViewController  {
     private let homeFeedTable : UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
+        table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = UIColor.clear
         return table
