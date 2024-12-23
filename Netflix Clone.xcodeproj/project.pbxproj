@@ -27,6 +27,7 @@
 		A11322D32D178456000F5A74 /* MyNetflixRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322D22D178445000F5A74 /* MyNetflixRepository.swift */; };
 		A11322D52D178492000F5A74 /* DefaultMyNetflixRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322D42D17848E000F5A74 /* DefaultMyNetflixRepository.swift */; };
 		A11322D92D187F29000F5A74 /* AccountSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322D82D187F18000F5A74 /* AccountSectionModel.swift */; };
+		A11322DB2D195775000F5A74 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322DA2D19575E000F5A74 /* IconView.swift */; };
 		A14E053B2CEFD95200DD4092 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053A2CEFD94C00DD4092 /* VideoView.swift */; };
 		A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */; };
 		A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FDC2CD956B0005DE4D1 /* AppDelegate.swift */; };
@@ -90,6 +91,7 @@
 		A11322D22D178445000F5A74 /* MyNetflixRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNetflixRepository.swift; sourceTree = "<group>"; };
 		A11322D42D17848E000F5A74 /* DefaultMyNetflixRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyNetflixRepository.swift; sourceTree = "<group>"; };
 		A11322D82D187F18000F5A74 /* AccountSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSectionModel.swift; sourceTree = "<group>"; };
+		A11322DA2D19575E000F5A74 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		A14E053A2CEFD94C00DD4092 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A1537FD92CD956B0005DE4D1 /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,6 +268,7 @@
 		A1537FF92CDA36FB005DE4D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A11322DA2D19575E000F5A74 /* IconView.swift */,
 				A14E053A2CEFD94C00DD4092 /* VideoView.swift */,
 				A11322C32D1592D8000F5A74 /* AppButton.swift */,
 				A1AAC4AB2D00D6080062C75B /* ViewConstant.swift */,
@@ -583,6 +586,7 @@
 				A11322D32D178456000F5A74 /* MyNetflixRepository.swift in Sources */,
 				A15380092CDA9A3B005DE4D1 /* MovieResponse.swift in Sources */,
 				A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */,
+				A11322DB2D195775000F5A74 /* IconView.swift in Sources */,
 				A11322C92D170313000F5A74 /* PreviewActionView.swift in Sources */,
 				A1AAC4AA2D00CC160062C75B /* CategoryCollectionViewCell.swift in Sources */,
 				A11322B62D121DB2000F5A74 /* DefaultLocalSource.swift in Sources */,

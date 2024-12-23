@@ -37,6 +37,8 @@ class ContentCell : UITableViewCell {
     
     let downloadButton = AppButton()
     
+    private var heightConstraint: NSLayoutConstraint!
+    
     
     public var isFavorite : Bool = true {
         didSet {
@@ -71,7 +73,7 @@ class ContentCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        heightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 150)
         
         actionStackView.addArrangedSubview(myListView)
         actionStackView.addArrangedSubview(givePointView)
@@ -237,6 +239,8 @@ class ContentCell : UITableViewCell {
         
         let extra = Int((movies.count%3))
         let collectionHeight = (Int((movies.count/3)) + (extra > 0 ? 2 : 1)) * 150
+        heightConstraint.constant = CGFloat(collectionHeight)
+       
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -281,7 +285,7 @@ class ContentCell : UITableViewCell {
             collectionView.topAnchor.constraint(equalTo: similarLabel.bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            collectionView.heightAnchor.constraint(equalToConstant: CGFloat(collectionHeight)),
+            heightConstraint,
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         

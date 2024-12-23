@@ -11,6 +11,7 @@ class MainPreviewViewController : UIViewController{
     
     private let previewController : MoviePreviewViewController = {
         let controller = MoviePreviewViewController()
+        controller.isBackEnabled = false
         return controller
     }()
     

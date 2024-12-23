@@ -31,33 +31,24 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     }()
     
     
-    private let closeImageView : UIImageView = {
-        let image : UIImageView = UIImageView()
-        image.layer.borderWidth = 1
-        image.image = UIImage(systemName: "xmark")
-        image.layer.masksToBounds = false
-        image.layer.backgroundColor = UIColor.black.withAlphaComponent(0.5).cgColor
-        image.layer.cornerRadius = 8
-        image.clipsToBounds = true
-        image.tintColor = .white
-        image.isUserInteractionEnabled = true
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
+    private let closeView : IconView = {
+        let circleView = IconView()
+        circleView.cornerRadius = 12
+        circleView.circleBackgroundColor = UIColor.black.withAlphaComponent(0.5)
+        circleView.icon = UIImage(systemName: "xmark")
+        circleView.iconTintColor = .white
+        circleView.translatesAutoresizingMaskIntoConstraints = false
+        return circleView
     }()
     
-    private let backImageView : UIImageView = {
-        let image : UIImageView = UIImageView()
-        image.layer.borderWidth = 1
-        image.image = UIImage(systemName: "chevron.left")
-        image.layer.masksToBounds = false
-        image.layer.backgroundColor = UIColor.black.withAlphaComponent(0.5).cgColor
-        image.layer.cornerRadius = 8
-        image.clipsToBounds = true
-        image.tintColor = .white
-        image.isHidden = true
-        image.isUserInteractionEnabled = true
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
+    private let backView : IconView = {
+        let circleView = IconView()
+        circleView.cornerRadius = 12
+        circleView.circleBackgroundColor = UIColor.black.withAlphaComponent(0.5)
+        circleView.icon = UIImage(systemName: "chevron.left")
+        circleView.iconTintColor = .white
+        circleView.translatesAutoresizingMaskIntoConstraints = false
+        return circleView
     }()
     
     private let tableView : UITableView = {
@@ -73,7 +64,7 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     
     var isBackEnabled : Bool = false {
        didSet {
-            backImageView.isHidden = !isBackEnabled
+           backView.isHidden = !isBackEnabled
         }
     }
     
@@ -91,8 +82,8 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         
         view.addSubview(videoView)
         view.addSubview(movieImageView)
-        view.addSubview(closeImageView)
-        view.addSubview(backImageView)
+        view.addSubview(closeView)
+        view.addSubview(backView)
         view.addSubview(tableView)
         
         tableView.dataSource = self
@@ -100,11 +91,11 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         
         videoView.delegate = self
         
-        closeImageView.addTapGesture {
+        closeView.addTapGesture {
             self.dismiss(animated: true)
         }
         
-        backImageView.addTapGesture {
+        backView.addTapGesture {
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -201,14 +192,18 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         let closeImageViewConstraints = [
-            closeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            closeImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            closeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            closeView.topAnchor.constraint(equalTo: view.topAnchor),
+            closeView.widthAnchor.constraint(equalToConstant: 44),
+            closeView.heightAnchor.constraint(equalToConstant: 44),
         ]
         
         
         let backImageViewConstraints = [
-            backImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            backImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            backView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backView.topAnchor.constraint(equalTo: view.topAnchor),
+            backView.widthAnchor.constraint(equalToConstant: 44),
+            backView.heightAnchor.constraint(equalToConstant: 44),
         ]
         
         NSLayoutConstraint.activate(webviewConstraints)
