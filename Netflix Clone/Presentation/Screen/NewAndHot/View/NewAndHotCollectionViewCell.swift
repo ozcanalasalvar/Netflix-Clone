@@ -16,9 +16,7 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     
     
     func videoViewDelegateVideoLoadDidFinish(_ videoView: VideoView) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-            self?.movieImageView.isHidden = true
-        })
+       
     }
     
     
@@ -136,7 +134,13 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         if movie?.tralierKey != nil {
             videoView.playTralier()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-                self?.movieImageView.isHidden = true
+                UIView.animate(
+                    withDuration: 0.7,
+                    animations: { self?.movieImageView.alpha = 0 },
+                    completion: { (value: Bool) in
+                        self?.movieImageView.isHidden = true
+                    }
+                )
             })
         }
        
@@ -145,10 +149,14 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     func pauseTralier(){
         if movie?.tralierKey != nil {
             videoView.pauseTralier()
-            UIView.animate(withDuration: 0.5) {
-                self.movieImageView.isHidden = false
+                UIView.animate(
+                    withDuration: 0.7,
+                    animations: { self.movieImageView.alpha = 1 },
+                    completion: { (value: Bool) in
+                        self.movieImageView.isHidden = false
+                    }
+                )
             }
-        }
        
     }
     
