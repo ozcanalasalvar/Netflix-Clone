@@ -18,6 +18,7 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     public let videoView : VideoView = {
         let wb = VideoView()
         wb.translatesAutoresizingMaskIntoConstraints = false
+        wb.isSoundHidden = true
         wb.isUserInteractionEnabled = true
         return wb
     }()
@@ -27,6 +28,34 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private let playerControllerView : UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let playIcon : IconView = {
+        let circleView = IconView()
+        circleView.cornerRadius = 18
+        circleView.circleBackgroundColor = UIColor.black.withAlphaComponent(0.5)
+        circleView.icon = UIImage(systemName: "play")
+        circleView.iconTintColor = .white
+        circleView.isHidden = true
+        circleView.translatesAutoresizingMaskIntoConstraints = false
+        return circleView
+    }()
+    
+    private let soundView : IconView = {
+        let circleView = IconView()
+        circleView.cornerRadius = 12
+        circleView.circleBackgroundColor = UIColor.black.withAlphaComponent(0.5)
+        circleView.icon = UIImage(systemName: "speaker.slash")
+        circleView.iconTintColor = .white
+        circleView.isHidden = true
+        circleView.translatesAutoresizingMaskIntoConstraints = false
+        return circleView
     }()
     
     
@@ -60,6 +89,7 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     }()
     
     private var preview: PreviewModel?
+    private var isPlaying: Bool = false
     
     var isBackEnabled : Bool = false {
        didSet {
@@ -81,7 +111,10 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         
         view.addSubview(videoView)
         view.addSubview(movieImageView)
+        view.addSubview(playerControllerView)
+        playerControllerView.addSubview(playIcon)
         view.addSubview(closeView)
+        view.addSubview(soundView)
         view.addSubview(backView)
         view.addSubview(tableView)
         
@@ -98,6 +131,20 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
             self.navigationController?.popViewController(animated: true)
         }
         
+        playerControllerView.addTapGesture {
+            if self.isPlaying {
+                self.videoView.pauseTralier()
+            } else {
+                self.videoView.playTralier()
+            }
+            self.playIcon.isHidden = !self.isPlaying
+            self.isPlaying  = !self.isPlaying
+        }
+        
+        soundView.addTapGesture {
+            self.isMuted = !self.isMuted
+        }
+        
         configureConstraints()
     }
     
@@ -105,11 +152,13 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         videoView.playTralier()
+        isPlaying = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         videoView.pauseTralier()
+        isPlaying = false
     }
 
     
@@ -147,9 +196,11 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     private var isMuted : Bool = false {
         didSet {
             if isMuted {
+                soundView.icon = UIImage(systemName: "speaker")
                 videoView.unmuteVideo()
             } else {
                 videoView.muteVideo()
+                soundView.icon = UIImage(systemName: "speaker.slash")
             }
         }
     }
@@ -170,6 +221,8 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.videoView.playTralier()
+            self.isPlaying = true
+            self.soundView.isHidden = false
         }
     }
     
@@ -189,6 +242,15 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
             movieImageView.widthAnchor.constraint(equalTo: view.widthAnchor),
             movieImageView.heightAnchor.constraint(equalToConstant:250),
             movieImageView.topAnchor.constraint(equalTo: guide.topAnchor )
+        ]
+        
+        
+        let playerControllerViewConstraints = [
+            playerControllerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            playerControllerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            playerControllerView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            playerControllerView.heightAnchor.constraint(equalToConstant:250),
+            playerControllerView.topAnchor.constraint(equalTo: guide.topAnchor )
         ]
         
         NSLayoutConstraint.activate([
@@ -212,10 +274,25 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
             backView.heightAnchor.constraint(equalToConstant: 44),
         ]
         
+        NSLayoutConstraint.activate([
+            playIcon.centerXAnchor.constraint(equalTo: playerControllerView.centerXAnchor),
+            playIcon.centerYAnchor.constraint(equalTo: playerControllerView.centerYAnchor),
+            playIcon.heightAnchor.constraint(equalToConstant: 36),
+            playIcon.widthAnchor.constraint(equalToConstant: 36)
+        ])
+        
+        NSLayoutConstraint.activate([
+            soundView.bottomAnchor.constraint(equalTo: playerControllerView.bottomAnchor),
+            soundView.trailingAnchor.constraint(equalTo: playerControllerView.trailingAnchor),
+            soundView.widthAnchor.constraint(equalToConstant: 44),
+            soundView.heightAnchor.constraint(equalToConstant: 44),
+        ])
+        
         NSLayoutConstraint.activate(webviewConstraints)
         NSLayoutConstraint.activate(movieImageViewConstraints)
         NSLayoutConstraint.activate(closeImageViewConstraints)
         NSLayoutConstraint.activate(backImageViewConstraints)
+        NSLayoutConstraint.activate(playerControllerViewConstraints)
     }
     
 }

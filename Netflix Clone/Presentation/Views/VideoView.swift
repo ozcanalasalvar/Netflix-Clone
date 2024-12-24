@@ -15,7 +15,7 @@ protocol VideoViewDelegate: AnyObject {
 
 class VideoView: UIView, WKNavigationDelegate {
     
-    private let movieImageView : UIImageView = {
+    private let previewImage : UIImageView = {
         let image : UIImageView = UIImageView()
         image.contentMode = .scaleToFill
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -54,6 +54,11 @@ class VideoView: UIView, WKNavigationDelegate {
         return wb
     }()
     
+    var isSoundHidden : Bool = false {
+        didSet {
+            soundImageView.isHidden = isSoundHidden
+        }
+    }
     
     var delegate: VideoViewDelegate?
   
@@ -61,7 +66,7 @@ class VideoView: UIView, WKNavigationDelegate {
         super.init(frame: frame)
         
         addSubview(videoView)
-        addSubview(movieImageView)
+        addSubview(previewImage)
         addSubview(soundImageView)
         
         
@@ -89,11 +94,11 @@ class VideoView: UIView, WKNavigationDelegate {
         videoView.evaluateJavaScript("playVideo();") { (result, error) in
             if let error = error {
                 //print("Error starting video: \(error.localizedDescription)")
-                self.movieImageView.isHidden = false
+                //self.movieImageView.isHidden = false
             }
         }
         
-        movieImageView.isHidden = true
+        previewImage.isHidden = true
     }
     
     func pauseTralier(){
@@ -103,7 +108,7 @@ class VideoView: UIView, WKNavigationDelegate {
             }
         }
         
-        movieImageView.isHidden = false
+        //movieImageView.isHidden = false
     }
     
     
@@ -136,7 +141,7 @@ class VideoView: UIView, WKNavigationDelegate {
     
     func configure(with posterUrl : URL, videoID: String){
         
-        movieImageView.downloaded(from: posterUrl, contentMode: .scaleToFill)
+      //  movieImageView.downloaded(from: posterUrl, contentMode: .scaleToFill)
         
         
         let htmlString = """
@@ -239,10 +244,10 @@ class VideoView: UIView, WKNavigationDelegate {
         
         
         let movieImageViewConstraints = [
-            movieImageView.topAnchor.constraint(equalTo: self.topAnchor),
-            movieImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            movieImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            movieImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            previewImage.topAnchor.constraint(equalTo: self.topAnchor),
+            previewImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            previewImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            previewImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ]
         
 
