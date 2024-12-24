@@ -25,7 +25,6 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     private let movieImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
-        imageView.isHidden = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -161,7 +160,14 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
     }
     
     func videoViewDelegateVideoLoadDidFinish(_ videoView: VideoView) {
-        movieImageView.isHidden = true
+        UIView.animate(
+            withDuration: 0.7,
+            animations: { self.movieImageView.alpha = 0 },
+            completion: { (value: Bool) in
+                self.movieImageView.isHidden = true
+            }
+        )
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.videoView.playTralier()
         }

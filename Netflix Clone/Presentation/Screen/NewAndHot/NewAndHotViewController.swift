@@ -288,7 +288,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
         guard let view = scrollView as? UICollectionView else { return }
         if view == newAndHotCollectionView {
             //pauseOffCenterPlayers()
-            findCenterAndPlay()
+            findCenterCell()
             guard let visibleIndex = newAndHotCollectionView.indexPathsForVisibleItems.first else  { return }
             viewModel.updateCategorySelection(section: newAndHots[visibleIndex.item].categoryType)
            
@@ -310,7 +310,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
 
 extension NewAndHotViewController {
     
-    func findCenterAndPlay(){
+    func findCenterCell(){
 
         guard newAndHotCollectionView.visibleCells is [NewAndHotCollectionViewCell] else { return }
         
