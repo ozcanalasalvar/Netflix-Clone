@@ -319,7 +319,10 @@ extension MoviePreviewViewController : UITableViewDelegate, UITableViewDataSourc
     }
     
     func didTapPlay(preview: PreviewModel) {
-        
+        guard let videoID = preview.movie.youtubeTraliers?[0].key else { return }
+        let controller = PlayerViewController()
+        controller.configure(with: videoID)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func didSelectMovie(movie: Movie) {
