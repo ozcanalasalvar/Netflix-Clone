@@ -74,6 +74,7 @@ class ContentCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         heightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 150)
+        heightConstraint.isActive = true
         
         actionStackView.addArrangedSubview(myListView)
         actionStackView.addArrangedSubview(givePointView)
