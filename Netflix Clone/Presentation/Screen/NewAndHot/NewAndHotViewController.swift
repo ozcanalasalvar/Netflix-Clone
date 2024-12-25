@@ -203,7 +203,7 @@ extension NewAndHotViewController : NewAndHotViewModelOutput {
     }
     
     func moviesFetchingFailed(error: String) {
-        print(error)
+        self.showNetworkErrorAlert(with: error)
     }
     
     

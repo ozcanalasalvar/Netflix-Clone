@@ -84,7 +84,7 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
         localDataSource.fetchContinueToWatchMovies(){ result in
             switch result {
             case .success(let moviesEntity):
-                if moviesEntity.isEmpty { tralierWactched = nil } else {
+                if moviesEntity.isEmpty { continueToWatch = nil } else {
                     continueToWatch = moviesEntity.map { $0.mapToMovie() }
                 }
             case .failure(_):

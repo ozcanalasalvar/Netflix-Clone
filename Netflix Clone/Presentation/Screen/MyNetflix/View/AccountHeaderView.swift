@@ -41,8 +41,7 @@ class AccountHeaderView: UIView {
         addSubview(downIcon)
         
         imageView.image = UIImage(named: "avatar")
-        accountLabel.text = "tttt"
-        
+        accountLabel.text = "Ozcan"
         
         applyConsraints()
         

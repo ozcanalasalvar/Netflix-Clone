@@ -388,7 +388,7 @@ extension MoviePreviewViewController: MoviePreviewViewModelOutput {
     }
     
     func previewFetchFailed(error: String) {
-        print(error)
+        self.showNetworkErrorAlert(with: error)
     }
     
     

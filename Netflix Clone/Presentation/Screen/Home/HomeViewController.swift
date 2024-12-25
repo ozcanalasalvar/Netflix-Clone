@@ -368,7 +368,7 @@ extension HomeViewController : HomeViewModeloutput {
     
     
     func didFetchMovieFailed(_ error: String) {
-        print(error)
+        self.showNetworkErrorAlert(with: error)
     }
     
     func addGradintLayer(color : UIColor) {

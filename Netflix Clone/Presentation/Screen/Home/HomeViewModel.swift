@@ -34,6 +34,10 @@ class HomeViewModel : NSObject {
         super.init()
         homeRepository = DefaultHomeRepository()
         fetchHomeData()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("DBUpdated"), object: nil, queue: nil){ _ in
+            self.setHeaderStatus()
+        }
     }
     
     func initVm(){

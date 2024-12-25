@@ -94,7 +94,6 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.isDownloaded = isDownload
-                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -132,7 +131,6 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.isFavorite = isFavorite
-                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -167,7 +165,6 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.isOnWatchlist = inWatchList
-                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -202,7 +199,6 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.tralierWatched = tralierWatched
-                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -238,7 +234,6 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.continueWatched = tralierWatched
-                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {

@@ -77,6 +77,20 @@ extension UIViewController {
             self?.present(moviePreviewController, animated: true)
         }
     }
+    
+    
+    func showNetworkErrorAlert(with message: String) {
+        let alert = UIAlertController(title: "Network Error", message: message, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { _ in
+            // Retry the network request here
+            //self.fetchDataFromAPI()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        // Present the alert in your view controller
+       
+        self.present(alert, animated: true, completion: nil)
+        
+    }
 }
 
 
