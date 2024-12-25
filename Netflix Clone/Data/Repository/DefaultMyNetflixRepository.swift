@@ -23,6 +23,7 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
         var favorites : [Movie]? = nil
         var watchList : [Movie]? = nil
         var tralierWactched: [Movie]? = nil
+        var continueToWatch: [Movie]? = nil
         
         
         dispatchGroup.enter()
@@ -30,7 +31,7 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
             switch result {
             case .success(let moviesEntity):
                 if moviesEntity.isEmpty { downloads = nil } else {
-                    downloads = moviesEntity.map { $0.mapToMovie(MovieType.movie) }
+                    downloads = moviesEntity.map { $0.mapToMovie() }
                 }
                 
             case .failure(_):
@@ -44,7 +45,7 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
             switch result {
             case .success(let moviesEntity):
                 if moviesEntity.isEmpty { favorites = nil } else {
-                    favorites = moviesEntity.map { $0.mapToMovie(MovieType.movie) }
+                    favorites = moviesEntity.map { $0.mapToMovie() }
                 }
             case .failure(_):
                 favorites = nil
@@ -57,7 +58,7 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
             switch result {
             case .success(let moviesEntity):
                 if moviesEntity.isEmpty { watchList = nil } else {
-                    watchList = moviesEntity.map { $0.mapToMovie(MovieType.movie) }
+                    watchList = moviesEntity.map { $0.mapToMovie() }
                 }
             case .failure(_):
                 watchList = nil
@@ -71,10 +72,23 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
             switch result {
             case .success(let moviesEntity):
                 if moviesEntity.isEmpty { tralierWactched = nil } else {
-                    tralierWactched = moviesEntity.map { $0.mapToMovie(MovieType.movie) }
+                    tralierWactched = moviesEntity.map { $0.mapToMovie() }
                 }
             case .failure(_):
                 tralierWactched = nil
+            }
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        localDataSource.fetchContinueToWatchMovies(){ result in
+            switch result {
+            case .success(let moviesEntity):
+                if moviesEntity.isEmpty { tralierWactched = nil } else {
+                    continueToWatch = moviesEntity.map { $0.mapToMovie() }
+                }
+            case .failure(_):
+                continueToWatch = nil
             }
             dispatchGroup.leave()
         }
@@ -91,6 +105,10 @@ class DefaultMyNetflixRepository : MyNetflixRepository {
             }
             if tralierWactched != nil {
                 sections.append(.init(icon: nil, iconTint: .blue, title: "Tralier Watched", hasAction: false, actionText: nil, movie: tralierWactched))
+            }
+            
+            if continueToWatch != nil {
+                sections.append(.init(icon: nil, iconTint: .blue, title: "Continue to Watch", hasAction: false, actionText: nil, movie: continueToWatch))
             }
             
             completion(.success(sections))

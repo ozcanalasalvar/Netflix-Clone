@@ -18,6 +18,10 @@ class MyNetflixViewModel: AnyObject {
     
     init (){
         repository = DefaultMyNetflixRepository()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("DBUpdated"), object: nil, queue: nil){ _ in
+            self.fetchAccountSection()
+        }
     }
     
     

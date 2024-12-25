@@ -35,6 +35,7 @@ class MyNetflixViewController: UIViewController {
         
         viewModel = MyNetflixViewModel()
         viewModel.delegate = self
+        viewModel.fetchAccountSection()
         
         view.backgroundColor = .systemBackground
         view.addSubview(myNetflixTableView)
@@ -60,7 +61,6 @@ class MyNetflixViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchAccountSection()
     }
     
     override func viewDidLayoutSubviews() {
@@ -158,7 +158,7 @@ extension MyNetflixViewController: UITableViewDelegate, UITableViewDataSource,Co
         cell.backgroundColor = .clear
         cell.delegate = self
         
-        guard let movies = accountSections[indexPath.section].movie else { return cell }
+        guard let movies = accountSections[indexPath.section].movie else { return UITableViewCell() }
         cell.configure(with: movies)
         
         return cell

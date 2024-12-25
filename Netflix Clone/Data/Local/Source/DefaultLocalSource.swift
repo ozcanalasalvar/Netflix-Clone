@@ -70,6 +70,19 @@ class DefaultLocalSource: LocalSource {
         }
     }
     
+    func fetchContinueToWatchMovies(completion: @escaping (Result<[MovieEntity], MovieError>) -> ()) {
+        let fetchRequest: NSFetchRequest<MovieEntity> = MovieEntity.fetchRequest()
+        let predicate = NSPredicate(format: "continueWatched == %@", NSNumber(value: true))
+        fetchRequest.predicate = predicate
+        
+        do {
+            let movies = try manager.container.viewContext.fetch(fetchRequest)
+            completion(.success(movies))
+        } catch {
+            completion(.failure(MovieError.localFetchError))
+        }
+    }
+    
     
     func updateDownloadStatus(movie: Movie, isDownload: Bool, completion: @escaping (Result<Void, MovieError>) -> ()) {
         let fetchRequest: NSFetchRequest<MovieEntity> = MovieEntity.fetchRequest()
@@ -81,6 +94,7 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.isDownloaded = isDownload
+                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -97,9 +111,11 @@ class DefaultLocalSource: LocalSource {
                     movieEntity.runtime = Int64(movie.runtime ?? 0)
                     movieEntity.releaseDate = movie.releaseDate
                     movieEntity.isDownloaded = true
+                    movieEntity.type = movie.type
                     print("Movie added successfully!")
                 }
             }
+            
             saveChanges()
         } catch {
             completion(.failure(MovieError.localFetchError))
@@ -116,6 +132,7 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.isFavorite = isFavorite
+                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -131,6 +148,7 @@ class DefaultLocalSource: LocalSource {
                 movieEntity.runtime = Int64(movie.runtime ?? 0)
                 movieEntity.releaseDate = movie.releaseDate
                 movieEntity.isFavorite = true
+                movieEntity.type = movie.type
                 print("Movie added successfully!")
             }
             saveChanges()
@@ -149,6 +167,7 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.isOnWatchlist = inWatchList
+                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -164,6 +183,7 @@ class DefaultLocalSource: LocalSource {
                 movieEntity.runtime = Int64(movie.runtime ?? 0)
                 movieEntity.releaseDate = movie.releaseDate
                 movieEntity.isOnWatchlist = inWatchList
+                movieEntity.type = movie.type
                 print("Movie added successfully!")
             }
             saveChanges()
@@ -182,6 +202,7 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.tralierWatched = tralierWatched
+                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -197,6 +218,7 @@ class DefaultLocalSource: LocalSource {
                 movieEntity.runtime = Int64(movie.runtime ?? 0)
                 movieEntity.releaseDate = movie.releaseDate
                 movieEntity.tralierWatched = tralierWatched
+                movieEntity.type = movie.type
                 print("Movie added successfully!")
             }
             saveChanges()
@@ -216,6 +238,7 @@ class DefaultLocalSource: LocalSource {
             if let entity = movies.first {
                 
                 entity.continueWatched = tralierWatched
+                entity.type = movie.type
                 completion(.success(()))
                 print("Movie updated successfully!")
             } else {
@@ -231,6 +254,7 @@ class DefaultLocalSource: LocalSource {
                 movieEntity.runtime = Int64(movie.runtime ?? 0)
                 movieEntity.releaseDate = movie.releaseDate
                 movieEntity.continueWatched = tralierWatched
+                movieEntity.type = movie.type
                 print("Movie added successfully!")
             }
             saveChanges()
@@ -346,6 +370,7 @@ class DefaultLocalSource: LocalSource {
     
     func saveChanges() {
         manager.saveContext(){ success , error in
+            NotificationCenter.default.post(name: NSNotification.Name("DBUpdated"), object: nil)
             guard error == nil else {
                 print("An error occurred while saving: \(error!)")
                 return

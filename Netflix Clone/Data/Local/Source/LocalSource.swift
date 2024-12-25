@@ -15,6 +15,8 @@ protocol LocalSource {
     
     func fetchTralierWatchedMovies(completion: @escaping (Result<[MovieEntity], MovieError>) -> ())
     
+    func fetchContinueToWatchMovies(completion: @escaping (Result<[MovieEntity], MovieError>) -> ())
+    
     func updateDownloadStatus(movie: Movie, isDownload: Bool, completion: @escaping (Result<Void, MovieError>) -> ())
     
     func updateFavoriteStatus(movie: Movie, isFavorite: Bool, completion: @escaping (Result<Void, MovieError>) -> ())
