@@ -178,7 +178,7 @@ class ContentCell : UITableViewCell {
         genreLabel.textColor = .gray
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        if preview.movie.genreText != "" {
+        if preview.movie.genreText != "" && preview.movie.genreText != nil {
             genreLabel.text = "Genres: \(preview.movie.genreText!)"
         }
       
