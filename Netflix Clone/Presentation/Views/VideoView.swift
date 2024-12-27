@@ -139,9 +139,14 @@ class VideoView: UIView, WKNavigationDelegate {
     
     
     
-    func configure(with posterUrl : URL, videoID: String){
+    func configure(with posterUrl : URL, videoID: String, isMuted: Bool){
         
-      //  movieImageView.downloaded(from: posterUrl, contentMode: .scaleToFill)
+        if isMuted {
+            muteVideo()
+        }else {
+            unmuteVideo()
+        }
+        let muted = isMuted ? 1 : 0
         
         
         let htmlString = """
@@ -189,7 +194,7 @@ class VideoView: UIView, WKNavigationDelegate {
                                     'playsinline': 1,
                                     'modestbranding': 1,
                                     'rel': 0,
-                                    'mute': 1,
+                                    'mute': \(muted),
                                 },
                                 events: {
                                     'onReady': onPlayerReady,

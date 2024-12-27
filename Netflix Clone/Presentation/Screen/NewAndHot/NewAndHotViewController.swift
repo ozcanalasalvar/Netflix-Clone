@@ -223,6 +223,7 @@ extension NewAndHotViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == newAndHotCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewAndHotCollectionViewCell.identifier, for: indexPath) as? NewAndHotCollectionViewCell else { return UICollectionViewCell()}
+            cell.isMuted = isMuted
             cell.configure(with: newAndHots[indexPath.row].movie)
             cell.delegate = self
             return  cell

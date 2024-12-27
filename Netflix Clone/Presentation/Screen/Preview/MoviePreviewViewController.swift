@@ -51,7 +51,6 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         let circleView = IconView()
         circleView.cornerRadius = 12
         circleView.circleBackgroundColor = UIColor.black.withAlphaComponent(0.5)
-        circleView.icon = UIImage(systemName: "speaker.slash")
         circleView.iconTintColor = .white
         circleView.isHidden = true
         circleView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,6 +103,8 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         viewModel?.delegate = self
         
         viewModel?.fetchPreview(with: movie.id,type: movie.type ?? MovieType.movie)
+        
+        soundView.icon = !isMuted ? UIImage(systemName: "speaker") : UIImage(systemName: "speaker.slash")
         
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.transform = .identity
@@ -183,7 +184,7 @@ class MoviePreviewViewController: UIViewController ,VideoViewDelegate {
         let videoId = traliers[0].key
         
         print(videoId)
-        self.videoView.configure(with: movie.backDropUrl, videoID: videoId)
+        self.videoView.configure(with: movie.backDropUrl, videoID: videoId, isMuted: isMuted)
     }
     
     private func setRelateds(movies : [Movie]?){

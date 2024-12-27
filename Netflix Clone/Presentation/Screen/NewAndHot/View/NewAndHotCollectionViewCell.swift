@@ -80,9 +80,9 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     public var isMuted : Bool = true {
         didSet {
             if isMuted {
-                unmuteVideo()
-            } else {
                 muteVideo()
+            } else {
+                unmuteVideo()
             }
         }
     }
@@ -182,7 +182,7 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         guard let videoID = movie.tralierKey else { return }
 
         self.movie = movie
-        videoView.configure(with:movie.backDropUrl , videoID: videoID)
+        videoView.configure(with:movie.backDropUrl , videoID: videoID, isMuted: isMuted)
     }
     
     

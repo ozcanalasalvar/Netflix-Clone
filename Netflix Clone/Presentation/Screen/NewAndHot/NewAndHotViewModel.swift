@@ -122,7 +122,7 @@ class NewAndHotViewModel : NSObject {
                 self.delegate?.moviesFetched(categories: self.categories , movies: self.movies)
             
             case .failure(let error):
-                self.delegate?.moviesFetchingFailed(error: error.localizedDescription)
+                print(error.localizedDescription)
             }
         }
     }
