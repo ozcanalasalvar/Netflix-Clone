@@ -58,6 +58,8 @@
 		A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E92CF10F8B007A854D /* HomeRepository.swift */; };
 		A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */; };
 		A197E8482CF52D2A005BDF32 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197E8472CF52D1F005BDF32 /* TabbarView.swift */; };
+		A1A7FA402D47B1DF001A9DA6 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A7FA3F2D47B1DC001A9DA6 /* BottomSheetViewController.swift */; };
+		A1A7FA422D47B6CD001A9DA6 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A7FA412D47B6C7001A9DA6 /* MenuView.swift */; };
 		A1A88EA02D0E221F007E059C /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A88E9F2D0E21F3007E059C /* AccountHeaderView.swift */; };
 		A1AAC4952CFE688A0062C75B /* TabbarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */; };
 		A1AAC4972CFE74B20062C75B /* HomeTabCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4962CFE74A80062C75B /* HomeTabCategory.swift */; };
@@ -69,9 +71,13 @@
 		A1AAC4AA2D00CC160062C75B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4A92D00CBFD0062C75B /* CategoryCollectionViewCell.swift */; };
 		A1AAC4AC2D00D60E0062C75B /* ViewConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4AB2D00D6080062C75B /* ViewConstant.swift */; };
 		A1AAC4AF2D00F4A90062C75B /* NewHotCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAC4AE2D00F49F0062C75B /* NewHotCategory.swift */; };
+		AD3CB4EFED3C7C53CCF7DA0B /* Pods_Netflix_Clone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE2E7E6880E2A699DFF8837 /* Pods_Netflix_Clone.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		58F1477BBBD3AC2C11E3F180 /* Pods-Netflix Clone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Netflix Clone.debug.xcconfig"; path = "Target Support Files/Pods-Netflix Clone/Pods-Netflix Clone.debug.xcconfig"; sourceTree = "<group>"; };
+		7EE2E7E6880E2A699DFF8837 /* Pods_Netflix_Clone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Netflix_Clone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		967D8603F5860AD762DDCE3B /* Pods-Netflix Clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Netflix Clone.release.xcconfig"; path = "Target Support Files/Pods-Netflix Clone/Pods-Netflix Clone.release.xcconfig"; sourceTree = "<group>"; };
 		A10895912D105AAD00162025 /* AccountSeactionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSeactionHeaderView.swift; sourceTree = "<group>"; };
 		A11322A52D11FA94000F5A74 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		A11322A92D11FAF8000F5A74 /* MovieMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMapper.swift; sourceTree = "<group>"; };
@@ -123,6 +129,8 @@
 		A161D7E92CF10F8B007A854D /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
 		A197E8472CF52D1F005BDF32 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		A1A7FA3F2D47B1DC001A9DA6 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		A1A7FA412D47B6C7001A9DA6 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		A1A88E9F2D0E21F3007E059C /* AccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
 		A1AAC4942CFE687E0062C75B /* TabbarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1AAC4962CFE74A80062C75B /* HomeTabCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabCategory.swift; sourceTree = "<group>"; };
@@ -143,6 +151,7 @@
 			files = (
 				A15380182CDCDF23005DE4D1 /* SDWebImageMapKit in Frameworks */,
 				A15380162CDCDF23005DE4D1 /* SDWebImage in Frameworks */,
+				AD3CB4EFED3C7C53CCF7DA0B /* Pods_Netflix_Clone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +247,8 @@
 			children = (
 				A1537FDB2CD956B0005DE4D1 /* Netflix Clone */,
 				A1537FDA2CD956B0005DE4D1 /* Products */,
+				BA24690DCD096DC6D3AD4B7D /* Pods */,
+				AA0CDC31A01E2C01F05CB93C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -278,6 +289,7 @@
 		A1537FF92CDA36FB005DE4D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1A7FA3B2D47B01C001A9DA6 /* BottomSheet */,
 				A11322DA2D19575E000F5A74 /* IconView.swift */,
 				A14E053A2CEFD94C00DD4092 /* VideoView.swift */,
 				A11322C32D1592D8000F5A74 /* AppButton.swift */,
@@ -446,9 +458,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		A1A7FA3B2D47B01C001A9DA6 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				A1A7FA3F2D47B1DC001A9DA6 /* BottomSheetViewController.swift */,
+			);
+			path = BottomSheet;
+			sourceTree = "<group>";
+		};
 		A1A88E9E2D0E21EB007E059C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A1A7FA412D47B6C7001A9DA6 /* MenuView.swift */,
 				A10895912D105AAD00162025 /* AccountSeactionHeaderView.swift */,
 				A1A88E9F2D0E21F3007E059C /* AccountHeaderView.swift */,
 			);
@@ -489,6 +510,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AA0CDC31A01E2C01F05CB93C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7EE2E7E6880E2A699DFF8837 /* Pods_Netflix_Clone.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA24690DCD096DC6D3AD4B7D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				58F1477BBBD3AC2C11E3F180 /* Pods-Netflix Clone.debug.xcconfig */,
+				967D8603F5860AD762DDCE3B /* Pods-Netflix Clone.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -496,9 +535,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1537FED2CD956B1005DE4D1 /* Build configuration list for PBXNativeTarget "Netflix Clone" */;
 			buildPhases = (
+				985890287EFCB10B2D053C65 /* [CP] Check Pods Manifest.lock */,
 				A1537FD52CD956B0005DE4D1 /* Sources */,
 				A1537FD62CD956B0005DE4D1 /* Frameworks */,
 				A1537FD72CD956B0005DE4D1 /* Resources */,
+				54753E056260D39FA86D6E07 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -561,6 +602,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		54753E056260D39FA86D6E07 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Netflix Clone/Pods-Netflix Clone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Netflix Clone/Pods-Netflix Clone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Netflix Clone/Pods-Netflix Clone-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		985890287EFCB10B2D053C65 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Netflix Clone-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A1537FD52CD956B0005DE4D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -571,6 +654,7 @@
 				A1537FE12CD956B0005DE4D1 /* MainTabBarViewController.swift in Sources */,
 				A11322AD2D120167000F5A74 /* MovieEntity.swift in Sources */,
 				A1537FFF2CDA37A8005DE4D1 /* CollectionViewTableViewCell.swift in Sources */,
+				A1A7FA402D47B1DF001A9DA6 /* BottomSheetViewController.swift in Sources */,
 				A11322B42D121D9C000F5A74 /* LocalSource.swift in Sources */,
 				A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */,
 				A11322DE2D1B5689000F5A74 /* PlayerViewController.swift in Sources */,
@@ -590,6 +674,7 @@
 				A1AAC49A2CFFBB8B0062C75B /* NewAndHotViewModel.swift in Sources */,
 				A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */,
 				A15380012CDA57DF005DE4D1 /* HeroHeaderUiView.swift in Sources */,
+				A1A7FA422D47B6CD001A9DA6 /* MenuView.swift in Sources */,
 				A1AAC49E2CFFBDEB0062C75B /* MovieUiModel.swift in Sources */,
 				A1537FF42CD95AEF005DE4D1 /* NewAndHotViewController.swift in Sources */,
 				A11322BD2D136FC1000F5A74 /* PreviewRepository.swift in Sources */,
@@ -757,6 +842,7 @@
 		};
 		A1537FEE2CD956B1005DE4D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58F1477BBBD3AC2C11E3F180 /* Pods-Netflix Clone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -769,6 +855,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -784,6 +871,7 @@
 		};
 		A1537FEF2CD956B1005DE4D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 967D8603F5860AD762DDCE3B /* Pods-Netflix Clone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -796,6 +884,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

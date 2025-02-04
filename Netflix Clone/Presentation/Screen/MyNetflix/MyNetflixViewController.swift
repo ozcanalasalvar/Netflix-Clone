@@ -11,6 +11,8 @@ class MyNetflixViewController: UIViewController {
     
     private var viewModel: MyNetflixViewModel!
     
+    private var  bottomModalVC :BottomSheetViewController? = nil
+    
     
     private var accountSections: [AccountSectionModel] = []
     
@@ -113,7 +115,7 @@ class MyNetflixViewController: UIViewController {
         menuButton.tintColor = .white
         
         menuButton.addTapGesture {
-            print("menuButton")
+            self.showBottomSheet()
         }
         let buttons: [UIButton] = [shareButton, searchButton,  menuButton]
         
@@ -132,6 +134,23 @@ class MyNetflixViewController: UIViewController {
         ]
         
         NSLayoutConstraint.activate(tabbarConstarints)
+    }
+    
+    
+    @objc func showBottomSheet() {
+        bottomModalVC = nil
+        bottomModalVC = BottomSheetViewController()
+        bottomModalVC?.modalPresentationStyle = .overCurrentContext
+        bottomModalVC?.containerView.backgroundColor = .darkGray
+        let menu = MenuView()
+        menu.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        menu.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
+        bottomModalVC?.setContent(content: menu)
+        
+        menu.delegate = self
+        guard let vc = bottomModalVC else { return }
+        self.present(vc, animated: false)
+        
     }
 }
 
@@ -192,6 +211,11 @@ extension MyNetflixViewController : MyNetflixViewModelOutput {
         self.accountSections = sections
         myNetflixTableView.reloadData()
     }
-    
-    
+}
+
+
+extension MyNetflixViewController : MenuDelegate {
+    func didTapCloseMenu() {
+        self.bottomModalVC?.animateDismissView()
+    }
 }
