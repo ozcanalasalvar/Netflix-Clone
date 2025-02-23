@@ -252,7 +252,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, Collec
         offsetY = scrollOffsetY
         
         UIView.animate(withDuration: 0.4) {
-            self.gradientLayer!.opacity = Float(alpha)
+            self.gradientLayer?.opacity = Float(alpha)
         }
         
         tabbar.configureScroll(scrollOffsetY > 0)

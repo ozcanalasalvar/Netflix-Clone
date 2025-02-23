@@ -34,17 +34,17 @@ class DefaultNewAndHotRepository :  NewAndHotRepoistory {
         let dispatchGroup = DispatchGroup()
         
 
-        var popular : [Movie]? //
-        var upComing : [Movie]? //
-        var topRated : [Movie]? //
-        var topRatedTv : [Movie]? //
+        var popular : [Movie]? = nil
+        var upComing : [Movie]? = nil
+        var topRated : [Movie]? = nil
+        var topRatedTv : [Movie]? = nil
         
         
         
-        var popularError : MovieError?
-        var upComingError : MovieError?
-        var topRatedError : MovieError?
-        var topRatedTvError : MovieError?
+        var popularError : MovieError? = nil
+        var upComingError : MovieError? = nil
+        var topRatedError : MovieError? = nil
+        var topRatedTvError : MovieError? = nil
         
         
         

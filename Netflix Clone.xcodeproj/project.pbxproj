@@ -524,7 +524,6 @@
 				58F1477BBBD3AC2C11E3F180 /* Pods-Netflix Clone.debug.xcconfig */,
 				967D8603F5860AD762DDCE3B /* Pods-Netflix Clone.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol HeroHeaderUiViewDelegate : AnyObject {
     func didTapWatchList(status: Bool, movie: Movie)
@@ -78,7 +79,15 @@ class HeroHeaderUiView: UIView {
         heroImageView.addTapGesture {
             self.delegate?.didTapContent(movie: self.movie!)
         }
+    
         
+        heroImageView.isSkeletonable = true
+        downloadButton.isSkeletonable = true
+        watchListButton.isSkeletonable = true
+        
+        heroImageView.showAnimatedSkeleton()
+        downloadButton.showAnimatedSkeleton()
+        watchListButton.showAnimatedSkeleton()
     }
     
     override func layoutSubviews() {
@@ -103,6 +112,11 @@ class HeroHeaderUiView: UIView {
         
         isDowmloaded = false
         onWatchList = false
+        
+        
+        heroImageView.hideSkeleton()
+        downloadButton.hideSkeleton()
+        watchListButton.hideSkeleton()
     }
     
     

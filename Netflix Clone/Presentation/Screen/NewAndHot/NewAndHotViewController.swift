@@ -16,7 +16,7 @@ class NewAndHotViewController: UIViewController{
     
     private var isMuted: Bool = true
     // Track the currently playing video
-    private var currentlyPlayingIndexPath: IndexPath? = IndexPath(row: 0, section: 0)
+    private var currentlyPlayingIndexPath: IndexPath? = nil
     
     private let newAndHotCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -200,6 +200,7 @@ extension NewAndHotViewController : NewAndHotViewModelOutput {
             self?.categoryCollectionView.reloadData()
         }
         
+        currentlyPlayingIndexPath =  IndexPath(row: 0, section: 0)
     }
     
     func moviesFetchingFailed(error: String) {

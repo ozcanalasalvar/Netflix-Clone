@@ -96,7 +96,7 @@ class HomeViewModel : NSObject {
             if  homeData != nil {
                 self.delegate?.didFetchHomeData(homeData!)
             } else {
-                self.delegate?.didFetchMovieFailed("Data haven't been fetched")
+                fetchHomeData()
             }
         }
         

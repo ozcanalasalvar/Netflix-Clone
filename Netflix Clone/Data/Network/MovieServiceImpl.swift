@@ -146,12 +146,17 @@ class MovieServiceImpl : MovieService{
             return
         }
         
+        var request = URLRequest(url: finalURL)
+
+        // Disable caching
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+
+        
         print(finalURL)
-        urlSession.dataTask(with: finalURL) { [weak self] (data, response, error) in
+        urlSession.dataTask(with: request) { [weak self] (data, response, error) in
             guard let self = self else { return }
             if(error != nil){
                 self.executeCompletionHandlerInMainThread(with: .failure(.apiError), completion: completion)
-                completion(.failure(.apiError))
                 return
                 
             }
