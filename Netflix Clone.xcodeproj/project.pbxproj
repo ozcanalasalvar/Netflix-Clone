@@ -29,6 +29,9 @@
 		A11322D92D187F29000F5A74 /* AccountSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322D82D187F18000F5A74 /* AccountSectionModel.swift */; };
 		A11322DB2D195775000F5A74 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322DA2D19575E000F5A74 /* IconView.swift */; };
 		A11322DE2D1B5689000F5A74 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11322DD2D1B5680000F5A74 /* PlayerViewController.swift */; };
+		A13557242E50E6AD003872C5 /* netflixsplash.json in Resources */ = {isa = PBXBuildFile; fileRef = A13557232E50E6AD003872C5 /* netflixsplash.json */; };
+		A13557272E50E83B003872C5 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13557252E50E83B003872C5 /* SplashViewController.swift */; };
+		A13557282E50E83B003872C5 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A13557262E50E83B003872C5 /* SplashViewController.xib */; };
 		A14E053B2CEFD95200DD4092 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053A2CEFD94C00DD4092 /* VideoView.swift */; };
 		A14E053E2CF0DB0A00DD4092 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */; };
 		A1537FDD2CD956B0005DE4D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1537FDC2CD956B0005DE4D1 /* AppDelegate.swift */; };
@@ -57,6 +60,7 @@
 		A161D7E82CF10E0B007A854D /* HomeMovieUiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E72CF10DF6007A854D /* HomeMovieUiModel.swift */; };
 		A161D7EA2CF10F93007A854D /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7E92CF10F8B007A854D /* HomeRepository.swift */; };
 		A161D7EC2CF11022007A854D /* DefaultHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */; };
+		A164FD042DC01EF500808A24 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164FD032DC01EE800808A24 /* Constant.swift */; };
 		A197E8482CF52D2A005BDF32 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197E8472CF52D1F005BDF32 /* TabbarView.swift */; };
 		A1A7FA402D47B1DF001A9DA6 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A7FA3F2D47B1DC001A9DA6 /* BottomSheetViewController.swift */; };
 		A1A7FA422D47B6CD001A9DA6 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A7FA412D47B6C7001A9DA6 /* MenuView.swift */; };
@@ -100,6 +104,9 @@
 		A11322D82D187F18000F5A74 /* AccountSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSectionModel.swift; sourceTree = "<group>"; };
 		A11322DA2D19575E000F5A74 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		A11322DD2D1B5680000F5A74 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		A13557232E50E6AD003872C5 /* netflixsplash.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = netflixsplash.json; sourceTree = "<group>"; };
+		A13557252E50E83B003872C5 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		A13557262E50E83B003872C5 /* SplashViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 		A14E053A2CEFD94C00DD4092 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A14E053D2CF0DB0400DD4092 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A1537FD92CD956B0005DE4D1 /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +135,7 @@
 		A161D7E72CF10DF6007A854D /* HomeMovieUiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMovieUiModel.swift; sourceTree = "<group>"; };
 		A161D7E92CF10F8B007A854D /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		A161D7EB2CF11011007A854D /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
+		A164FD032DC01EE800808A24 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		A197E8472CF52D1F005BDF32 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		A1A7FA3F2D47B1DC001A9DA6 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		A1A7FA412D47B6C7001A9DA6 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -242,6 +250,15 @@
 			path = PlayerView;
 			sourceTree = "<group>";
 		};
+		A13557202E50E408003872C5 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				A13557252E50E83B003872C5 /* SplashViewController.swift */,
+				A13557262E50E83B003872C5 /* SplashViewController.xib */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		A1537FD02CD956B0005DE4D1 = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +286,7 @@
 				A1537FFC2CDA3743005DE4D1 /* Common */,
 				A1537FF02CD95A26005DE4D1 /* Presentation */,
 				A1537FE52CD956B1005DE4D1 /* Assets.xcassets */,
+				A13557232E50E6AD003872C5 /* netflixsplash.json */,
 				A1537FE72CD956B1005DE4D1 /* LaunchScreen.storyboard */,
 				A1537FEA2CD956B1005DE4D1 /* Info.plist */,
 				A15380212CE67AD2005DE4D1 /* NetflixCloneModel.xcdatamodeld */,
@@ -313,6 +331,7 @@
 		A1537FFC2CDA3743005DE4D1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A164FD032DC01EE800808A24 /* Constant.swift */,
 				A153800A2CDA9A98005DE4D1 /* Utils.swift */,
 				A153800C2CDAA162005DE4D1 /* Extensions.swift */,
 			);
@@ -332,6 +351,7 @@
 		A153801E2CE5320E005DE4D1 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				A13557202E50E408003872C5 /* Splash */,
 				A11322DC2D1B5672000F5A74 /* PlayerView */,
 				A161D7DD2CF0ED1C007A854D /* MyNetflix */,
 				A161D7DC2CF0ED00007A854D /* NewAndHot */,
@@ -595,7 +615,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1537FE92CD956B1005DE4D1 /* LaunchScreen.storyboard in Resources */,
+				A13557242E50E6AD003872C5 /* netflixsplash.json in Resources */,
 				A1537FE62CD956B1005DE4D1 /* Assets.xcassets in Resources */,
+				A13557282E50E83B003872C5 /* SplashViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +699,7 @@
 				A1AAC49E2CFFBDEB0062C75B /* MovieUiModel.swift in Sources */,
 				A1537FF42CD95AEF005DE4D1 /* NewAndHotViewController.swift in Sources */,
 				A11322BD2D136FC1000F5A74 /* PreviewRepository.swift in Sources */,
+				A164FD042DC01EF500808A24 /* Constant.swift in Sources */,
 				A11322BB2D136ECB000F5A74 /* PreviewModel.swift in Sources */,
 				A11322BF2D13712C000F5A74 /* DefaultPreviewRepository.swift in Sources */,
 				A11322D32D178456000F5A74 /* MyNetflixRepository.swift in Sources */,
@@ -704,6 +727,7 @@
 				A153800F2CDABAD9005DE4D1 /* MovieCollectionViewCell.swift in Sources */,
 				A1AAC4A42CFFC0A00062C75B /* DefaultNewAndHotRepository.swift in Sources */,
 				A1AAC4A22CFFC02B0062C75B /* NewAndHotRepoistory.swift in Sources */,
+				A13557272E50E83B003872C5 /* SplashViewController.swift in Sources */,
 				A1537FF22CD95A94005DE4D1 /* HomeViewController.swift in Sources */,
 				A14E053B2CEFD95200DD4092 /* VideoView.swift in Sources */,
 				A153800D2CDAA162005DE4D1 /* Extensions.swift in Sources */,

@@ -1,16 +1,20 @@
 PODS:
+  - lottie-ios (4.5.1)
   - SkeletonView (1.30.4)
 
 DEPENDENCIES:
+  - lottie-ios
   - SkeletonView
 
 SPEC REPOS:
   trunk:
+    - lottie-ios
     - SkeletonView
 
 SPEC CHECKSUMS:
+  lottie-ios: 248b380fa1b97d18e792c37d90da7ab2aa0d6562
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
 
-PODFILE CHECKSUM: f7fee3d7abc3add7e86c90faf845760f7d28bb57
+PODFILE CHECKSUM: 7c3d73dd6008ebd00978cd2cb98d5279900a6fae
 
 COCOAPODS: 1.16.2

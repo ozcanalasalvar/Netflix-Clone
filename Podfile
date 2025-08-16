@@ -7,5 +7,6 @@ target 'Netflix Clone' do
 
   # Pods for Netflix Clone
   pod "SkeletonView"
+  pod 'lottie-ios'
 
 end
