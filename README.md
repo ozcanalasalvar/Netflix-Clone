@@ -7,7 +7,7 @@ This project is a **Netflix-inspired iOS application** built with **Swift** and 
 - 🎬 Browse trending, popular, upcoming, and top-rated movies & TV shows
 - 🔍 Search for your favorite titles
 - 📝 View detailed information about each movie or show
-- ▶️ Watch YouTube directly in the app
+- ▶️ Watch videos directly in the app
 - 📱 Clean and responsive UIKit-based UI
 - 📡 Network layer using `URLSession` to fetch data from [The Movie Database (TMDB)](https://www.themoviedb.org/)
 
