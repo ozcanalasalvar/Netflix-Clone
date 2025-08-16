@@ -17,7 +17,7 @@ class MovieServiceImpl : MovieService{
     private let apiKey = "6cea5507c1dafd8f492d1d9a552483bc"
     private let baseAPIURL = "https://api.themoviedb.org/3/"
     private let googleApis_BaseUrl = "https://youtube.googleapis.com/"
-    private let youtubeAPI_KEY = "AIzaSyC54d9CLxjDODINBaoIEBZWdqBSHkcJeJE"
+    private let youtubeAPI_KEY = API_KEY
     private let urlSession = URLSession.shared
     private let jsonDecoder = Utils.jsonDecoder
     

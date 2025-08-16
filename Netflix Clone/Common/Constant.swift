@@ -7,3 +7,4 @@
 import UIKit
 
 let backgroundPrimary  = UIColor(named: "backgroundPrimary")!
+let API_KEY = ""
