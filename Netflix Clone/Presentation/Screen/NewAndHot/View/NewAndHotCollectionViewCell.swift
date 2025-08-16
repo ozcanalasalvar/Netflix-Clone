@@ -66,16 +66,16 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
     }()
     
     
-    private let downLoadButton : UIButton = {
-        let button = UIButton()
-        button.setTitle("Download", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.layer.backgroundColor = UIColor.white.cgColor
-        button.layer.cornerRadius = 5
-        
-        button.translatesAutoresizingMaskIntoConstraints = false //To use constraints
-        return button
-    }()
+//    private let downLoadButton : UIButton = {
+//        let button = UIButton()
+//        button.setTitle("Download", for: .normal)
+//        button.setTitleColor(UIColor.black, for: .normal)
+//        button.layer.backgroundColor = UIColor.white.cgColor
+//        button.layer.cornerRadius = 5
+//        
+//        button.translatesAutoresizingMaskIntoConstraints = false //To use constraints
+//        return button
+//    }()
     
     public var isMuted : Bool = true {
         didSet {
@@ -94,7 +94,7 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
         contentView.addSubview(videoView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(overviewLabel)
-        contentView.addSubview(downLoadButton)
+//        contentView.addSubview(downLoadButton)
         contentView.addSubview(movieImageView)
         
         contentView.layer.cornerRadius = 10
@@ -211,21 +211,22 @@ class NewAndHotCollectionViewCell: UICollectionViewCell, VideoViewDelegate {
             overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             overviewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
             overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
+            overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ]
         
-        let downLoadButtonConstraints = [
-            downLoadButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 10),
-            downLoadButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-            downLoadButton.widthAnchor.constraint(equalToConstant: 100),
-            downLoadButton.heightAnchor.constraint(equalToConstant: 40),
-            downLoadButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-        ]
+//        let downLoadButtonConstraints = [
+//            downLoadButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 10),
+//            downLoadButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
+//            downLoadButton.widthAnchor.constraint(equalToConstant: 100),
+//            downLoadButton.heightAnchor.constraint(equalToConstant: 40),
+//            downLoadButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+//        ]
         
         
         NSLayoutConstraint.activate(videoViewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overviewLabelConstraints)
-        NSLayoutConstraint.activate(downLoadButtonConstraints)
+//        NSLayoutConstraint.activate(downLoadButtonConstraints)
         NSLayoutConstraint.activate(movieImageViewConstraints)
     }
     

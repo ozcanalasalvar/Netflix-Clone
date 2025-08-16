@@ -259,6 +259,15 @@
 			path = Splash;
 			sourceTree = "<group>";
 		};
+		A13557292E50F0D8003872C5 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A13557232E50E6AD003872C5 /* netflixsplash.json */,
+				A1537FE52CD956B1005DE4D1 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		A1537FD02CD956B0005DE4D1 = {
 			isa = PBXGroup;
 			children = (
@@ -280,13 +289,12 @@
 		A1537FDB2CD956B0005DE4D1 /* Netflix Clone */ = {
 			isa = PBXGroup;
 			children = (
+				A13557292E50F0D8003872C5 /* Assets */,
 				A161D7E42CF10DC6007A854D /* Domain */,
 				A161D7DE2CF0FE39007A854D /* Application */,
 				A1537FFD2CDA3750005DE4D1 /* Data */,
 				A1537FFC2CDA3743005DE4D1 /* Common */,
 				A1537FF02CD95A26005DE4D1 /* Presentation */,
-				A1537FE52CD956B1005DE4D1 /* Assets.xcassets */,
-				A13557232E50E6AD003872C5 /* netflixsplash.json */,
 				A1537FE72CD956B1005DE4D1 /* LaunchScreen.storyboard */,
 				A1537FEA2CD956B1005DE4D1 /* Info.plist */,
 				A15380212CE67AD2005DE4D1 /* NetflixCloneModel.xcdatamodeld */,
