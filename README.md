@@ -12,8 +12,7 @@ This project is a **Netflix-inspired iOS application** built with **Swift** and 
 - 📡 Network layer using `URLSession` to fetch data from [The Movie Database (TMDB)](https://www.themoviedb.org/)
 
 ## 📸 Screenshots
-
-<img width="150" src="https://github.com/user-attachments/assets/0e3434b3-fb3f-424e-b14e-619e39a2d83f" />  <img width="150"  src="https://github.com/user-attachments/assets/99ac7a8c-195b-45b8-af2b-de4a21c446fc" />  <img width="150"  src="https://github.com/user-attachments/assets/a44d5631-5c73-49b8-bf76-1c3473bffae3" />  <img width="150"  src="https://github.com/user-attachments/assets/94c8c22e-2f76-416d-9730-4df3505db475" />
+<img width="150" src="https://github.com/user-attachments/assets/c1fcf9e0-222f-4f39-b0e8-6fbcaff6346f" />  <img width="150"  src="https://github.com/user-attachments/assets/99ac7a8c-195b-45b8-af2b-de4a21c446fc" />  <img width="150"  src="https://github.com/user-attachments/assets/a44d5631-5c73-49b8-bf76-1c3473bffae3" />  <img width="150"  src="https://github.com/user-attachments/assets/94c8c22e-2f76-416d-9730-4df3505db475" />
 
 
 
