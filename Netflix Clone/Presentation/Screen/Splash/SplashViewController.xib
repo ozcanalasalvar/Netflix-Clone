@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHE-2D-tfO" customClass="LottieAnimationView" customModule="Lottie">
+                <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHE-2D-tfO" customClass="LottieAnimationView" customModule="Lottie">
                     <rect key="frame" x="0.0" y="301" width="393" height="250"/>
                     <color key="backgroundColor" name="backgroundPrimary"/>
                     <constraints>

@@ -19,7 +19,13 @@ class SplashViewController: UIViewController {
         animationView!.contentMode = .scaleAspectFit
         animationView!.loopMode = .playOnce
         animationView!.animationSpeed = 1.0
-        animationView.play { (finished) in
+//        animationView.play { (finished) in
+//            if finished {
+//                self.openMain()
+//            }
+//        }
+        
+        animationView.play(fromFrame:50, toFrame:138){ (finished) in
             if finished {
                 self.openMain()
             }

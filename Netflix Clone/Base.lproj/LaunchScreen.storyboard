@@ -17,9 +17,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="netflixLogo" translatesAutoresizingMaskIntoConstraints="NO" id="cib-C9-3DG">
-                                <rect key="frame" x="163.66666666666666" y="326" width="66" height="200"/>
+                                <rect key="frame" x="163.66666666666666" y="402" width="66" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Z0p-5P-pzf"/>
+                                    <constraint firstAttribute="height" constant="48" id="Z0p-5P-pzf"/>
                                 </constraints>
                             </imageView>
                         </subviews>
